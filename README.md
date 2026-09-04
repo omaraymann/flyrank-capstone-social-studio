@@ -4,7 +4,7 @@ A backend that ingests a published article, creates platform-specific social dra
 
 ## Current phase
 
-Phases 1 and 2 are complete: the project has a documented authenticated foundation plus URL/Markdown ingestion, stored source posts, platform profiles, deterministic validation, and template-generated X and LinkedIn drafts.
+Phases 1–3 are complete: the project has a documented authenticated foundation, URL/Markdown ingestion, validated X and LinkedIn drafts, human review, and approved-only schedule creation.
 
 ## Run
 

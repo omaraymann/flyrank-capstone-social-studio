@@ -40,6 +40,9 @@ class VariantOut(BaseModel):
     platform: str
     content: str
     status: str
+    rejection_reason: str | None
+    reviewed_at: datetime | None
+    updated_at: datetime
     created_at: datetime
 
 
@@ -55,3 +58,30 @@ class SourcePostOut(BaseModel):
 
 class GenerateVariants(BaseModel):
     platforms: list[Literal["x", "linkedin"]] = Field(min_length=1)
+
+
+class VariantEdit(BaseModel):
+    content: str = Field(min_length=1, max_length=3_000)
+
+
+class VariantReject(BaseModel):
+    reason: str = Field(min_length=3, max_length=1_000)
+
+
+class ScheduleCreate(BaseModel):
+    publish_at: datetime
+
+    @model_validator(mode="after")
+    def timezone_is_required(self):
+        if self.publish_at.tzinfo is None or self.publish_at.utcoffset() is None:
+            raise ValueError("publish_at must include a timezone")
+        return self
+
+
+class ScheduleOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    variant_id: int
+    publish_at: datetime
+    status: str
+    created_at: datetime

@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import DateTime, ForeignKey, String, Text, UniqueConstraint
+from sqlalchemy import CheckConstraint, DateTime, ForeignKey, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
@@ -32,10 +32,32 @@ class SourcePost(Base):
 
 class PlatformVariant(Base):
     __tablename__ = "platform_variants"
-    __table_args__ = (UniqueConstraint("source_post_id", "platform", name="uq_source_platform"),)
+    __table_args__ = (
+        UniqueConstraint("source_post_id", "platform", name="uq_source_platform"),
+        CheckConstraint(
+            "status IN ('draft', 'approved', 'rejected', 'scheduled', 'published')",
+            name="ck_platform_variants_status",
+        ),
+    )
     id: Mapped[int] = mapped_column(primary_key=True)
     source_post_id: Mapped[int] = mapped_column(ForeignKey("source_posts.id", ondelete="CASCADE"))
     platform: Mapped[str] = mapped_column(String(30))
     content: Mapped[str] = mapped_column(Text)
     status: Mapped[str] = mapped_column(String(30), default="draft")
+    rejection_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
+    reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+class ScheduleSlot(Base):
+    __tablename__ = "schedule_slots"
+    __table_args__ = (
+        UniqueConstraint("variant_id", name="uq_schedule_slots_variant_id"),
+        CheckConstraint("status IN ('pending', 'processing', 'completed', 'failed')", name="ck_schedule_slots_status"),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True)
+    variant_id: Mapped[int] = mapped_column(ForeignKey("platform_variants.id", ondelete="CASCADE"), index=True)
+    publish_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    status: Mapped[str] = mapped_column(String(30), default="pending")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
