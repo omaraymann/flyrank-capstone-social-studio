@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import re
 
 
 @dataclass(frozen=True)
@@ -38,11 +39,24 @@ def validate_variant(platform: str, content: str):
 
 
 def generate_variant(platform: str, title: str, source: str, source_url: str | None) -> str:
-    summary = " ".join(source.split())[:170]
-    link = f"\n\nRead more: {source_url}" if source_url else ""
+    normalized_source = " ".join(source.split())
+    sentences = [sentence.strip() for sentence in re.split(r"(?<=[.!?])\s+", normalized_source) if sentence.strip()]
+
     if platform == "x":
-        suffix = f" {source_url}" if source_url else ""
-        available = 280 - len(suffix) - len(" — ")
-        content = f"{title} — {summary[:max(20, available - len(title))]}{suffix}"
-        return content[:280]
-    return f"{title}\n\n{summary}{link}\n\n#Insights #SocialMedia"
+        prefix = "Quick take: "
+        suffix = f"\n{source_url}" if source_url else ""
+        suffix += "\n#Insights"
+        available = PROFILES["x"].max_characters - len(prefix) - len(suffix)
+        insight = sentences[0][:available].rstrip(" ,;:-")
+        return f"{prefix}{insight}{suffix}"
+
+    points = sentences[:3] or [normalized_source]
+    bullet_list = "\n".join(f"- {point}" for point in points)
+    link = f"\n\nRead the full article: {source_url}" if source_url else ""
+    return (
+        f"{title}\n\n"
+        f"A closer look at why this topic matters.\n\n"
+        f"Key takeaways from the article:\n{bullet_list}\n\n"
+        f"Which takeaway stands out to you?"
+        f"{link}\n\n#Insights #ProfessionalDevelopment"
+    )

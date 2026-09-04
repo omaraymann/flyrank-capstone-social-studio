@@ -6,7 +6,14 @@ def test_markdown_ingestion_and_distinct_variants(client, auth_headers):
     created = client.post(
         "/posts",
         headers=auth_headers,
-        json={"title": "Reliable AI", "markdown": "A practical article about building reliable artificial intelligence systems."},
+        json={
+            "title": "Reliable AI",
+            "markdown": (
+                "Reliable AI starts with measurable requirements. "
+                "Deterministic validation catches predictable failures. "
+                "Human review remains important before publication."
+            ),
+        },
     )
     assert created.status_code == 201
     generated = client.post(
@@ -17,7 +24,12 @@ def test_markdown_ingestion_and_distinct_variants(client, auth_headers):
     assert generated.status_code == 201
     variants = generated.json()
     assert {item["platform"] for item in variants} == {"x", "linkedin"}
-    assert variants[0]["content"] != variants[1]["content"]
+    by_platform = {item["platform"]: item["content"] for item in variants}
+    assert by_platform["x"].startswith("Quick take:")
+    assert len(by_platform["x"]) <= 280
+    assert "Key takeaways from the article:" in by_platform["linkedin"]
+    assert "Which takeaway stands out to you?" in by_platform["linkedin"]
+    assert by_platform["linkedin"].count("\n") > by_platform["x"].count("\n")
     assert all(item["status"] == "draft" for item in variants)
 
 

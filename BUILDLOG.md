@@ -7,3 +7,5 @@ AI assistance was used to scaffold the API, database configuration, authenticati
 ## Phase 2
 
 AI assistance was used for the ingestion, platform-profile, template-generation, and testing scaffolds. URL ingestion was kept deterministic and external network access is mocked in tests.
+
+The first template version reused the same excerpt for X and LinkedIn, producing drafts that were technically different but insufficiently platform-tailored. After manual review, X was given a compact hook format and LinkedIn a structured key-takeaway and discussion format; regression tests now assert those structural differences.

@@ -8,3 +8,4 @@
 ## Phase 2
 
 - Automated tests cover Markdown ingestion, mocked URL ingestion, distinct X/LinkedIn drafts, ownership isolation, and named length/tone failures.
+- The variant regression test requires an X `Quick take` structure and a longer LinkedIn structure with key takeaways and a discussion prompt.
