@@ -1,0 +1,69 @@
+import hashlib
+
+import httpx
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+from app.core.security import current_user
+from app.database import get_db
+from app.models import PlatformVariant, SourcePost, User
+from app.schemas import GenerateVariants, SourcePostCreate, SourcePostOut, VariantOut
+from app.services.ingestion import fetch_article
+from app.services.variants import generate_variant, validate_variant
+
+router = APIRouter(prefix="/posts", tags=["source posts"])
+
+
+def owned_post(post_id: int, user: User, db: Session) -> SourcePost:
+    post = db.scalar(select(SourcePost).where(SourcePost.id == post_id, SourcePost.owner_id == user.id))
+    if not post:
+        raise HTTPException(status_code=404, detail="Source post not found")
+    return post
+
+
+@router.post("", response_model=SourcePostOut, status_code=status.HTTP_201_CREATED)
+def create_post(payload: SourcePostCreate, user: User = Depends(current_user), db: Session = Depends(get_db)):
+    if payload.url:
+        try:
+            article = fetch_article(str(payload.url))
+        except (ValueError, httpx.HTTPError) as exc:
+            raise HTTPException(status_code=422, detail=str(exc))
+        title, content, source_url = article.title, article.content, str(payload.url)
+    else:
+        title, content, source_url = payload.title, payload.markdown, None
+    post = SourcePost(owner_id=user.id, title=title, content=content, source_url=source_url, content_hash=hashlib.sha256(content.encode()).hexdigest())
+    db.add(post)
+    db.commit()
+    db.refresh(post)
+    return post
+
+
+@router.get("", response_model=list[SourcePostOut])
+def list_posts(user: User = Depends(current_user), db: Session = Depends(get_db)):
+    return db.scalars(select(SourcePost).where(SourcePost.owner_id == user.id).order_by(SourcePost.id.desc())).all()
+
+
+@router.get("/{post_id}", response_model=SourcePostOut)
+def get_post(post_id: int, user: User = Depends(current_user), db: Session = Depends(get_db)):
+    return owned_post(post_id, user, db)
+
+
+@router.post("/{post_id}/variants", response_model=list[VariantOut], status_code=status.HTTP_201_CREATED)
+def create_variants(payload: GenerateVariants, post_id: int, user: User = Depends(current_user), db: Session = Depends(get_db)):
+    post = owned_post(post_id, user, db)
+    existing = set(db.scalars(select(PlatformVariant.platform).where(PlatformVariant.source_post_id == post.id)).all())
+    requested = list(dict.fromkeys(payload.platforms))
+    if existing.intersection(requested):
+        raise HTTPException(status_code=409, detail="A variant already exists for one or more requested platforms")
+    variants = []
+    for platform in requested:
+        content = generate_variant(platform, post.title, post.content, post.source_url)
+        validate_variant(platform, content)
+        variant = PlatformVariant(source_post_id=post.id, platform=platform, content=content)
+        db.add(variant)
+        variants.append(variant)
+    db.commit()
+    for variant in variants:
+        db.refresh(variant)
+    return variants

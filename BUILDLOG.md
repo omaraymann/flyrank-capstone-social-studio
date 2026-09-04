@@ -3,3 +3,7 @@
 ## Phase 1
 
 AI assistance was used to scaffold the API, database configuration, authentication, test, and design documents. The original combined commit was split so the history follows the capstone's official phases.
+
+## Phase 2
+
+AI assistance was used for the ingestion, platform-profile, template-generation, and testing scaffolds. URL ingestion was kept deterministic and external network access is mocked in tests.

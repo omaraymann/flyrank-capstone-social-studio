@@ -4,7 +4,7 @@ A backend that ingests a published article, creates platform-specific social dra
 
 ## Current phase
 
-Phase 1 establishes the documented architecture, authenticated FastAPI foundation, PostgreSQL migrations, and reproducible local environment. Content ingestion and generation are implemented in Phase 2.
+Phases 1 and 2 are complete: the project has a documented authenticated foundation plus URL/Markdown ingestion, stored source posts, platform profiles, deterministic validation, and template-generated X and LinkedIn drafts.
 
 ## Run
 

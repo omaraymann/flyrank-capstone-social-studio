@@ -21,3 +21,11 @@ def database():
 @pytest.fixture
 def client():
     return TestClient(app)
+
+
+@pytest.fixture
+def auth_headers(client):
+    credentials = {"email": "owner@example.com", "password": "password123"}
+    client.post("/auth/signup", json=credentials)
+    token = client.post("/auth/login", json=credentials).json()["access_token"]
+    return {"Authorization": f"Bearer {token}"}
