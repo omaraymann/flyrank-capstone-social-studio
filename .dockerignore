@@ -6,3 +6,5 @@ __pycache__
 .pytest_cache
 *.db
 tests
+frontend/node_modules
+frontend/dist

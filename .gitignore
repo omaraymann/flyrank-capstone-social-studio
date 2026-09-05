@@ -7,3 +7,5 @@ __pycache__/
 htmlcov/
 social_studio.db
 test_*.db
+frontend/node_modules/
+frontend/dist/

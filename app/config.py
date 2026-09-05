@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     llm_top_k: int | None = 40
     llm_max_output_tokens: int = 1000
     llm_max_input_characters: int = 30_000
+    cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

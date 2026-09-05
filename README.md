@@ -20,7 +20,7 @@ Copy-Item .env.example .env
 docker compose up --build
 ```
 
-Then open `http://localhost:8000/docs`. The API and background worker run as separate services against PostgreSQL.
+Then open the React dashboard at `http://localhost:5173`. Swagger remains available at `http://localhost:8000/docs`. The dashboard, API, background worker, and migration runner operate as separate services against PostgreSQL.
 
 To create a ready-to-review demo campaign:
 

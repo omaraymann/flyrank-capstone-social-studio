@@ -34,6 +34,17 @@ def history_item(delivery: PublishDelivery, db: Session) -> dict:
     return {"delivery": delivery_payload(delivery), "attempts": attempts}
 
 
+@router.get("/schedules", response_model=list[ScheduleOut])
+def list_schedules(user: User = Depends(current_user), db: Session = Depends(get_db)):
+    return db.scalars(
+        select(ScheduleSlot)
+        .join(PlatformVariant, ScheduleSlot.variant_id == PlatformVariant.id)
+        .join(SourcePost, PlatformVariant.source_post_id == SourcePost.id)
+        .where(SourcePost.owner_id == user.id)
+        .order_by(ScheduleSlot.publish_at.desc())
+    ).all()
+
+
 @router.get("/publish-history", response_model=list[PublishHistoryOut])
 def list_publish_history(user: User = Depends(current_user), db: Session = Depends(get_db)):
     deliveries = db.scalars(

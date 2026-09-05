@@ -37,3 +37,9 @@
 - A Compose startup test exposed simultaneous Alembic execution by API and worker; a single migration service now completes before either runtime service starts.
 - Real-provider acceptance remains separate from automated tests and requires a locally configured `OPENROUTER_API_KEY`.
 - Live OpenRouter acceptance: post `10` generated distinct X and LinkedIn variants through `google/gemini-2.5-flash`; both included the requested call to action. The successful audit recorded 261 input tokens, 138 output tokens, zero repairs, and 1,933 ms latency.
+
+## React dashboard
+
+- The Vite production build completes successfully with zero high-severity dependency vulnerabilities.
+- The full suite has 28 passing tests, including dashboard CORS access and private schedule listing.
+- Docker serves the dashboard on port `5173` alongside the healthy API, worker, migration service, and PostgreSQL database.
