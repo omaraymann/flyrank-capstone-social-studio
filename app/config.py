@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     access_token_minutes: int = 60
     url_fetch_timeout_seconds: float = 10
     url_fetch_max_bytes: int = 2_000_000
+    discord_webhook_url: str | None = None
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
@@ -20,4 +21,3 @@ def get_settings():
 
 
 settings = get_settings()
-

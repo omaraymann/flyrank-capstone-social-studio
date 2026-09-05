@@ -4,7 +4,9 @@ A backend that ingests a published article, creates platform-specific social dra
 
 ## Current phase
 
-Phases 1–3 are complete: the project has a documented authenticated foundation, URL/Markdown ingestion, validated X and LinkedIn drafts, human review, and approved-only schedule creation.
+Phases 1–3 are complete. Phase 4 is implemented with interchangeable publishers and idempotent manual delivery; its final live-delivery proof requires a Discord webhook URL.
+
+Phase 4 includes Mock X, Mock LinkedIn, and a real Discord adapter. Set `DISCORD_WEBHOOK_URL` in `.env`, restart the API, and publish a Discord variant to a channel you own.
 
 ## Run
 

@@ -18,6 +18,7 @@ PROFILES = {
         tone="professional",
         forbidden_tone_terms=(" lol ", " omg ", " lmao "),
     ),
+    "discord": PlatformProfile(max_characters=2000, max_hashtags=5, tone="conversational", forbidden_tone_terms=()),
 }
 
 
@@ -49,6 +50,12 @@ def generate_variant(platform: str, title: str, source: str, source_url: str | N
         available = PROFILES["x"].max_characters - len(prefix) - len(suffix)
         insight = sentences[0][:available].rstrip(" ,;:-")
         return f"{prefix}{insight}{suffix}"
+
+    if platform == "discord":
+        points = sentences[:2] or [normalized_source]
+        summary = " ".join(points)
+        link = f"\n\nRead more: {source_url}" if source_url else ""
+        return f"**{title}**\n\n{summary}{link}\n\nWhat do you think?"
 
     points = sentences[:3] or [normalized_source]
     bullet_list = "\n".join(f"- {point}" for point in points)

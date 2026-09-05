@@ -57,7 +57,7 @@ class SourcePostOut(BaseModel):
 
 
 class GenerateVariants(BaseModel):
-    platforms: list[Literal["x", "linkedin"]] = Field(min_length=1)
+    platforms: list[Literal["x", "linkedin", "discord"]] = Field(min_length=1)
 
 
 class VariantEdit(BaseModel):
@@ -85,3 +85,18 @@ class ScheduleOut(BaseModel):
     publish_at: datetime
     status: str
     created_at: datetime
+
+
+class DeliveryOut(BaseModel):
+    id: int
+    schedule_slot_id: int
+    platform: str
+    idempotency_key: str
+    status: str
+    attempt_count: int
+    external_post_id: str | None
+    external_url: str | None
+    error_message: str | None
+    created_at: datetime
+    completed_at: datetime | None
+    already_published: bool = False

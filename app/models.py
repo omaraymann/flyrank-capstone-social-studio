@@ -61,3 +61,24 @@ class ScheduleSlot(Base):
     publish_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
     status: Mapped[str] = mapped_column(String(30), default="pending")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+class PublishDelivery(Base):
+    __tablename__ = "publish_deliveries"
+    __table_args__ = (
+        UniqueConstraint("schedule_slot_id", name="uq_publish_deliveries_schedule_slot_id"),
+        UniqueConstraint("idempotency_key", name="uq_publish_deliveries_idempotency_key"),
+        CheckConstraint("status IN ('processing', 'succeeded', 'failed')", name="ck_publish_deliveries_status"),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True)
+    schedule_slot_id: Mapped[int] = mapped_column(ForeignKey("schedule_slots.id", ondelete="CASCADE"), index=True)
+    platform: Mapped[str] = mapped_column(String(30))
+    idempotency_key: Mapped[str] = mapped_column(String(64))
+    content_snapshot: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(30), default="processing")
+    attempt_count: Mapped[int] = mapped_column(default=1)
+    external_post_id: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    external_url: Mapped[str | None] = mapped_column(String(2048), nullable=True)
+    error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

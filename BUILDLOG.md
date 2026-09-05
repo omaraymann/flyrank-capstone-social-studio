@@ -13,3 +13,7 @@ The first template version reused the same excerpt for X and LinkedIn, producing
 ## Phase 3
 
 AI assistance was used to scaffold review endpoints, transition rules, the schedule record, migration, and lifecycle tests. Status authority remains deterministic: clients cannot set status directly, invalid transitions return 409, and all edits are revalidated before storage.
+
+## Phase 4
+
+AI assistance was used to scaffold the publisher interface, adapter registry, Discord and mock adapters, delivery model, and idempotency tests. The local database guarantees one operation per schedule; Discord itself does not provide an idempotency-key contract, so an uncertain network failure cannot claim strict external exactly-once delivery. Phase 5 will own recovery policy.

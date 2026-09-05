@@ -15,3 +15,9 @@
 - Lifecycle tests prove users can list, edit, approve, reject, and schedule their own variants.
 - Draft and rejected variants cannot be scheduled; approved variants can.
 - Tests cover named validation failures, invalid transitions, timezone/past-date rejection, rejection reasons, and ownership isolation.
+
+## Phase 4
+
+- Repeated-publish tests prove the same schedule invokes its adapter exactly once and returns the stored result thereafter.
+- Tests prove Mock X and Mock LinkedIn share the same interface and can be selected without business-logic changes.
+- Discord has a real webhook adapter; without a configured secret it fails safely and stores no secret in logs or responses.
