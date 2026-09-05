@@ -1,36 +1,65 @@
 # Social Media Studio
 
-A backend that ingests a published article, creates platform-specific social drafts, sends them through human review, and publishes approved content reliably.
+A backend that turns one published article into platform-specific social drafts, sends them through human review, schedules approved content, and publishes it reliably.
 
-## Current phase
+## Baseline status
 
-Phases 1–4 are complete: the project has an authenticated content workflow, deterministic review rules, approved-only schedules, interchangeable publishers, idempotent delivery, and a verified real Discord integration.
+The five baseline phases are complete: authentication and architecture, ingestion and variant generation, human review, publisher adapters and idempotency, and durable background scheduling with publish history.
 
-Phase 4 includes Mock X, Mock LinkedIn, and a real Discord adapter. Set `DISCORD_WEBHOOK_URL` in `.env`, restart the API, and publish a Discord variant to a channel you own.
+```text
+Article -> source post -> X/LinkedIn variants -> validation -> approval
+        -> schedule -> durable worker -> publisher adapter -> attempt history
+```
 
-## Run
+The included adapters are Mock X, Mock LinkedIn, and a real Discord webhook. The mocks make the complete workflow testable without external accounts; Discord demonstrates a real platform delivery.
 
-```bash
-copy .env.example .env
+## Run locally
+
+```powershell
+Copy-Item .env.example .env
 docker compose up --build
 ```
 
-Open `http://localhost:8000/docs` for the API documentation.
+Then open `http://localhost:8000/docs`. The API and background worker run as separate services against PostgreSQL.
+
+To create a ready-to-review demo campaign:
+
+```powershell
+python scripts/seed_demo.py
+```
+
+## Main API workflow
+
+| Step | Endpoint | Result |
+|---|---|---|
+| Sign up | `POST /auth/signup` | Creates the campaign owner |
+| Add content | `POST /posts` | Stores the source article |
+| Generate | `POST /posts/{id}/variants` | Produces distinct X and LinkedIn drafts |
+| Review | `PATCH /variants/{id}`, `POST /variants/{id}/approve` | Human edits and approves each draft |
+| Schedule | `POST /variants/{id}/schedule` | Queues approved content for a UTC time |
+| Observe | `GET /schedules/{id}/history` | Shows every processing attempt and outcome |
+| Retry | `POST /schedules/{id}/retry` | Safely requeues a failed delivery when allowed |
+
+## Reliability behaviour
+
+- A database lease lets only one worker claim a due schedule.
+- Every real adapter call receives a stable idempotency key and creates an attempt record.
+- Transient failures are retried with exponential backoff up to the configured limit.
+- Expired mock-platform claims can be recovered automatically.
+- An interrupted Discord request is marked uncertain instead of being blindly repeated, because Discord webhooks do not offer an idempotency-key guarantee.
+- Restarting the worker does not lose pending schedules because the queue is stored in PostgreSQL.
 
 ## Test
 
-```bash
+```powershell
 python -m pip install -r requirements-dev.txt
 pytest
 ```
 
-## Planned architecture
+## Configuration
 
-```text
-Article → stored source → variant generation → validation → human review
-       → durable scheduler → publisher adapter → publish history
-```
+Copy `.env.example` to `.env`. Discord is optional: set `DISCORD_WEBHOOK_URL` only when publishing to a webhook channel you control. Never commit `.env` or a webhook URL.
 
-## Current non-goal
+## Baseline limitations
 
-Image generation and engagement analytics are outside the official base scope.
+The baseline uses deterministic templates rather than an LLM, polls PostgreSQL rather than using a separate queue broker, and does not include image generation or engagement analytics. These are deliberate extension points rather than hidden dependencies.

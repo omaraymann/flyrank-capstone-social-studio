@@ -84,6 +84,8 @@ class ScheduleOut(BaseModel):
     variant_id: int
     publish_at: datetime
     status: str
+    next_attempt_at: datetime | None = None
+    last_error: str | None = None
     created_at: datetime
 
 
@@ -100,3 +102,19 @@ class DeliveryOut(BaseModel):
     created_at: datetime
     completed_at: datetime | None
     already_published: bool = False
+
+
+class PublishAttemptOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    delivery_id: int
+    attempt_number: int
+    status: str
+    error_message: str | None
+    started_at: datetime
+    completed_at: datetime | None
+
+
+class PublishHistoryOut(BaseModel):
+    delivery: DeliveryOut
+    attempts: list[PublishAttemptOut]

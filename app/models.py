@@ -60,6 +60,11 @@ class ScheduleSlot(Base):
     variant_id: Mapped[int] = mapped_column(ForeignKey("platform_variants.id", ondelete="CASCADE"), index=True)
     publish_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
     status: Mapped[str] = mapped_column(String(30), default="pending")
+    next_attempt_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True, index=True)
+    claimed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    lease_expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True, index=True)
+    worker_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    last_error: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
 
@@ -81,4 +86,22 @@ class PublishDelivery(Base):
     external_url: Mapped[str | None] = mapped_column(String(2048), nullable=True)
     error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class PublishAttempt(Base):
+    __tablename__ = "publish_attempts"
+    __table_args__ = (
+        UniqueConstraint("delivery_id", "attempt_number", name="uq_publish_attempt_number"),
+        CheckConstraint(
+            "status IN ('processing', 'succeeded', 'failed', 'uncertain')",
+            name="ck_publish_attempts_status",
+        ),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True)
+    delivery_id: Mapped[int] = mapped_column(ForeignKey("publish_deliveries.id", ondelete="CASCADE"), index=True)
+    attempt_number: Mapped[int]
+    status: Mapped[str] = mapped_column(String(30), default="processing")
+    error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
+    started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

@@ -4,7 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from app.models import PlatformVariant, PublishDelivery, ScheduleSlot, utcnow
+from app.models import PlatformVariant, PublishAttempt, PublishDelivery, ScheduleSlot, utcnow
 from app.publishers.base import PublisherError, PublishRequest
 from app.publishers.registry import PublisherRegistry
 
@@ -73,6 +73,10 @@ async def publish_scheduled_variant(
             return delivery_payload(existing, already_published=True)
         raise DeliveryInProgress("This publishing operation is already in progress")
     db.refresh(delivery)
+    attempt = PublishAttempt(delivery_id=delivery.id, attempt_number=delivery.attempt_count)
+    db.add(attempt)
+    db.commit()
+    db.refresh(attempt)
 
     try:
         result = await registry.get(variant.platform).publish(
@@ -83,6 +87,9 @@ async def publish_scheduled_variant(
         delivery.status = "failed"
         delivery.error_message = safe_error[:500]
         delivery.completed_at = utcnow()
+        attempt.status = "failed"
+        attempt.error_message = safe_error[:500]
+        attempt.completed_at = utcnow()
         db.commit()
         raise PublishFailed(safe_error) from exc
     except Exception as exc:
@@ -90,6 +97,9 @@ async def publish_scheduled_variant(
         delivery.status = "failed"
         delivery.error_message = safe_error
         delivery.completed_at = utcnow()
+        attempt.status = "failed"
+        attempt.error_message = safe_error
+        attempt.completed_at = utcnow()
         db.commit()
         raise PublishFailed(safe_error) from exc
 
@@ -97,7 +107,12 @@ async def publish_scheduled_variant(
     delivery.external_post_id = result.external_post_id
     delivery.external_url = result.external_url
     delivery.completed_at = utcnow()
+    attempt.status = "succeeded"
+    attempt.completed_at = utcnow()
     schedule.status = "completed"
+    schedule.next_attempt_at = None
+    schedule.lease_expires_at = None
+    schedule.last_error = None
     variant.status = "published"
     variant.updated_at = utcnow()
     db.commit()

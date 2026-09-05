@@ -22,3 +22,10 @@
 - Tests prove Mock X and Mock LinkedIn share the same interface and can be selected without business-logic changes.
 - Discord has a real webhook adapter; without a configured secret it fails safely and stores no secret in logs or responses.
 - Live Discord proof: schedule `6` published successfully with message ID `1545609778934583326`; an immediate repeated request returned the same message ID with `already_published=true`, while the database retained one successful attempt.
+
+## Phase 5
+
+- The full automated suite has 21 passing tests, including due-schedule claiming, ownership, retry history, expired-lease recovery, and safe manual retry.
+- Live automatic proof: schedule `7` was completed by the worker through Mock X without calling the manual publish endpoint; attempt 1 succeeded with external ID `mock-x-d6cfbf12d21258ce`.
+- Live restart proof: schedule `8` remained pending with zero attempts while the worker was stopped, then completed through Mock LinkedIn after the worker restarted, with exactly one recorded successful attempt.
+- Migration `0005_durable_worker` was applied to PostgreSQL and the API, database, and worker containers ran successfully together.

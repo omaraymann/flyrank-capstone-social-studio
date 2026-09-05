@@ -2,6 +2,7 @@ from datetime import datetime, timedelta, timezone
 
 from app.main import app
 from app.publishers.base import PublishRequest, PublishResult, SocialPublisher
+from app.publishers.discord import DiscordPublisher
 from app.publishers.registry import PublisherRegistry, get_publisher_registry
 from app.services.publishing import make_idempotency_key
 
@@ -65,7 +66,11 @@ def test_mock_x_and_linkedin_publishers_are_swappable(client, auth_headers):
 
 def test_discord_adapter_reports_missing_configuration(client, auth_headers):
     _, schedule = scheduled_variant(client, auth_headers, "discord")
-    response = client.post(f"/schedules/{schedule['id']}/publish", headers=auth_headers)
+    app.dependency_overrides[get_publisher_registry] = lambda: PublisherRegistry({"discord": DiscordPublisher(None)})
+    try:
+        response = client.post(f"/schedules/{schedule['id']}/publish", headers=auth_headers)
+    finally:
+        app.dependency_overrides.pop(get_publisher_registry, None)
     assert response.status_code == 502
     assert "not configured" in response.json()["detail"]
 

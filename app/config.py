@@ -11,6 +11,10 @@ class Settings(BaseSettings):
     url_fetch_timeout_seconds: float = 10
     url_fetch_max_bytes: int = 2_000_000
     discord_webhook_url: str | None = None
+    worker_poll_seconds: float = 2
+    worker_lease_seconds: int = 30
+    max_publish_attempts: int = 3
+    retry_base_seconds: int = 5
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
