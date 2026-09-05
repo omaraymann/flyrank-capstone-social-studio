@@ -4,7 +4,7 @@ A backend that ingests a published article, creates platform-specific social dra
 
 ## Current phase
 
-Phases 1–3 are complete. Phase 4 is implemented with interchangeable publishers and idempotent manual delivery; its final live-delivery proof requires a Discord webhook URL.
+Phases 1–4 are complete: the project has an authenticated content workflow, deterministic review rules, approved-only schedules, interchangeable publishers, idempotent delivery, and a verified real Discord integration.
 
 Phase 4 includes Mock X, Mock LinkedIn, and a real Discord adapter. Set `DISCORD_WEBHOOK_URL` in `.env`, restart the API, and publish a Discord variant to a channel you own.
 

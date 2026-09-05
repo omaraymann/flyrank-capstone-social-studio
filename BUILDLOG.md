@@ -17,3 +17,5 @@ AI assistance was used to scaffold review endpoints, transition rules, the sched
 ## Phase 4
 
 AI assistance was used to scaffold the publisher interface, adapter registry, Discord and mock adapters, delivery model, and idempotency tests. The local database guarantees one operation per schedule; Discord itself does not provide an idempotency-key contract, so an uncertain network failure cannot claim strict external exactly-once delivery. Phase 5 will own recovery policy.
+
+The real Discord acceptance test was completed using a temporary webhook stored only in `.env`. The first call returned a real message ID; the repeated call returned the stored result and did not invoke the adapter again.
