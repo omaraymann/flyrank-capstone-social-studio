@@ -7,9 +7,12 @@ from sqlalchemy.orm import Session
 
 from app.core.security import current_user
 from app.database import get_db
-from app.models import PlatformVariant, SourcePost, User
-from app.schemas import GenerateVariants, SourcePostCreate, SourcePostOut, VariantOut
+from app.llm.base import LLMError, LLMProvider
+from app.llm.registry import get_llm_provider
+from app.models import GenerationRun, PlatformVariant, SourcePost, User
+from app.schemas import GenerationRunOut, GenerateVariants, SourcePostCreate, SourcePostOut, VariantOut
 from app.services.ingestion import fetch_article
+from app.services.llm_generation import generate_llm_variants
 from app.services.variants import generate_variant, validate_variant
 
 router = APIRouter(prefix="/posts", tags=["source posts"])
@@ -49,13 +52,32 @@ def get_post(post_id: int, user: User = Depends(current_user), db: Session = Dep
     return owned_post(post_id, user, db)
 
 
+@router.get("/{post_id}/generations", response_model=list[GenerationRunOut])
+def list_generations(post_id: int, user: User = Depends(current_user), db: Session = Depends(get_db)):
+    post = owned_post(post_id, user, db)
+    return db.scalars(
+        select(GenerationRun).where(GenerationRun.source_post_id == post.id).order_by(GenerationRun.id.desc())
+    ).all()
+
+
 @router.post("/{post_id}/variants", response_model=list[VariantOut], status_code=status.HTTP_201_CREATED)
-def create_variants(payload: GenerateVariants, post_id: int, user: User = Depends(current_user), db: Session = Depends(get_db)):
+async def create_variants(
+    payload: GenerateVariants,
+    post_id: int,
+    user: User = Depends(current_user),
+    db: Session = Depends(get_db),
+    llm_provider: LLMProvider = Depends(get_llm_provider),
+):
     post = owned_post(post_id, user, db)
     existing = set(db.scalars(select(PlatformVariant.platform).where(PlatformVariant.source_post_id == post.id)).all())
     requested = list(dict.fromkeys(payload.platforms))
     if existing.intersection(requested):
         raise HTTPException(status_code=409, detail="A variant already exists for one or more requested platforms")
+    if payload.generation_mode == "llm":
+        try:
+            return await generate_llm_variants(db, post, payload, llm_provider)
+        except LLMError as exc:
+            raise HTTPException(status_code=502, detail=str(exc)) from exc
     variants = []
     for platform in requested:
         content = generate_variant(platform, post.title, post.content, post.source_url)

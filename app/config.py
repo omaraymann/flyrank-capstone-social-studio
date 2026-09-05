@@ -15,6 +15,15 @@ class Settings(BaseSettings):
     worker_lease_seconds: int = 30
     max_publish_attempts: int = 3
     retry_base_seconds: int = 5
+    openrouter_api_key: str | None = None
+    openrouter_base_url: str = "https://openrouter.ai/api/v1"
+    llm_model: str = "google/gemini-2.5-flash"
+    llm_timeout_seconds: float = 30
+    llm_temperature: float = 0.7
+    llm_top_p: float = 0.9
+    llm_top_k: int | None = 40
+    llm_max_output_tokens: int = 1000
+    llm_max_input_characters: int = 30_000
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

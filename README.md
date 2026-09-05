@@ -4,7 +4,7 @@ A backend that turns one published article into platform-specific social drafts,
 
 ## Baseline status
 
-The five baseline phases are complete: authentication and architecture, ingestion and variant generation, human review, publisher adapters and idempotency, and durable background scheduling with publish history.
+The five baseline phases are complete. Phase 6 adds optional LLM-powered campaign generation through OpenRouter while preserving deterministic generation for offline and zero-cost use.
 
 ```text
 Article -> source post -> X/LinkedIn variants -> validation -> approval
@@ -35,6 +35,7 @@ python scripts/seed_demo.py
 | Sign up | `POST /auth/signup` | Creates the campaign owner |
 | Add content | `POST /posts` | Stores the source article |
 | Generate | `POST /posts/{id}/variants` | Produces distinct X and LinkedIn drafts |
+| Audit AI | `GET /posts/{id}/generations` | Shows model settings, tokens, cost, latency, repairs, and outcome |
 | Review | `PATCH /variants/{id}`, `POST /variants/{id}/approve` | Human edits and approves each draft |
 | Schedule | `POST /variants/{id}/schedule` | Queues approved content for a UTC time |
 | Observe | `GET /schedules/{id}/history` | Shows every processing attempt and outcome |
@@ -60,6 +61,21 @@ pytest
 
 Copy `.env.example` to `.env`. Discord is optional: set `DISCORD_WEBHOOK_URL` only when publishing to a webhook channel you control. Never commit `.env` or a webhook URL.
 
+For LLM generation, set `OPENROUTER_API_KEY` in `.env` and submit:
+
+```json
+{
+  "platforms": ["x", "linkedin"],
+  "generation_mode": "llm",
+  "audience": "data engineers",
+  "goal": "traffic",
+  "tone": "educational",
+  "call_to_action": "Read the full guide"
+}
+```
+
+The provider is `google/gemini-2.5-flash` by default. Sampling and token limits are backend configuration, prompts include versioned platform examples, and an invalid draft receives one low-temperature repair attempt. Automated tests never call the paid provider.
+
 ## Baseline limitations
 
-The baseline uses deterministic templates rather than an LLM, polls PostgreSQL rather than using a separate queue broker, and does not include image generation or engagement analytics. These are deliberate extension points rather than hidden dependencies.
+The scheduler polls PostgreSQL rather than using a separate queue broker, and image generation and engagement analytics remain future extension points.

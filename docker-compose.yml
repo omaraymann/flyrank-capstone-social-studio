@@ -1,25 +1,35 @@
 services:
-  api:
+  migrate:
     build: .
-    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    command: alembic upgrade head
     env_file: .env
-    ports:
-      - "8000:8000"
     volumes:
       - .:/app
     depends_on:
       db:
         condition: service_healthy
 
+  api:
+    build: .
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    env_file: .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
   worker:
     build: .
-    command: sh -c "alembic upgrade head && python -m app.worker"
+    command: python -m app.worker
     env_file: .env
     volumes:
       - .:/app
     depends_on:
-      db:
-        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
 
   db:
     image: postgres:16-alpine

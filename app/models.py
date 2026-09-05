@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import CheckConstraint, DateTime, ForeignKey, String, Text, UniqueConstraint
+from sqlalchemy import CheckConstraint, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
@@ -48,6 +48,37 @@ class PlatformVariant(Base):
     reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+class GenerationRun(Base):
+    __tablename__ = "generation_runs"
+    __table_args__ = (
+        CheckConstraint("status IN ('processing', 'succeeded', 'failed')", name="ck_generation_runs_status"),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True)
+    source_post_id: Mapped[int] = mapped_column(ForeignKey("source_posts.id", ondelete="CASCADE"), index=True)
+    provider: Mapped[str] = mapped_column(String(50))
+    model: Mapped[str] = mapped_column(String(150))
+    prompt_version: Mapped[str] = mapped_column(String(50))
+    examples_version: Mapped[str] = mapped_column(String(50))
+    platforms: Mapped[str] = mapped_column(String(100))
+    audience: Mapped[str] = mapped_column(String(300))
+    goal: Mapped[str] = mapped_column(String(50))
+    tone: Mapped[str] = mapped_column(String(50))
+    call_to_action: Mapped[str] = mapped_column(String(500))
+    temperature: Mapped[float] = mapped_column(Float)
+    top_p: Mapped[float] = mapped_column(Float)
+    top_k: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    max_output_tokens: Mapped[int] = mapped_column(Integer)
+    input_tokens: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    output_tokens: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    estimated_cost_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
+    latency_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    repair_count: Mapped[int] = mapped_column(Integer, default=0)
+    status: Mapped[str] = mapped_column(String(30), default="processing")
+    error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 
 class ScheduleSlot(Base):
