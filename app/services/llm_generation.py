@@ -14,6 +14,8 @@ from app.services.prompts import (
     system_prompt,
 )
 from app.services.variants import validate_variant
+from rag.pipeline import PLATFORM_MODEL, search_user_chunks
+from rag.vector_store import connect_rag_database, ensure_studio_tables
 
 
 def _settings(temperature: float | None = None) -> GenerationSettings:
@@ -64,12 +66,28 @@ async def generate_llm_variants(
         top_p=generation_settings.top_p,
         top_k=generation_settings.top_k,
         max_output_tokens=generation_settings.max_output_tokens,
+        rag_enabled=payload.use_rag,
+        rag_top_k=payload.rag_top_k if payload.use_rag else None,
+        rag_model_id=PLATFORM_MODEL if payload.use_rag else None,
     )
     db.add(run)
     db.commit()
     db.refresh(run)
     started = perf_counter()
     try:
+        retrieved_passages = []
+        if payload.use_rag:
+            if payload.generation_mode != "llm":
+                raise ValueError("RAG requires the LLM generator")
+            with connect_rag_database(settings.rag_db_password) as rag_connection:
+                ensure_studio_tables(rag_connection)
+                retrieved_passages = search_user_chunks(
+                    rag_connection, post.owner_id, f"{post.title}\n{post.content[:8000]}",
+                    payload.rag_document_ids, payload.rag_top_k,
+                )
+            if not retrieved_passages:
+                raise ValueError("No indexed passages matched. Add documents or change the selected documents.")
+            run.rag_context = retrieved_passages
         result = await provider.generate(
             system_prompt=system_prompt(requested),
             user_prompt=generation_prompt(
@@ -81,6 +99,7 @@ async def generate_llm_variants(
                 tone=payload.tone,
                 call_to_action=payload.call_to_action,
                 platforms=requested,
+                retrieved_passages=retrieved_passages,
             ),
             platforms=requested,
             settings=generation_settings,
@@ -118,7 +137,7 @@ async def generate_llm_variants(
         for variant in variants:
             db.refresh(variant)
         return variants
-    except (LLMError, ValueError, KeyError) as exc:
+    except Exception as exc:
         run.status = "failed"
         run.error_message = str(exc)[:500]
         run.completed_at = utcnow()
@@ -126,4 +145,6 @@ async def generate_llm_variants(
         db.commit()
         if isinstance(exc, LLMError):
             raise
-        raise LLMError(f"Generated content failed validation: {exc}") from exc
+        if isinstance(exc, (ValueError, KeyError)):
+            raise LLMError(f"Generated content failed validation: {exc}") from exc
+        raise LLMError(f"Campaign generation failed: {exc}") from exc

@@ -1,0 +1,196 @@
+{
+  "created_at": "2026-10-09T20:30:41.136823+00:00",
+  "scope": "One published article excerpt/tweet pair; demonstration, not benchmark accuracy.",
+  "source_url": "https://arjungambhir.github.io/Domain_Specific_tweet_generation/",
+  "limitations": [
+    "The reported 70000-pair dataset is not included in the repository.",
+    "Only the article text displayed on the project page is used, not a verified full original article.",
+    "There are no independent factuality labels for these drafts.",
+    "Generator and judge use the same model, so their errors may be correlated."
+  ],
+  "evaluations": [
+    {
+      "origin": "published_reference",
+      "platform": "x",
+      "draft": "US-Mexico border arrests continued to drop in September",
+      "checks": {
+        "characters": 55,
+        "exact_cta_pass": null,
+        "platform_rules_pass": true
+      },
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-judge-v1",
+        "claims": [
+          {
+            "claim": "US-Mexico border arrests continued to drop in September",
+            "verdict": "supported",
+            "source_excerpt": "Border Patrol arrests on the US-Mexico border continued to drop in September, marking a steady decline since the high earlier this spring when Trump administration officials struggled to stem the flow of migrants attempting to enter the US.",
+            "reason": "The source explicitly states that 'Border Patrol arrests on the US-Mexico border continued to drop in September'."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 558,
+        "output_tokens": 121,
+        "reported_cost_usd": 0.0004699,
+        "latency_ms": 1599
+      }
+    },
+    {
+      "origin": "generated",
+      "platform": "x",
+      "draft": "US-Mexico border arrests continued to drop in September, marking the lowest month this fiscal year with nearly 40,000 arrests. This is a significant decline from May's nearly 133,000 apprehensions. Read the report #USMexicoBorder #BorderSecurity #Migration",
+      "checks": {
+        "characters": 256,
+        "exact_cta_pass": true,
+        "platform_rules_pass": true
+      },
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-judge-v1",
+        "claims": [
+          {
+            "claim": "US-Mexico border arrests continued to drop in September",
+            "verdict": "supported",
+            "source_excerpt": "Border Patrol arrests on the US-Mexico border continued to drop in September",
+            "reason": "The claim is directly stated in the source."
+          },
+          {
+            "claim": "marking the lowest month this fiscal year with nearly 40,000 arrests",
+            "verdict": "supported",
+            "source_excerpt": "There were nearly 40,000 arrests on the southern border in September, which was the lowest month this fiscal year, according to a source familiar with the data.",
+            "reason": "The claim is directly stated in the source."
+          },
+          {
+            "claim": "This is a significant decline from May's nearly 133,000 apprehensions.",
+            "verdict": "supported",
+            "source_excerpt": "For comparison, there were nearly 133,000 apprehensions in May.",
+            "reason": "The source provides the May figure, and the difference between 40,000 and 133,000 is a significant decline."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 611,
+        "output_tokens": 289,
+        "reported_cost_usd": 0.0009058,
+        "latency_ms": 2491
+      }
+    },
+    {
+      "origin": "generated",
+      "platform": "linkedin",
+      "draft": "Arrests at the US-Mexico border saw a continued decline in September, reaching the lowest monthly total for this fiscal year with nearly 40,000 apprehensions. This represents a substantial decrease from the peak of nearly 133,000 arrests recorded in May. Fiscal year 2019, however, still marked the highest number of southern border apprehensions since 2007, totaling over 850,000. These figures are often viewed as a key indicator of border security and migration trends. Read the report #USMexicoBorder #BorderPatrol #MigrationTrends #BorderSecurity",
+      "checks": {
+        "characters": 551,
+        "exact_cta_pass": true,
+        "platform_rules_pass": true
+      },
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-judge-v1",
+        "claims": [
+          {
+            "claim": "Arrests at the US-Mexico border saw a continued decline in September",
+            "verdict": "supported",
+            "source_excerpt": "Border Patrol arrests on the US-Mexico border continued to drop in September",
+            "reason": "The source explicitly states that 'Border Patrol arrests on the US-Mexico border continued to drop in September'."
+          },
+          {
+            "claim": "reaching the lowest monthly total for this fiscal year with nearly 40,000 apprehensions.",
+            "verdict": "supported",
+            "source_excerpt": "There were nearly 40,000 arrests on the southern border in September, which was the lowest month this fiscal year",
+            "reason": "The source confirms that 'There were nearly 40,000 arrests on the southern border in September, which was the lowest month this fiscal year'."
+          },
+          {
+            "claim": "This represents a substantial decrease from the peak of nearly 133,000 arrests recorded in May.",
+            "verdict": "supported",
+            "source_excerpt": "For comparison, there were nearly 133,000 apprehensions in May.",
+            "reason": "The source provides the comparison, stating 'For comparison, there were nearly 133,000 apprehensions in May', which supports the claim of a decrease from that peak."
+          },
+          {
+            "claim": "Fiscal year 2019, however, still marked the highest number of southern border apprehensions since 2007, totaling over 850,000.",
+            "verdict": "supported",
+            "source_excerpt": "Apprehensions along the southern border were higher in fiscal year 2019 than in any fiscal year since 2007, with slightly more than 850,000 arrests, according to Border Patrol data.",
+            "reason": "The source states that 'Apprehensions along the southern border were higher in fiscal year 2019 than in any fiscal year since 2007, with slightly more than 850,000 arrests'."
+          },
+          {
+            "claim": "These figures are often viewed as a key indicator of border security and migration trends.",
+            "verdict": "supported",
+            "source_excerpt": "Border Patrol apprehensions, which are used as a measure of illegal crossings, are particularly important to President Donald Trump, who views them as a barometer of the situation along the southern border, according to administration officials.",
+            "reason": "The source indicates that 'Border Patrol apprehensions, which are used as a measure of illegal crossings, are particularly important to President Donald Trump, who views them as a barometer of the situation along the southern border', which supports the idea of them being a key indicator."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 680,
+        "output_tokens": 652,
+        "reported_cost_usd": 0.001834,
+        "latency_ms": 4088
+      }
+    },
+    {
+      "origin": "injected_number_error_control",
+      "platform": "x",
+      "draft": "US-Mexico border arrests continued to drop in September, marking the lowest month this fiscal year with nearly 400,000 arrests. This is a significant decline from May's nearly 133,000 apprehensions. Read the report #USMexicoBorder #BorderSecurity #Migration",
+      "control_note": "Locally changed 40,000 to 400,000; this is not a published tweet or an independent dataset label.",
+      "expected_error": "contradicted September arrest count",
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-judge-v1",
+        "claims": [
+          {
+            "claim": "US-Mexico border arrests continued to drop in September",
+            "verdict": "supported",
+            "source_excerpt": "Border Patrol arrests on the US-Mexico border continued to drop in September",
+            "reason": "The source explicitly states that Border Patrol arrests on the US-Mexico border continued to drop in September."
+          },
+          {
+            "claim": "marking the lowest month this fiscal year with nearly 400,000 arrests",
+            "verdict": "contradicted",
+            "source_excerpt": "There were nearly 40,000 arrests on the southern border in September, which was the lowest month this fiscal year, according to a source familiar with the data.",
+            "reason": "The source states there were nearly 40,000 arrests, not 400,000 arrests, in September."
+          },
+          {
+            "claim": "This is a significant decline from May's nearly 133,000 apprehensions.",
+            "verdict": "supported",
+            "source_excerpt": "For comparison, there were nearly 133,000 apprehensions in May.",
+            "reason": "The source confirms that there were nearly 133,000 apprehensions in May, and the previous claim (though incorrect in its number) implies a decline from this figure."
+          }
+        ],
+        "supported_claim_rate": 0.6666666666666666,
+        "requires_review": true,
+        "input_tokens": 612,
+        "output_tokens": 329,
+        "reported_cost_usd": 0.0010061,
+        "latency_ms": 2705
+      }
+    }
+  ],
+  "source_text": "Border Patrol arrests on the US-Mexico border continued to drop in September, marking a steady decline since the high earlier this spring when Trump administration officials struggled to stem the flow of migrants attempting to enter the US.There were nearly 40,000 arrests on the southern border in September, which was the lowest month this fiscal year, according to a source familiar with the data. For comparison, there were nearly 133,000 apprehensions in May.Apprehensions along the southern border were higher in fiscal year 2019 than in any fiscal year since 2007, with slightly more than 850,000 arrests, according to Border Patrol data.Border Patrol apprehensions, which are used as a measure of illegal crossings, are particularly important to President Donald Trump, who views them as a barometer of the situation along the southern border, according to administration officials.There was a dramatic spike in border crossings this year, led by an uptick in families and children from the Northern Triangle countries of Guatemala, Honduras and El Salvador coming to the US. The surge caused severe overcrowding in Border Patrol facilities and led to a number of administration measures aimed at reducing the flow of migrants",
+  "source_sha256": "c53b761b0648f8681920029b59dd0f574d75726fba9157102e4d22e03090c90b",
+  "reference_tweet": "US-Mexico border arrests continued to drop in September",
+  "generation": {
+    "status": "succeeded",
+    "model": "google/gemini-2.5-flash",
+    "prompt_version": "social-v1",
+    "examples_version": "few-shot-v1",
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "top_k": 40,
+    "input_tokens": 501,
+    "output_tokens": 211,
+    "reported_cost_usd": 0.0006778,
+    "latency_ms": 2268,
+    "drafts": {
+      "x": "US-Mexico border arrests continued to drop in September, marking the lowest month this fiscal year with nearly 40,000 arrests. This is a significant decline from May's nearly 133,000 apprehensions. Read the report #USMexicoBorder #BorderSecurity #Migration",
+      "linkedin": "Arrests at the US-Mexico border saw a continued decline in September, reaching the lowest monthly total for this fiscal year with nearly 40,000 apprehensions. This represents a substantial decrease from the peak of nearly 133,000 arrests recorded in May. Fiscal year 2019, however, still marked the highest number of southern border apprehensions since 2007, totaling over 850,000. These figures are often viewed as a key indicator of border security and migration trends. Read the report #USMexicoBorder #BorderPatrol #MigrationTrends #BorderSecurity"
+    },
+    "repair_policy": "No repair in this baseline trial; retain first-pass output."
+  },
+  "status": "completed"
+}

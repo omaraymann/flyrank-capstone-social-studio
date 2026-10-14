@@ -40,6 +40,7 @@ class VariantOut(BaseModel):
     platform: str
     content: str
     status: str
+    fact_recheck_required: bool = False
     rejection_reason: str | None
     reviewed_at: datetime | None
     updated_at: datetime
@@ -63,6 +64,15 @@ class GenerateVariants(BaseModel):
     goal: Literal["awareness", "engagement", "traffic", "conversion"] = "awareness"
     tone: Literal["professional", "friendly", "educational", "energetic"] = "professional"
     call_to_action: str = Field(default="Read the full article", min_length=2, max_length=500)
+    use_rag: bool = False
+    rag_document_ids: list[str] = Field(default_factory=list, max_length=100)
+    rag_top_k: int = Field(default=5, ge=1, le=10)
+
+    @model_validator(mode="after")
+    def rag_requires_llm(self):
+        if self.use_rag and self.generation_mode != "llm":
+            raise ValueError("RAG is available only with the LLM generator")
+        return self
 
 
 class VariantEdit(BaseModel):
@@ -147,7 +157,57 @@ class GenerationRunOut(BaseModel):
     estimated_cost_usd: float | None
     latency_ms: int | None
     repair_count: int
+    rag_enabled: bool = False
+    rag_top_k: int | None = None
+    rag_model_id: str | None = None
+    rag_context: list[dict] | None = None
     status: str
     error_message: str | None
     created_at: datetime
     completed_at: datetime | None
+
+
+class FactCheckClaim(BaseModel):
+    claim: str
+    verdict: Literal["supported", "contradicted", "unsupported"]
+    source_excerpt: str | None
+    reason: str
+
+
+class FactCheckOut(BaseModel):
+    id: int
+    variant_id: int
+    status: Literal["processing", "succeeded", "failed"]
+    outcome: Literal["processing", "failed", "unknown", "needs_review", "no_issues"]
+    stale: bool
+    draft_snapshot: str
+    claims: list[FactCheckClaim]
+    error_message: str | None
+    prompt_version: str
+    extraction_model: str
+    audit_model: str
+    reported_cost_usd: float | None
+    latency_ms: int | None
+    created_at: datetime
+    completed_at: datetime | None
+
+
+class FixSuggestionRequest(BaseModel):
+    fact_check_id: int = Field(gt=0)
+
+
+class FixSuggestionOut(BaseModel):
+    id: int
+    variant_id: int
+    fact_check_id: int
+    status: Literal["processing", "succeeded", "failed"]
+    stale: bool
+    draft_snapshot: str
+    suggested_content: str | None
+    model: str
+    prompt_version: str
+    reported_cost_usd: float | None
+    error_message: str | None
+    created_at: datetime
+    completed_at: datetime | None
+    applied_at: datetime | None

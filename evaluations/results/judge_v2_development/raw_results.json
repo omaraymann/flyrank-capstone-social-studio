@@ -1,0 +1,539 @@
+{
+  "started_at": "2026-10-09T23:46:03.482238+03:00",
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "factuality-classification-v2",
+  "selected_split": "development",
+  "dataset_sha256": "5731ea2307e31ba68af8507b7ceeedfde4524ae714d85df1bcfee60877e17948",
+  "sources_sha256": "2670a1e9be25233145d013c350a4e825f88e4e27a68fc5c05441afa26f5255ab",
+  "concurrency": 3,
+  "results": [
+    {
+      "id": "example-32e706298fadc1a6",
+      "source_case_id": "02",
+      "split": "development",
+      "platform": "x",
+      "draft": "North Studio has five members. Explore the calendar",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "North Studio has five members.",
+          "verdict": "supported",
+          "source_excerpt": "The fictional design team North Studio has introduced a shared content calendar for its five members."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "North Studio has five members.",
+            "verdict": "supported",
+            "source_excerpt": "The fictional design team North Studio has introduced a shared content calendar for its five members.",
+            "reason": "The source explicitly states that North Studio has five members."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 725,
+        "output_tokens": 81,
+        "reported_cost_usd": 0.00042,
+        "latency_ms": 1686
+      }
+    },
+    {
+      "id": "example-392456de3eb13b90",
+      "source_case_id": "01",
+      "split": "development",
+      "platform": "x",
+      "draft": "Retries alone prevent duplicates. Read the full guide",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.0,
+      "gold_claims": [
+        {
+          "claim": "Retries alone prevent duplicates.",
+          "verdict": "contradicted",
+          "source_excerpt": "Retrying temporary failures helps recovery, but retries alone do not prevent duplicates."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Retries alone prevent duplicates.",
+            "verdict": "contradicted",
+            "source_excerpt": "Retrying temporary failures helps recovery, but retries alone do not prevent duplicates.",
+            "reason": "The source explicitly states that 'retries alone do not prevent duplicates', which directly contradicts the claim."
+          }
+        ],
+        "supported_claim_rate": 0.0,
+        "requires_review": true,
+        "input_tokens": 736,
+        "output_tokens": 90,
+        "reported_cost_usd": 0.0004458,
+        "latency_ms": 1937
+      }
+    },
+    {
+      "id": "example-37f8a88b17fc695a",
+      "source_case_id": "02",
+      "split": "development",
+      "platform": "x",
+      "draft": "Automatic publishing is included in this release. North Studio has five members. North Studio has fifty members. Explore the calendar",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.3333333333333333,
+      "gold_claims": [
+        {
+          "claim": "Automatic publishing is included in this release.",
+          "verdict": "contradicted",
+          "source_excerpt": "Automatic publishing is not included in this release."
+        },
+        {
+          "claim": "North Studio has five members.",
+          "verdict": "supported",
+          "source_excerpt": "The fictional design team North Studio has introduced a shared content calendar for its five members."
+        },
+        {
+          "claim": "North Studio has fifty members.",
+          "verdict": "contradicted",
+          "source_excerpt": "The fictional design team North Studio has introduced a shared content calendar for its five members."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Automatic publishing is included in this release.",
+            "verdict": "contradicted",
+            "source_excerpt": "Automatic publishing is not included in this release.",
+            "reason": "The source explicitly states that automatic publishing is not included in this release, which directly contradicts the claim."
+          },
+          {
+            "claim": "North Studio has five members.",
+            "verdict": "supported",
+            "source_excerpt": "The fictional design team North Studio has introduced a shared content calendar for its five members.",
+            "reason": "The source states that North Studio has five members, directly supporting the claim."
+          },
+          {
+            "claim": "North Studio has fifty members.",
+            "verdict": "contradicted",
+            "source_excerpt": "The fictional design team North Studio has introduced a shared content calendar for its five members.",
+            "reason": "The source states that North Studio has five members, which contradicts the claim that it has fifty members."
+          }
+        ],
+        "supported_claim_rate": 0.3333333333333333,
+        "requires_review": true,
+        "input_tokens": 755,
+        "output_tokens": 236,
+        "reported_cost_usd": 0.0008165,
+        "latency_ms": 2508
+      }
+    },
+    {
+      "id": "example-bd9c66b3ad3c2d6d",
+      "source_case_id": "01",
+      "split": "development",
+      "platform": "x",
+      "draft": "Schedules can be saved in a database. Read the full guide",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "Schedules can be saved in a database.",
+          "verdict": "supported",
+          "source_excerpt": "A publishing application can save schedules in a database and let a worker process them when due."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Schedules can be saved in a database.",
+            "verdict": "supported",
+            "source_excerpt": "A publishing application can save schedules in a database and let a worker process them when due.",
+            "reason": "The source states that a publishing application can save schedules in a database."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 742,
+        "output_tokens": 88,
+        "reported_cost_usd": 0.0004426,
+        "latency_ms": 1569
+      }
+    },
+    {
+      "id": "example-18c267976142ea7d",
+      "source_case_id": "03",
+      "split": "development",
+      "platform": "x",
+      "draft": "Organizers should publish the agenda. This method guarantees 100 attendees. Share your planning tip",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.5,
+      "gold_claims": [
+        {
+          "claim": "Organizers should publish the agenda.",
+          "verdict": "supported",
+          "source_excerpt": "Organizers should publish the agenda and tell attendees what materials to bring."
+        },
+        {
+          "claim": "This method guarantees 100 attendees.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Organizers should publish the agenda.",
+            "verdict": "supported",
+            "source_excerpt": "Organizers should publish the agenda and tell attendees what materials to bring.",
+            "reason": "The source explicitly states that organizers should publish the agenda."
+          },
+          {
+            "claim": "This method guarantees 100 attendees.",
+            "verdict": "unsupported",
+            "source_excerpt": "The guide does not estimate attendance or promise a particular turnout.",
+            "reason": "The source explicitly states that the guide does not estimate attendance or promise a particular turnout, therefore, the claim of guaranteeing 100 attendees is not supported."
+          }
+        ],
+        "supported_claim_rate": 0.5,
+        "requires_review": true,
+        "input_tokens": 754,
+        "output_tokens": 168,
+        "reported_cost_usd": 0.0006462,
+        "latency_ms": 1887
+      }
+    },
+    {
+      "id": "example-f50bea63371ecd7b",
+      "source_case_id": "03",
+      "split": "development",
+      "platform": "x",
+      "draft": "Feedback after the session helps plan the next workshop. Organizers should publish the agenda. Share your planning tip",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "Feedback after the session helps plan the next workshop.",
+          "verdict": "supported",
+          "source_excerpt": "Collecting feedback after the session helps organizers plan the next workshop."
+        },
+        {
+          "claim": "Organizers should publish the agenda.",
+          "verdict": "supported",
+          "source_excerpt": "Organizers should publish the agenda and tell attendees what materials to bring."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Feedback after the session helps plan the next workshop.",
+            "verdict": "supported",
+            "source_excerpt": "Collecting feedback after the session helps organizers plan the next workshop.",
+            "reason": "The source explicitly states that collecting feedback after the session helps organizers plan the next workshop."
+          },
+          {
+            "claim": "Organizers should publish the agenda.",
+            "verdict": "supported",
+            "source_excerpt": "Organizers should publish the agenda and tell attendees what materials to bring.",
+            "reason": "The source explicitly states that organizers should publish the agenda."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 756,
+        "output_tokens": 153,
+        "reported_cost_usd": 0.0006093,
+        "latency_ms": 2069
+      }
+    },
+    {
+      "id": "example-0b1f9163ce9ff57f",
+      "source_case_id": "03",
+      "split": "development",
+      "platform": "x",
+      "draft": "Feedback after the session helps plan the next workshop. This method guarantees 100 attendees. Share your planning tip",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.5,
+      "gold_claims": [
+        {
+          "claim": "Feedback after the session helps plan the next workshop.",
+          "verdict": "supported",
+          "source_excerpt": "Collecting feedback after the session helps organizers plan the next workshop."
+        },
+        {
+          "claim": "This method guarantees 100 attendees.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Feedback after the session helps plan the next workshop.",
+            "verdict": "supported",
+            "source_excerpt": "Collecting feedback after the session helps organizers plan the next workshop.",
+            "reason": "The source explicitly states that collecting feedback after the session helps organizers plan the next workshop."
+          },
+          {
+            "claim": "This method guarantees 100 attendees.",
+            "verdict": "unsupported",
+            "source_excerpt": "The guide does not estimate attendance or promise a particular turnout.",
+            "reason": "The source explicitly states that the guide does not estimate attendance or promise a particular turnout, therefore there is no basis for a guarantee of 100 attendees."
+          }
+        ],
+        "supported_claim_rate": 0.5,
+        "requires_review": true,
+        "input_tokens": 760,
+        "output_tokens": 175,
+        "reported_cost_usd": 0.0006655,
+        "latency_ms": 2211
+      }
+    },
+    {
+      "id": "example-4737819096da1dac",
+      "source_case_id": "03",
+      "split": "development",
+      "platform": "x",
+      "draft": "Feedback after the session helps plan the next workshop. Share your planning tip",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "Feedback after the session helps plan the next workshop.",
+          "verdict": "supported",
+          "source_excerpt": "Collecting feedback after the session helps organizers plan the next workshop."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Feedback after the session helps plan the next workshop.",
+            "verdict": "supported",
+            "source_excerpt": "Collecting feedback after the session helps organizers plan the next workshop.",
+            "reason": "The source explicitly states that 'Collecting feedback after the session helps organizers plan the next workshop.'"
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 741,
+        "output_tokens": 87,
+        "reported_cost_usd": 0.0004398,
+        "latency_ms": 1944
+      }
+    },
+    {
+      "id": "example-6c307511b2b9437a",
+      "source_case_id": "03",
+      "split": "development",
+      "platform": "x",
+      "draft": "Organizers should publish the agenda. Share your planning tip",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "Organizers should publish the agenda.",
+          "verdict": "supported",
+          "source_excerpt": "Organizers should publish the agenda and tell attendees what materials to bring."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Organizers should publish the agenda.",
+            "verdict": "supported",
+            "source_excerpt": "Organizers should publish the agenda and tell attendees what materials to bring.",
+            "reason": "The source explicitly states that 'Organizers should publish the agenda'."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 735,
+        "output_tokens": 81,
+        "reported_cost_usd": 0.000423,
+        "latency_ms": 1333
+      }
+    }
+  ],
+  "elapsed_seconds": 5.95,
+  "metrics": {
+    "all": {
+      "examples": 9,
+      "succeeded": 9,
+      "failed": 0,
+      "scored_claims": 14,
+      "total_claims": 14,
+      "correct_claims": 14,
+      "claim_accuracy_on_successes": 1.0,
+      "correct_claim_fraction_all_attempts": 1.0,
+      "confusion_matrix": {
+        "supported": {
+          "supported": 9,
+          "contradicted": 0,
+          "unsupported": 0
+        },
+        "contradicted": {
+          "supported": 0,
+          "contradicted": 3,
+          "unsupported": 0
+        },
+        "unsupported": {
+          "supported": 0,
+          "contradicted": 0,
+          "unsupported": 2
+        }
+      },
+      "per_verdict": {
+        "supported": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 9
+        },
+        "contradicted": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 3
+        },
+        "unsupported": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 2
+        }
+      },
+      "flawed_drafts_caught": 4,
+      "flawed_drafts_scored": 4,
+      "flawed_drafts_missed": 0,
+      "accurate_drafts_scored": 5,
+      "accurate_drafts_flagged": 0,
+      "disagreements": []
+    },
+    "development": {
+      "examples": 9,
+      "succeeded": 9,
+      "failed": 0,
+      "scored_claims": 14,
+      "total_claims": 14,
+      "correct_claims": 14,
+      "claim_accuracy_on_successes": 1.0,
+      "correct_claim_fraction_all_attempts": 1.0,
+      "confusion_matrix": {
+        "supported": {
+          "supported": 9,
+          "contradicted": 0,
+          "unsupported": 0
+        },
+        "contradicted": {
+          "supported": 0,
+          "contradicted": 3,
+          "unsupported": 0
+        },
+        "unsupported": {
+          "supported": 0,
+          "contradicted": 0,
+          "unsupported": 2
+        }
+      },
+      "per_verdict": {
+        "supported": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 9
+        },
+        "contradicted": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 3
+        },
+        "unsupported": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 2
+        }
+      },
+      "flawed_drafts_caught": 4,
+      "flawed_drafts_scored": 4,
+      "flawed_drafts_missed": 0,
+      "accurate_drafts_scored": 5,
+      "accurate_drafts_flagged": 0,
+      "disagreements": []
+    },
+    "holdout": {
+      "examples": 0,
+      "succeeded": 0,
+      "failed": 0,
+      "scored_claims": 0,
+      "total_claims": 0,
+      "correct_claims": 0,
+      "claim_accuracy_on_successes": null,
+      "correct_claim_fraction_all_attempts": null,
+      "confusion_matrix": {
+        "supported": {
+          "supported": 0,
+          "contradicted": 0,
+          "unsupported": 0
+        },
+        "contradicted": {
+          "supported": 0,
+          "contradicted": 0,
+          "unsupported": 0
+        },
+        "unsupported": {
+          "supported": 0,
+          "contradicted": 0,
+          "unsupported": 0
+        }
+      },
+      "per_verdict": {
+        "supported": {
+          "precision": null,
+          "recall": null,
+          "gold_count": 0
+        },
+        "contradicted": {
+          "precision": null,
+          "recall": null,
+          "gold_count": 0
+        },
+        "unsupported": {
+          "precision": null,
+          "recall": null,
+          "gold_count": 0
+        }
+      },
+      "flawed_drafts_caught": 0,
+      "flawed_drafts_scored": 0,
+      "flawed_drafts_missed": 0,
+      "accurate_drafts_scored": 0,
+      "accurate_drafts_flagged": 0,
+      "disagreements": []
+    }
+  },
+  "reported_cost_usd": 0.0049087,
+  "runs_with_reported_cost": 9,
+  "input_tokens": 6704,
+  "output_tokens": 1159,
+  "average_latency_ms": 1905
+}

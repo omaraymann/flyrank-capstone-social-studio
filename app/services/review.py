@@ -47,6 +47,8 @@ def edit_variant(variant: PlatformVariant, content: str):
 
 
 def approve_variant(variant: PlatformVariant):
+    if variant.fact_recheck_required:
+        raise InvalidStatusTransition("Recheck facts before approving an AI-edited draft")
     validate_variant(variant.platform, variant.content)
     change_status(variant, VariantStatus.APPROVED)
     variant.rejection_reason = None

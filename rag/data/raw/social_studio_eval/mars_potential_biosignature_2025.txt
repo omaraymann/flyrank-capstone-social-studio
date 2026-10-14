@@ -1,0 +1,72 @@
+6 min read
+NASA Says Mars Rover Discovered Potential Biosignature Last Year
+Jessica Taveau
+Sep 10, 2025
+RELEASE
+25-061
+NASA Headquarters
+Jet Propulsion Laboratory
+Lee este comunicado de prensa en español
+aquí
+.
+A sample collected by NASA’s Perseverance Mars rover from an ancient dry riverbed in Jezero Crater could preserve evidence of ancient microbial life. Taken from a rock named “Cheyava Falls” last year, the sample, called “Sapphire Canyon,” contains potential biosignatures, according to a
+paper
+published Wednesday in the journal Nature.
+A
+potential biosignature
+is a substance or structure that might have a biological origin but requires more data or further study before a conclusion can be reached about the absence or presence of life.
+“This finding by Perseverance, launched under President Trump in his first term, is the closest we have ever come to discovering life on Mars. The identification of a potential biosignature on the Red Planet is a groundbreaking discovery, and one that will advance our understanding of Mars,” said acting NASA Administrator Sean Duffy. “NASA’s commitment to conducting Gold Standard Science will continue as we pursue our goal of putting American boots on Mars’ rocky soil.”
+Perseverance came upon
+Cheyava Falls in July 2024
+while exploring the “Bright Angel” formation, a set of rocky outcrops on the northern and southern edges of Neretva Vallis, an ancient river valley measuring a quarter-mile (400 meters) wide that was carved by water rushing into Jezero Crater long ago.
+“This finding is the direct result of NASA’s effort to strategically plan, develop, and execute a mission able to deliver exactly this type of science — the identification of a potential biosignature on Mars,” said Nicky Fox, associate administrator, Science Mission Directorate at NASA Headquarters in Washington. “With the publication of this peer-reviewed result, NASA makes this data available to the wider science community for further study to confirm or refute its biological potential.”
+The rover’s science instruments found that the formation’s sedimentary rocks are composed of clay and silt, which, on Earth, are excellent preservers of past microbial life. They also are rich in organic carbon, sulfur, oxidized iron (rust), and phosphorous.
+“The combination of chemical compounds we found in the Bright Angel formation could have been a rich source of energy for microbial metabolisms,” said Perseverance scientist Joel Hurowitz of Stony Brook University, New York and lead author of the paper. “But just because we saw all these compelling chemical signatures in the data didn’t mean we had a potential biosignature. We needed to analyze what that data could mean.”
+First to collect data on this rock were Perseverance’s
+PIXL
+(Planetary Instrument for X-ray Lithochemistry) and
+SHERLOC
+(Scanning Habitable Environments with Raman & Luminescence for Organics & Chemicals) instruments. While investigating Cheyava Falls, an arrowhead-shaped rock measuring 3.2 feet by 2 feet (1 meter by 0.6 meters), they found what appeared to be colorful spots. The spots on the rock could have been left behind by microbial life if it had used the raw ingredients, the organic carbon, sulfur, and phosphorus, in the rock as an energy source.
+In higher-resolution images, the instruments found a distinct pattern of minerals arranged into reaction fronts (points of contact where chemical and physical reactions occur) the team called leopard spots. The spots carried the signature of two iron-rich minerals: vivianite (hydrated iron phosphate) and greigite (iron sulfide). Vivianite is frequently found on Earth in sediments, peat bogs, and around decaying organic matter. Similarly, certain forms of microbial life on Earth can produce greigite.
+The combination of these minerals, which appear to have formed by electron-transfer reactions between the sediment and organic matter, is a potential fingerprint for microbial life, which would use these reactions to produce energy for growth. The minerals also can be generated abiotically, or without the presence of life. Hence, there are ways to produce them without biological reactions, including sustained high temperatures, acidic conditions, and binding by organic compounds. However, the rocks at Bright Angel do not show evidence that they experienced high temperatures or acidic conditions, and it is unknown whether the organic compounds present would’ve been capable of catalyzing the reaction at low temperatures.
+The discovery was particularly surprising because it involves some of the youngest sedimentary rocks the mission has investigated. An earlier hypothesis assumed signs of ancient life would be confined to older rock formations. This finding suggests that Mars could have been habitable for a longer period or later in the planet’s history than previously thought, and that older rocks also might hold signs of life that are simply harder to detect.
+“Astrobiological claims, particularly those related to the potential discovery of past extraterrestrial life, require extraordinary evidence,” said Katie Stack Morgan, Perseverance’s project scientist at NASA’s Jet Propulsion Laboratory in Southern California. “Getting such a significant finding as a potential biosignature on Mars into a peer-reviewed publication is a crucial step in the scientific process because it ensures the rigor, validity, and significance of our results. And while abiotic explanations for what we see at Bright Angel are less likely given the paper’s findings, we cannot rule them out.”
+The scientific community uses tools and frameworks like the CoLD scale and
+Standards of Evidence
+to assess whether data related to the search for life actually answers the question, Are we alone?  Such tools help improve understanding of how much confidence to place in data suggesting a possible signal of life found outside our own planet.
+Marked by seven benchmarks, the Confidence of Life Detection, or CoLD, scale outlines a progression in confidence that a set of observations stands as evidence of life.
+Credit: NASA
+Sapphire Canyon is one of
+27 rock cores
+the rover has collected since landing at Jezero Crater in February 2021. Among the suite of science instruments is a weather station that provides environmental information for future human missions, as well as swatches of
+spacesuit material
+so that NASA can study how it fares on Mars.
+Managed for NASA by Caltech, NASA JPL built and manages operations of the Perseverance rover on behalf of the agency’s Science Mission Directorate as part of NASA’s Mars Exploration Program portfolio.
+To learn more about Perseverance visit:
+https://science.nasa.gov/mission/mars-2020-perseverance
+-end-
+Bethany Stevens / Karen Fox
+Headquarters, Washington
+202-358-1600
+bethany.c.stevens@nasa.gov
+/
+karen.c.fox@nasa.gov
+DC Agle
+Jet Propulsion Laboratory, Pasadena, Calif.
+818-393-9011
+agle@jpl.nasa.gov
+Share
+Details
+Last Updated
+Sep 10, 2025
+Editor
+Jessica Taveau
+Location
+NASA Headquarters
+Related Terms
+Perseverance (Rover)
+Astrobiology
+Mars
+Mars 2020
+Planetary Science
+Science Mission Directorate

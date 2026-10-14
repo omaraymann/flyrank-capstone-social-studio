@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import CheckConstraint, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint
+from sqlalchemy import CheckConstraint, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint, JSON, Index, text, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
@@ -44,6 +44,7 @@ class PlatformVariant(Base):
     platform: Mapped[str] = mapped_column(String(30))
     content: Mapped[str] = mapped_column(Text)
     status: Mapped[str] = mapped_column(String(30), default="draft")
+    fact_recheck_required: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false")
     rejection_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
     reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
@@ -75,6 +76,10 @@ class GenerationRun(Base):
     estimated_cost_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
     latency_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)
     repair_count: Mapped[int] = mapped_column(Integer, default=0)
+    rag_enabled: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false")
+    rag_top_k: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    rag_model_id: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    rag_context: Mapped[list | None] = mapped_column(JSON, nullable=True)
     status: Mapped[str] = mapped_column(String(30), default="processing")
     error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
@@ -136,3 +141,54 @@ class PublishAttempt(Base):
     error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
     started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class FactCheck(Base):
+    __tablename__ = "fact_checks"
+    __table_args__ = (
+        CheckConstraint("status IN ('processing', 'succeeded', 'failed')", name="ck_fact_checks_status"),
+        Index("uq_fact_checks_processing_variant", "variant_id", unique=True,
+              sqlite_where=text("status = 'processing'"), postgresql_where=text("status = 'processing'")),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True)
+    variant_id: Mapped[int] = mapped_column(ForeignKey("platform_variants.id", ondelete="CASCADE"), index=True)
+    draft_snapshot: Mapped[str] = mapped_column(Text)
+    source_snapshot: Mapped[str] = mapped_column(Text)
+    draft_hash: Mapped[str] = mapped_column(String(64))
+    source_hash: Mapped[str] = mapped_column(String(64))
+    prompt_version: Mapped[str] = mapped_column(String(50))
+    extraction_model: Mapped[str] = mapped_column(String(150))
+    audit_model: Mapped[str] = mapped_column(String(150))
+    status: Mapped[str] = mapped_column(String(30), default="processing")
+    result: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class RevisionSuggestion(Base):
+    __tablename__ = "revision_suggestions"
+    __table_args__ = (
+        CheckConstraint("status IN ('processing', 'succeeded', 'failed')", name="ck_revision_suggestions_status"),
+        Index("uq_revision_suggestions_processing_variant", "variant_id", unique=True,
+            sqlite_where=text("status = 'processing'"), postgresql_where=text("status = 'processing'")),
+    )
+    id: Mapped[int] = mapped_column(primary_key=True)
+    variant_id: Mapped[int] = mapped_column(ForeignKey("platform_variants.id", ondelete="CASCADE"), index=True)
+    fact_check_id: Mapped[int] = mapped_column(ForeignKey("fact_checks.id", ondelete="CASCADE"))
+    draft_snapshot: Mapped[str] = mapped_column(Text)
+    draft_hash: Mapped[str] = mapped_column(String(64))
+    source_hash: Mapped[str] = mapped_column(String(64))
+    call_to_action: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    suggested_content: Mapped[str | None] = mapped_column(Text, nullable=True)
+    model: Mapped[str] = mapped_column(String(150))
+    prompt_version: Mapped[str] = mapped_column(String(50))
+    status: Mapped[str] = mapped_column(String(30), default="processing")
+    input_tokens: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    output_tokens: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    reported_cost_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
+    latency_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    applied_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

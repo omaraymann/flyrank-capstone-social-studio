@@ -1,0 +1,896 @@
+{
+  "started_at": "2026-10-11T18:40:01.644487+00:00",
+  "model": "google/gemini-2.5-flash",
+  "scope": "Six user-pasted generated drafts, two fictional sources; extraction mode, no supplied claims or labels. No regeneration or prompt changes.",
+  "sources": {
+    "library": "Brookfield Library tested longer opening hours for six weeks. During the trial, average weekly visits increased from 800 to 1,000—a 25% increase. The library also held two community events during this period, so staff cannot determine whether longer hours alone caused the increase. Visitor satisfaction was not measured. The library has not decided whether to make the new hours permanent.",
+    "notenest": "NoteNest, a fictional note-taking app, has introduced shared folders for its existing desktop beta users. Folder owners can invite up to five collaborators, who can view and edit notes. Offline collaboration and mobile access are not included in this release. The company has not announced pricing or a public launch date. Feedback from beta users will help inform future updates."
+  },
+  "manual_review_before_judge": {
+    "library/x": "Core facts supported; no explicit causal assertion.",
+    "library/linkedin": "Core facts supported; events may have contributed is tentative interpretation; preserve source uncertainty. Recently concluded adds timing not explicitly given.",
+    "library/discord": "Core facts supported; only reason is ambiguous, not a clear causal assertion. We assumes library-account voice. Just finished adds timing not explicitly given.",
+    "notenest/x": "Core features supported; offline access is broader than source offline collaboration.",
+    "notenest/linkedin": "Core features supported; not yet available may imply a future roadmap but does not promise one. We assumes company-account voice.",
+    "notenest/discord": "Core features supported; offline access broader than offline collaboration. First version not established; source only says this release. Better is promotional language."
+  },
+  "results": [
+    {
+      "case": "library",
+      "platform": "x",
+      "draft": "Brookfield Library's 6-week trial of longer opening hours saw average weekly visits rise from 800 to 1,000. Two community events were also held during this period. Read the trial summary. #BrookfieldLibrary #Community",
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-pro",
+        "prompt_version": "factuality-judge-v7",
+        "claims": [
+          {
+            "claim": "Brookfield Library's 6-week trial of longer opening hours saw average weekly visits rise from 800 to 1,000.",
+            "verdict": "supported",
+            "source_excerpt": "During the trial, average weekly visits increased from 800 to 1,000—a 25% increase.",
+            "reason": "The source confirms the duration of the trial was six weeks and states, \"During the trial, average weekly visits increased from 800 to 1,000\"."
+          },
+          {
+            "claim": "Two community events were also held during this period.",
+            "verdict": "supported",
+            "source_excerpt": "The library also held two community events during this period, so staff cannot determine whether longer hours alone caused the increase.",
+            "reason": "The source explicitly states, \"The library also held two community events during this period\"."
+          }
+        ],
+        "excluded_non_factual": [
+          {
+            "claim": "Read the trial summary.",
+            "verdict": "non_factual",
+            "source_excerpt": null,
+            "reason": "This is a call to action and not a factual claim."
+          },
+          {
+            "claim": "#BrookfieldLibrary #Community",
+            "verdict": "non_factual",
+            "source_excerpt": null,
+            "reason": "These are hashtags and do not contain factual claims."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 1656,
+        "output_tokens": 1440,
+        "reported_cost_usd": 0.01332635,
+        "latency_ms": 13733,
+        "extraction_model": "google/gemini-2.5-flash",
+        "stages": [
+          {
+            "status": "succeeded",
+            "model": "google/gemini-2.5-flash",
+            "prompt_version": "factuality-judge-v4",
+            "claims": [
+              {
+                "claim": "Brookfield Library's 6-week trial of longer opening hours saw average weekly visits rise from 800 to 1,000.",
+                "verdict": "supported",
+                "source_excerpt": "Brookfield Library tested longer opening hours for six weeks. During the trial, average weekly visits increased from 800 to 1,000",
+                "reason": "The source explicitly states that the trial lasted six weeks and that average weekly visits increased from 800 to 1,000 during this period."
+              },
+              {
+                "claim": "Two community events were also held during this period.",
+                "verdict": "supported",
+                "source_excerpt": "The library also held two community events during this period",
+                "reason": "The source confirms that two community events were held during the trial period."
+              }
+            ],
+            "excluded_non_factual": [
+              {
+                "claim": "Read the trial summary.",
+                "verdict": "non_factual",
+                "source_excerpt": null,
+                "reason": "This is a call to action and not a factual claim."
+              },
+              {
+                "claim": "#BrookfieldLibrary #Community",
+                "verdict": "non_factual",
+                "source_excerpt": null,
+                "reason": "These are hashtags and do not contain factual claims."
+              }
+            ],
+            "supported_claim_rate": 1.0,
+            "requires_review": false,
+            "input_tokens": 767,
+            "output_tokens": 322,
+            "reported_cost_usd": 0.0010351,
+            "latency_ms": 3081
+          },
+          {
+            "status": "succeeded",
+            "model": "google/gemini-2.5-pro",
+            "prompt_version": "factuality-classification-v7",
+            "claims": [
+              {
+                "claim": "Brookfield Library's 6-week trial of longer opening hours saw average weekly visits rise from 800 to 1,000.",
+                "verdict": "supported",
+                "source_excerpt": "During the trial, average weekly visits increased from 800 to 1,000—a 25% increase.",
+                "reason": "The source confirms the duration of the trial was six weeks and states, \"During the trial, average weekly visits increased from 800 to 1,000\"."
+              },
+              {
+                "claim": "Two community events were also held during this period.",
+                "verdict": "supported",
+                "source_excerpt": "The library also held two community events during this period, so staff cannot determine whether longer hours alone caused the increase.",
+                "reason": "The source explicitly states, \"The library also held two community events during this period\"."
+              }
+            ],
+            "excluded_non_factual": [],
+            "supported_claim_rate": 1.0,
+            "requires_review": false,
+            "input_tokens": 889,
+            "output_tokens": 1118,
+            "reported_cost_usd": 0.01229125,
+            "latency_ms": 10652
+          }
+        ]
+      }
+    },
+    {
+      "case": "library",
+      "platform": "linkedin",
+      "draft": "Brookfield Library recently concluded a six-week trial of extended opening hours. During this period, the library observed an increase in average weekly visits from 800 to 1,000. It is noted that two community events were also hosted during the trial, which may have contributed to the increased visitation. The library has not yet made a decision regarding the permanence of the new hours. Read the trial summary. #BrookfieldLibrary #CommunityEngagement #LibraryServices",
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-pro",
+        "prompt_version": "factuality-judge-v7",
+        "claims": [
+          {
+            "claim": "Brookfield Library recently concluded a six-week trial of extended opening hours.",
+            "verdict": "unsupported",
+            "source_excerpt": "Brookfield Library tested longer opening hours for six weeks.",
+            "reason": "The source confirms a six-week trial of longer hours but does not state that it \"recently concluded.\" The timing of the trial is not mentioned."
+          },
+          {
+            "claim": "During this period, the library observed an increase in average weekly visits from 800 to 1,000.",
+            "verdict": "supported",
+            "source_excerpt": "During the trial, average weekly visits increased from 800 to 1,000—a 25% increase.",
+            "reason": "The source explicitly states that during the trial, \"average weekly visits increased from 800 to 1,000\"."
+          },
+          {
+            "claim": "It is noted that two community events were also hosted during the trial, which may have contributed to the increased visitation.",
+            "verdict": "supported",
+            "source_excerpt": "The library also held two community events during this period, so staff cannot determine whether longer hours alone caused the increase.",
+            "reason": "The source states that two community events were held and that staff \"cannot determine whether longer hours alone caused the increase,\" which implies the events may have been a contributing factor."
+          },
+          {
+            "claim": "The library has not yet made a decision regarding the permanence of the new hours.",
+            "verdict": "supported",
+            "source_excerpt": "The library has not decided whether to make the new hours permanent.",
+            "reason": "The source directly states, \"The library has not decided whether to make the new hours permanent.\""
+          }
+        ],
+        "excluded_non_factual": [
+          {
+            "claim": "Read the trial summary.",
+            "verdict": "non_factual",
+            "source_excerpt": null,
+            "reason": "This is a call to action and not a factual assertion."
+          },
+          {
+            "claim": "#BrookfieldLibrary #CommunityEngagement #LibraryServices",
+            "verdict": "non_factual",
+            "source_excerpt": null,
+            "reason": "These are hashtags and do not contain factual claims."
+          }
+        ],
+        "supported_claim_rate": 0.75,
+        "requires_review": true,
+        "input_tokens": 1780,
+        "output_tokens": 1788,
+        "reported_cost_usd": 0.01542895,
+        "latency_ms": 13869,
+        "extraction_model": "google/gemini-2.5-flash",
+        "stages": [
+          {
+            "status": "succeeded",
+            "model": "google/gemini-2.5-flash",
+            "prompt_version": "factuality-judge-v4",
+            "claims": [
+              {
+                "claim": "Brookfield Library recently concluded a six-week trial of extended opening hours.",
+                "verdict": "supported",
+                "source_excerpt": "Brookfield Library tested longer opening hours for six weeks.",
+                "reason": "The source states the library tested longer opening hours for six weeks, which aligns with the draft's claim of a six-week trial of extended opening hours."
+              },
+              {
+                "claim": "During this period, the library observed an increase in average weekly visits from 800 to 1,000.",
+                "verdict": "supported",
+                "source_excerpt": "During the trial, average weekly visits increased from 800 to 1,000",
+                "reason": "The source directly states that average weekly visits increased from 800 to 1,000 during the trial period."
+              },
+              {
+                "claim": "It is noted that two community events were also hosted during the trial, which may have contributed to the increased visitation.",
+                "verdict": "supported",
+                "source_excerpt": "The library also held two community events during this period, so staff cannot determine whether longer hours alone caused the increase.",
+                "reason": "The source confirms that two community events were held during the trial and that staff could not determine if longer hours alone caused the increase, implying the events may have contributed."
+              },
+              {
+                "claim": "The library has not yet made a decision regarding the permanence of the new hours.",
+                "verdict": "supported",
+                "source_excerpt": "The library has not decided whether to make the new hours permanent.",
+                "reason": "The source explicitly states that the library has not decided whether to make the new hours permanent."
+              }
+            ],
+            "excluded_non_factual": [
+              {
+                "claim": "Read the trial summary.",
+                "verdict": "non_factual",
+                "source_excerpt": null,
+                "reason": "This is a call to action and not a factual assertion."
+              },
+              {
+                "claim": "#BrookfieldLibrary #CommunityEngagement #LibraryServices",
+                "verdict": "non_factual",
+                "source_excerpt": null,
+                "reason": "These are hashtags and do not contain factual claims."
+              }
+            ],
+            "supported_claim_rate": 1.0,
+            "requires_review": false,
+            "input_tokens": 809,
+            "output_tokens": 521,
+            "reported_cost_usd": 0.0015452,
+            "latency_ms": 3058
+          },
+          {
+            "status": "succeeded",
+            "model": "google/gemini-2.5-pro",
+            "prompt_version": "factuality-classification-v7",
+            "claims": [
+              {
+                "claim": "Brookfield Library recently concluded a six-week trial of extended opening hours.",
+                "verdict": "unsupported",
+                "source_excerpt": "Brookfield Library tested longer opening hours for six weeks.",
+                "reason": "The source confirms a six-week trial of longer hours but does not state that it \"recently concluded.\" The timing of the trial is not mentioned."
+              },
+              {
+                "claim": "During this period, the library observed an increase in average weekly visits from 800 to 1,000.",
+                "verdict": "supported",
+                "source_excerpt": "During the trial, average weekly visits increased from 800 to 1,000—a 25% increase.",
+                "reason": "The source explicitly states that during the trial, \"average weekly visits increased from 800 to 1,000\"."
+              },
+              {
+                "claim": "It is noted that two community events were also hosted during the trial, which may have contributed to the increased visitation.",
+                "verdict": "supported",
+                "source_excerpt": "The library also held two community events during this period, so staff cannot determine whether longer hours alone caused the increase.",
+                "reason": "The source states that two community events were held and that staff \"cannot determine whether longer hours alone caused the increase,\" which implies the events may have been a contributing factor."
+              },
+              {
+                "claim": "The library has not yet made a decision regarding the permanence of the new hours.",
+                "verdict": "supported",
+                "source_excerpt": "The library has not decided whether to make the new hours permanent.",
+                "reason": "The source directly states, \"The library has not decided whether to make the new hours permanent.\""
+              }
+            ],
+            "excluded_non_factual": [],
+            "supported_claim_rate": 0.75,
+            "requires_review": true,
+            "input_tokens": 971,
+            "output_tokens": 1267,
+            "reported_cost_usd": 0.01388375,
+            "latency_ms": 10811
+          }
+        ]
+      }
+    },
+    {
+      "case": "library",
+      "platform": "discord",
+      "draft": "Hey everyone! Brookfield Library just finished a 6-week trial with longer opening hours. We saw average weekly visits go up from 800 to 1,000! Just a heads up, we also had two community events during that time, so we're not sure if the longer hours were the only reason for the boost. No decisions yet on making the new hours permanent. Read the trial summary. #BrookfieldLibrary #LocalCommunity #LibraryNews",
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-pro",
+        "prompt_version": "factuality-judge-v7",
+        "claims": [
+          {
+            "claim": "Brookfield Library just finished a 6-week trial with longer opening hours.",
+            "verdict": "unsupported",
+            "source_excerpt": "Brookfield Library tested longer opening hours for six weeks.",
+            "reason": "The source confirms a six-week trial of longer hours but does not state when it concluded, so the claim that it \"just finished\" is not supported."
+          },
+          {
+            "claim": "We saw average weekly visits go up from 800 to 1,000!",
+            "verdict": "supported",
+            "source_excerpt": "During the trial, average weekly visits increased from 800 to 1,000—a 25% increase.",
+            "reason": "The source explicitly states that during the trial, \"average weekly visits increased from 800 to 1,000\"."
+          },
+          {
+            "claim": "Just a heads up, we also had two community events during that time, so we're not sure if the longer hours were the only reason for the boost.",
+            "verdict": "supported",
+            "source_excerpt": "The library also held two community events during this period, so staff cannot determine whether longer hours alone caused the increase.",
+            "reason": "The source states that the library held two community events and that \"staff cannot determine whether longer hours alone caused the increase,\" which aligns with the claim's uncertainty."
+          },
+          {
+            "claim": "No decisions yet on making the new hours permanent.",
+            "verdict": "supported",
+            "source_excerpt": "The library has not decided whether to make the new hours permanent.",
+            "reason": "The source directly states, \"The library has not decided whether to make the new hours permanent.\""
+          }
+        ],
+        "excluded_non_factual": [
+          {
+            "claim": "Hey everyone!",
+            "verdict": "non_factual",
+            "source_excerpt": null,
+            "reason": "Greeting, not a factual claim."
+          },
+          {
+            "claim": "Read the trial summary.",
+            "verdict": "non_factual",
+            "source_excerpt": null,
+            "reason": "This is a call to action, not a factual claim."
+          },
+          {
+            "claim": "#BrookfieldLibrary #LocalCommunity #LibraryNews",
+            "verdict": "non_factual",
+            "source_excerpt": null,
+            "reason": "These are hashtags, not factual claims."
+          }
+        ],
+        "supported_claim_rate": 0.75,
+        "requires_review": true,
+        "input_tokens": 1781,
+        "output_tokens": 1686,
+        "reported_cost_usd": 0.01407175,
+        "latency_ms": 13386,
+        "extraction_model": "google/gemini-2.5-flash",
+        "stages": [
+          {
+            "status": "succeeded",
+            "model": "google/gemini-2.5-flash",
+            "prompt_version": "factuality-judge-v4",
+            "claims": [
+              {
+                "claim": "Brookfield Library just finished a 6-week trial with longer opening hours.",
+                "verdict": "supported",
+                "source_excerpt": "Brookfield Library tested longer opening hours for six weeks.",
+                "reason": "The source confirms the library tested longer opening hours for six weeks. The word 'just finished' is a reasonable inference from 'tested' in the context of a social media post about the trial results."
+              },
+              {
+                "claim": "We saw average weekly visits go up from 800 to 1,000!",
+                "verdict": "supported",
+                "source_excerpt": "During the trial, average weekly visits increased from 800 to 1,000",
+                "reason": "The source directly states the increase in average weekly visits from 800 to 1,000."
+              },
+              {
+                "claim": "Just a heads up, we also had two community events during that time, so we're not sure if the longer hours were the only reason for the boost.",
+                "verdict": "supported",
+                "source_excerpt": "The library also held two community events during this period, so staff cannot determine whether longer hours alone caused the increase.",
+                "reason": "The source confirms two community events were held and that staff cannot determine if longer hours alone caused the increase, matching the draft's statement."
+              },
+              {
+                "claim": "No decisions yet on making the new hours permanent.",
+                "verdict": "supported",
+                "source_excerpt": "The library has not decided whether to make the new hours permanent.",
+                "reason": "The source explicitly states that no decision has been made regarding making the new hours permanent."
+              }
+            ],
+            "excluded_non_factual": [
+              {
+                "claim": "Hey everyone!",
+                "verdict": "non_factual",
+                "source_excerpt": null,
+                "reason": "Greeting, not a factual claim."
+              },
+              {
+                "claim": "Read the trial summary.",
+                "verdict": "non_factual",
+                "source_excerpt": null,
+                "reason": "This is a call to action, not a factual claim."
+              },
+              {
+                "claim": "#BrookfieldLibrary #LocalCommunity #LibraryNews",
+                "verdict": "non_factual",
+                "source_excerpt": null,
+                "reason": "These are hashtags, not factual claims."
+              }
+            ],
+            "supported_claim_rate": 1.0,
+            "requires_review": false,
+            "input_tokens": 810,
+            "output_tokens": 566,
+            "reported_cost_usd": 0.001658,
+            "latency_ms": 3655
+          },
+          {
+            "status": "succeeded",
+            "model": "google/gemini-2.5-pro",
+            "prompt_version": "factuality-classification-v7",
+            "claims": [
+              {
+                "claim": "Brookfield Library just finished a 6-week trial with longer opening hours.",
+                "verdict": "unsupported",
+                "source_excerpt": "Brookfield Library tested longer opening hours for six weeks.",
+                "reason": "The source confirms a six-week trial of longer hours but does not state when it concluded, so the claim that it \"just finished\" is not supported."
+              },
+              {
+                "claim": "We saw average weekly visits go up from 800 to 1,000!",
+                "verdict": "supported",
+                "source_excerpt": "During the trial, average weekly visits increased from 800 to 1,000—a 25% increase.",
+                "reason": "The source explicitly states that during the trial, \"average weekly visits increased from 800 to 1,000\"."
+              },
+              {
+                "claim": "Just a heads up, we also had two community events during that time, so we're not sure if the longer hours were the only reason for the boost.",
+                "verdict": "supported",
+                "source_excerpt": "The library also held two community events during this period, so staff cannot determine whether longer hours alone caused the increase.",
+                "reason": "The source states that the library held two community events and that \"staff cannot determine whether longer hours alone caused the increase,\" which aligns with the claim's uncertainty."
+              },
+              {
+                "claim": "No decisions yet on making the new hours permanent.",
+                "verdict": "supported",
+                "source_excerpt": "The library has not decided whether to make the new hours permanent.",
+                "reason": "The source directly states, \"The library has not decided whether to make the new hours permanent.\""
+              }
+            ],
+            "excluded_non_factual": [],
+            "supported_claim_rate": 0.75,
+            "requires_review": true,
+            "input_tokens": 971,
+            "output_tokens": 1120,
+            "reported_cost_usd": 0.01241375,
+            "latency_ms": 9731
+          }
+        ]
+      }
+    },
+    {
+      "case": "notenest",
+      "platform": "x",
+      "draft": "NoteNest desktop beta users, get ready! Shared folders are here. Invite up to 5 collaborators to view and edit notes. Offline and mobile access are not included in this release. Explore the update #NoteNest #SharedFolders",
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-pro",
+        "prompt_version": "factuality-judge-v7",
+        "claims": [
+          {
+            "claim": "Shared folders are here.",
+            "verdict": "supported",
+            "source_excerpt": "NoteNest, a fictional note-taking app, has introduced shared folders for its existing desktop beta users.",
+            "reason": "The source states that NoteNest \"has introduced shared folders for its existing desktop beta users.\""
+          },
+          {
+            "claim": "Invite up to 5 collaborators to view and edit notes.",
+            "verdict": "supported",
+            "source_excerpt": "Folder owners can invite up to five collaborators, who can view and edit notes.",
+            "reason": "The source states, \"Folder owners can invite up to five collaborators, who can view and edit notes.\""
+          },
+          {
+            "claim": "Offline and mobile access are not included in this release.",
+            "verdict": "unsupported",
+            "source_excerpt": "Offline collaboration and mobile access are not included in this release.",
+            "reason": "The source states that \"Offline collaboration\" is not included, which is more specific than the claim's \"Offline access\". The source does not rule out other forms of offline access, such as viewing notes."
+          }
+        ],
+        "excluded_non_factual": [
+          {
+            "claim": "NoteNest desktop beta users, get ready!",
+            "verdict": "non_factual",
+            "source_excerpt": null,
+            "reason": "This is a call to action and an expression of enthusiasm, not a factual claim."
+          },
+          {
+            "claim": "Explore the update",
+            "verdict": "non_factual",
+            "source_excerpt": null,
+            "reason": "This is a call to action, not a factual claim."
+          }
+        ],
+        "supported_claim_rate": 0.6666666666666666,
+        "requires_review": true,
+        "input_tokens": 1584,
+        "output_tokens": 1737,
+        "reported_cost_usd": 0.01594975,
+        "latency_ms": 14359,
+        "extraction_model": "google/gemini-2.5-flash",
+        "stages": [
+          {
+            "status": "succeeded",
+            "model": "google/gemini-2.5-flash",
+            "prompt_version": "factuality-judge-v4",
+            "claims": [
+              {
+                "claim": "Shared folders are here.",
+                "verdict": "supported",
+                "source_excerpt": "NoteNest, a fictional note-taking app, has introduced shared folders for its existing desktop beta users.",
+                "reason": "The source states that NoteNest has introduced shared folders."
+              },
+              {
+                "claim": "Invite up to 5 collaborators to view and edit notes.",
+                "verdict": "supported",
+                "source_excerpt": "Folder owners can invite up to five collaborators, who can view and edit notes.",
+                "reason": "The source confirms that folder owners can invite up to five collaborators who can view and edit notes."
+              },
+              {
+                "claim": "Offline and mobile access are not included in this release.",
+                "verdict": "supported",
+                "source_excerpt": "Offline collaboration and mobile access are not included in this release.",
+                "reason": "The source explicitly states that offline collaboration and mobile access are not included in this release."
+              }
+            ],
+            "excluded_non_factual": [
+              {
+                "claim": "NoteNest desktop beta users, get ready!",
+                "verdict": "non_factual",
+                "source_excerpt": null,
+                "reason": "This is a call to action and an expression of enthusiasm, not a factual claim."
+              },
+              {
+                "claim": "Explore the update",
+                "verdict": "non_factual",
+                "source_excerpt": null,
+                "reason": "This is a call to action, not a factual claim."
+              }
+            ],
+            "supported_claim_rate": 1.0,
+            "requires_review": false,
+            "input_tokens": 745,
+            "output_tokens": 359,
+            "reported_cost_usd": 0.001121,
+            "latency_ms": 2825
+          },
+          {
+            "status": "succeeded",
+            "model": "google/gemini-2.5-pro",
+            "prompt_version": "factuality-classification-v7",
+            "claims": [
+              {
+                "claim": "Shared folders are here.",
+                "verdict": "supported",
+                "source_excerpt": "NoteNest, a fictional note-taking app, has introduced shared folders for its existing desktop beta users.",
+                "reason": "The source states that NoteNest \"has introduced shared folders for its existing desktop beta users.\""
+              },
+              {
+                "claim": "Invite up to 5 collaborators to view and edit notes.",
+                "verdict": "supported",
+                "source_excerpt": "Folder owners can invite up to five collaborators, who can view and edit notes.",
+                "reason": "The source states, \"Folder owners can invite up to five collaborators, who can view and edit notes.\""
+              },
+              {
+                "claim": "Offline and mobile access are not included in this release.",
+                "verdict": "unsupported",
+                "source_excerpt": "Offline collaboration and mobile access are not included in this release.",
+                "reason": "The source states that \"Offline collaboration\" is not included, which is more specific than the claim's \"Offline access\". The source does not rule out other forms of offline access, such as viewing notes."
+              }
+            ],
+            "excluded_non_factual": [],
+            "supported_claim_rate": 0.6666666666666666,
+            "requires_review": true,
+            "input_tokens": 839,
+            "output_tokens": 1378,
+            "reported_cost_usd": 0.01482875,
+            "latency_ms": 11534
+          }
+        ]
+      }
+    },
+    {
+      "case": "notenest",
+      "platform": "linkedin",
+      "draft": "Exciting news for NoteNest desktop beta users! We're rolling out shared folders, a new feature designed to enhance collaboration. Folder owners can now invite up to five collaborators to view and edit notes within shared folders. This initial release focuses on desktop functionality, with offline collaboration and mobile access not yet available. Your feedback as beta users will be invaluable in shaping future updates. Explore the update #NoteNest #ProductUpdate #Collaboration #BetaFeatures",
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-pro",
+        "prompt_version": "factuality-judge-v7",
+        "claims": [
+          {
+            "claim": "We're rolling out shared folders, a new feature designed to enhance collaboration.",
+            "verdict": "supported",
+            "source_excerpt": "NoteNest, a fictional note-taking app, has introduced shared folders for its existing desktop beta users.",
+            "reason": "The source states that NoteNest \"has introduced shared folders for its existing desktop beta users\" (passage 0) and that these folders allow owners to invite collaborators to view and edit notes (passage 1), which is a collaborative function."
+          },
+          {
+            "claim": "Folder owners can now invite up to five collaborators to view and edit notes within shared folders.",
+            "verdict": "supported",
+            "source_excerpt": "Folder owners can invite up to five collaborators, who can view and edit notes.",
+            "reason": "The source explicitly states, \"Folder owners can invite up to five collaborators, who can view and edit notes.\""
+          },
+          {
+            "claim": "This initial release focuses on desktop functionality",
+            "verdict": "supported",
+            "source_excerpt": "NoteNest, a fictional note-taking app, has introduced shared folders for its existing desktop beta users.",
+            "reason": "The source states the feature has been introduced \"for its existing desktop beta users\" and passage 2 confirms \"mobile access\" is not included, thereby establishing the focus on desktop functionality."
+          },
+          {
+            "claim": "with offline collaboration and mobile access not yet available.",
+            "verdict": "supported",
+            "source_excerpt": "Offline collaboration and mobile access are not included in this release.",
+            "reason": "The source directly states, \"Offline collaboration and mobile access are not included in this release,\" which means they are not yet available."
+          },
+          {
+            "claim": "Your feedback as beta users will be invaluable in shaping future updates.",
+            "verdict": "unsupported",
+            "source_excerpt": "Feedback from beta users will help inform future updates.",
+            "reason": "The source says, \"Feedback from beta users will help inform future updates.\" The claim's wording \"invaluable in shaping\" is an exaggeration; the source does not state the feedback will be \"invaluable\" or that it will \"shape\" updates, only that it will \"help inform\" them."
+          }
+        ],
+        "excluded_non_factual": [
+          {
+            "claim": "Exciting news for NoteNest desktop beta users!",
+            "verdict": "non_factual",
+            "source_excerpt": null,
+            "reason": "This is a subjective expression of enthusiasm and not a factual claim."
+          },
+          {
+            "claim": "Explore the update",
+            "verdict": "non_factual",
+            "source_excerpt": null,
+            "reason": "This is a call to action and not a factual claim."
+          },
+          {
+            "claim": "#NoteNest #ProductUpdate #Collaboration #BetaFeatures",
+            "verdict": "non_factual",
+            "source_excerpt": null,
+            "reason": "These are hashtags and do not contain factual claims."
+          }
+        ],
+        "supported_claim_rate": 0.8,
+        "requires_review": true,
+        "input_tokens": 1709,
+        "output_tokens": 2638,
+        "reported_cost_usd": 0.02326015,
+        "latency_ms": 22381,
+        "extraction_model": "google/gemini-2.5-flash",
+        "stages": [
+          {
+            "status": "succeeded",
+            "model": "google/gemini-2.5-flash",
+            "prompt_version": "factuality-judge-v4",
+            "claims": [
+              {
+                "claim": "We're rolling out shared folders, a new feature designed to enhance collaboration.",
+                "verdict": "supported",
+                "source_excerpt": "NoteNest, a fictional note-taking app, has introduced shared folders for its existing desktop beta users.",
+                "reason": "The source confirms the introduction of shared folders for desktop beta users."
+              },
+              {
+                "claim": "Folder owners can now invite up to five collaborators to view and edit notes within shared folders.",
+                "verdict": "supported",
+                "source_excerpt": "Folder owners can invite up to five collaborators, who can view and edit notes.",
+                "reason": "The source explicitly states that folder owners can invite up to five collaborators who can view and edit notes."
+              },
+              {
+                "claim": "This initial release focuses on desktop functionality",
+                "verdict": "supported",
+                "source_excerpt": "NoteNest, a fictional note-taking app, has introduced shared folders for its existing desktop beta users.",
+                "reason": "The source specifies that shared folders are for 'desktop beta users', implying a focus on desktop functionality for this release."
+              },
+              {
+                "claim": "with offline collaboration and mobile access not yet available.",
+                "verdict": "supported",
+                "source_excerpt": "Offline collaboration and mobile access are not included in this release.",
+                "reason": "The source explicitly states that 'Offline collaboration and mobile access are not included in this release'."
+              },
+              {
+                "claim": "Your feedback as beta users will be invaluable in shaping future updates.",
+                "verdict": "supported",
+                "source_excerpt": "Feedback from beta users will help inform future updates.",
+                "reason": "The source states that 'Feedback from beta users will help inform future updates', which aligns with the claim."
+              }
+            ],
+            "excluded_non_factual": [
+              {
+                "claim": "Exciting news for NoteNest desktop beta users!",
+                "verdict": "non_factual",
+                "source_excerpt": null,
+                "reason": "This is a subjective expression of enthusiasm and not a factual claim."
+              },
+              {
+                "claim": "Explore the update",
+                "verdict": "non_factual",
+                "source_excerpt": null,
+                "reason": "This is a call to action and not a factual claim."
+              },
+              {
+                "claim": "#NoteNest #ProductUpdate #Collaboration #BetaFeatures",
+                "verdict": "non_factual",
+                "source_excerpt": null,
+                "reason": "These are hashtags and do not contain factual claims."
+              }
+            ],
+            "supported_claim_rate": 1.0,
+            "requires_review": false,
+            "input_tokens": 788,
+            "output_tokens": 601,
+            "reported_cost_usd": 0.0017389,
+            "latency_ms": 3394
+          },
+          {
+            "status": "succeeded",
+            "model": "google/gemini-2.5-pro",
+            "prompt_version": "factuality-classification-v7",
+            "claims": [
+              {
+                "claim": "We're rolling out shared folders, a new feature designed to enhance collaboration.",
+                "verdict": "supported",
+                "source_excerpt": "NoteNest, a fictional note-taking app, has introduced shared folders for its existing desktop beta users.",
+                "reason": "The source states that NoteNest \"has introduced shared folders for its existing desktop beta users\" (passage 0) and that these folders allow owners to invite collaborators to view and edit notes (passage 1), which is a collaborative function."
+              },
+              {
+                "claim": "Folder owners can now invite up to five collaborators to view and edit notes within shared folders.",
+                "verdict": "supported",
+                "source_excerpt": "Folder owners can invite up to five collaborators, who can view and edit notes.",
+                "reason": "The source explicitly states, \"Folder owners can invite up to five collaborators, who can view and edit notes.\""
+              },
+              {
+                "claim": "This initial release focuses on desktop functionality",
+                "verdict": "supported",
+                "source_excerpt": "NoteNest, a fictional note-taking app, has introduced shared folders for its existing desktop beta users.",
+                "reason": "The source states the feature has been introduced \"for its existing desktop beta users\" and passage 2 confirms \"mobile access\" is not included, thereby establishing the focus on desktop functionality."
+              },
+              {
+                "claim": "with offline collaboration and mobile access not yet available.",
+                "verdict": "supported",
+                "source_excerpt": "Offline collaboration and mobile access are not included in this release.",
+                "reason": "The source directly states, \"Offline collaboration and mobile access are not included in this release,\" which means they are not yet available."
+              },
+              {
+                "claim": "Your feedback as beta users will be invaluable in shaping future updates.",
+                "verdict": "unsupported",
+                "source_excerpt": "Feedback from beta users will help inform future updates.",
+                "reason": "The source says, \"Feedback from beta users will help inform future updates.\" The claim's wording \"invaluable in shaping\" is an exaggeration; the source does not state the feedback will be \"invaluable\" or that it will \"shape\" updates, only that it will \"help inform\" them."
+              }
+            ],
+            "excluded_non_factual": [],
+            "supported_claim_rate": 0.8,
+            "requires_review": true,
+            "input_tokens": 921,
+            "output_tokens": 2037,
+            "reported_cost_usd": 0.02152125,
+            "latency_ms": 18987
+          }
+        ]
+      }
+    },
+    {
+      "case": "notenest",
+      "platform": "discord",
+      "draft": "Hey NoteNest desktop beta users! We've got a cool new update for you: shared folders are here! 🎉 You can now invite up to 5 friends or teammates to view and edit notes together. Just a heads-up, this first version is for desktop only, so no offline or mobile access yet. We're really keen to hear what you think, as your feedback will help us make it even better. Explore the update",
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-pro",
+        "prompt_version": "factuality-judge-v7",
+        "claims": [
+          {
+            "claim": "shared folders are here!",
+            "verdict": "supported",
+            "source_excerpt": "NoteNest, a fictional note-taking app, has introduced shared folders for its existing desktop beta users.",
+            "reason": "The source states that NoteNest \"has introduced shared folders for its existing desktop beta users.\""
+          },
+          {
+            "claim": "You can now invite up to 5 friends or teammates to view and edit notes together.",
+            "verdict": "supported",
+            "source_excerpt": "Folder owners can invite up to five collaborators, who can view and edit notes.",
+            "reason": "The source states: \"Folder owners can invite up to five collaborators, who can view and edit notes.\""
+          },
+          {
+            "claim": "Just a heads-up, this first version is for desktop only, so no offline or mobile access yet.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source refers to \"this release\" but does not explicitly state that it is the \"first version\" of the feature. While other parts of the claim are supported, this specific assertion is not present in the source text."
+          },
+          {
+            "claim": "We're really keen to hear what you think, as your feedback will help us make it even better.",
+            "verdict": "supported",
+            "source_excerpt": "Feedback from beta users will help inform future updates.",
+            "reason": "The source states, \"Feedback from beta users will help inform future updates,\" which supports the claim that feedback will be used for improvements."
+          }
+        ],
+        "excluded_non_factual": [
+          {
+            "claim": "Hey NoteNest desktop beta users! We've got a cool new update for you:",
+            "verdict": "non_factual",
+            "source_excerpt": null,
+            "reason": "This is a greeting and enthusiastic statement, not a factual claim."
+          },
+          {
+            "claim": "Explore the update",
+            "verdict": "non_factual",
+            "source_excerpt": null,
+            "reason": "This is a call to action, not a factual claim."
+          }
+        ],
+        "supported_claim_rate": 0.75,
+        "requires_review": true,
+        "input_tokens": 1728,
+        "output_tokens": 2220,
+        "reported_cost_usd": 0.01993535,
+        "latency_ms": 20974,
+        "extraction_model": "google/gemini-2.5-flash",
+        "stages": [
+          {
+            "status": "succeeded",
+            "model": "google/gemini-2.5-flash",
+            "prompt_version": "factuality-judge-v4",
+            "claims": [
+              {
+                "claim": "shared folders are here!",
+                "verdict": "supported",
+                "source_excerpt": "NoteNest, a fictional note-taking app, has introduced shared folders for its existing desktop beta users.",
+                "reason": "The source confirms the introduction of shared folders."
+              },
+              {
+                "claim": "You can now invite up to 5 friends or teammates to view and edit notes together.",
+                "verdict": "supported",
+                "source_excerpt": "Folder owners can invite up to five collaborators, who can view and edit notes.",
+                "reason": "The source explicitly states that folder owners can invite up to five collaborators to view and edit notes."
+              },
+              {
+                "claim": "Just a heads-up, this first version is for desktop only, so no offline or mobile access yet.",
+                "verdict": "supported",
+                "source_excerpt": "Offline collaboration and mobile access are not included in this release.",
+                "reason": "The source confirms that offline and mobile access are not included in this release, and the draft specifies 'desktop only' which aligns with the beta users being desktop users."
+              },
+              {
+                "claim": "We're really keen to hear what you think, as your feedback will help us make it even better.",
+                "verdict": "supported",
+                "source_excerpt": "Feedback from beta users will help inform future updates.",
+                "reason": "The source states that feedback from beta users will help inform future updates, which aligns with the draft's statement about feedback making it better."
+              }
+            ],
+            "excluded_non_factual": [
+              {
+                "claim": "Hey NoteNest desktop beta users! We've got a cool new update for you:",
+                "verdict": "non_factual",
+                "source_excerpt": null,
+                "reason": "This is a greeting and enthusiastic statement, not a factual claim."
+              },
+              {
+                "claim": "Explore the update",
+                "verdict": "non_factual",
+                "source_excerpt": null,
+                "reason": "This is a call to action, not a factual claim."
+              }
+            ],
+            "supported_claim_rate": 1.0,
+            "requires_review": false,
+            "input_tokens": 797,
+            "output_tokens": 489,
+            "reported_cost_usd": 0.0014616,
+            "latency_ms": 3836
+          },
+          {
+            "status": "succeeded",
+            "model": "google/gemini-2.5-pro",
+            "prompt_version": "factuality-classification-v7",
+            "claims": [
+              {
+                "claim": "shared folders are here!",
+                "verdict": "supported",
+                "source_excerpt": "NoteNest, a fictional note-taking app, has introduced shared folders for its existing desktop beta users.",
+                "reason": "The source states that NoteNest \"has introduced shared folders for its existing desktop beta users.\""
+              },
+              {
+                "claim": "You can now invite up to 5 friends or teammates to view and edit notes together.",
+                "verdict": "supported",
+                "source_excerpt": "Folder owners can invite up to five collaborators, who can view and edit notes.",
+                "reason": "The source states: \"Folder owners can invite up to five collaborators, who can view and edit notes.\""
+              },
+              {
+                "claim": "Just a heads-up, this first version is for desktop only, so no offline or mobile access yet.",
+                "verdict": "unsupported",
+                "source_excerpt": null,
+                "reason": "The source refers to \"this release\" but does not explicitly state that it is the \"first version\" of the feature. While other parts of the claim are supported, this specific assertion is not present in the source text."
+              },
+              {
+                "claim": "We're really keen to hear what you think, as your feedback will help us make it even better.",
+                "verdict": "supported",
+                "source_excerpt": "Feedback from beta users will help inform future updates.",
+                "reason": "The source states, \"Feedback from beta users will help inform future updates,\" which supports the claim that feedback will be used for improvements."
+              }
+            ],
+            "excluded_non_factual": [],
+            "supported_claim_rate": 0.75,
+            "requires_review": true,
+            "input_tokens": 931,
+            "output_tokens": 1731,
+            "reported_cost_usd": 0.01847375,
+            "latency_ms": 17138
+          }
+        ]
+      }
+    }
+  ],
+  "finished_at": "2026-10-11T18:41:40.360268+00:00"
+}

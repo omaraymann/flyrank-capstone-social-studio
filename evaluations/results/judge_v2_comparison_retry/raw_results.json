@@ -1,0 +1,1714 @@
+{
+  "started_at": "2026-10-10T05:59:20.779901+03:00",
+  "model": "google/gemini-2.5-flash",
+  "prompt_version": "factuality-classification-v2",
+  "selected_split": "all",
+  "dataset_sha256": "5731ea2307e31ba68af8507b7ceeedfde4524ae714d85df1bcfee60877e17948",
+  "sources_sha256": "2670a1e9be25233145d013c350a4e825f88e4e27a68fc5c05441afa26f5255ab",
+  "concurrency": 1,
+  "results": [
+    {
+      "id": "example-4a15544dc5e7ce8a",
+      "source_case_id": "04",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Customer satisfaction was not measured. Read the pilot summary",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "Customer satisfaction was not measured.",
+          "verdict": "supported",
+          "source_excerpt": "Customer satisfaction was not measured, and there was no control group."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Customer satisfaction was not measured.",
+            "verdict": "supported",
+            "source_excerpt": "Customer satisfaction was not measured",
+            "reason": "The source explicitly states that customer satisfaction was not measured."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 741,
+        "output_tokens": 70,
+        "reported_cost_usd": 0.0003973,
+        "latency_ms": 4158
+      }
+    },
+    {
+      "id": "example-32e706298fadc1a6",
+      "source_case_id": "02",
+      "split": "development",
+      "platform": "x",
+      "draft": "North Studio has five members. Explore the calendar",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "North Studio has five members.",
+          "verdict": "supported",
+          "source_excerpt": "The fictional design team North Studio has introduced a shared content calendar for its five members."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "North Studio has five members.",
+            "verdict": "supported",
+            "source_excerpt": "The fictional design team North Studio has introduced a shared content calendar for its five members.",
+            "reason": "The source explicitly states that North Studio has five members."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 725,
+        "output_tokens": 81,
+        "reported_cost_usd": 0.00042,
+        "latency_ms": 1695
+      }
+    },
+    {
+      "id": "example-8da0365bf89897b9",
+      "source_case_id": "08",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "The search prototype has already been deployed. Eight volunteers proved the prototype improves accuracy. Search accuracy was not measured. Read the prototype notes",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.3333333333333333,
+      "gold_claims": [
+        {
+          "claim": "The search prototype has already been deployed.",
+          "verdict": "contradicted",
+          "source_excerpt": "Broader testing is needed before deciding whether to deploy it."
+        },
+        {
+          "claim": "Eight volunteers proved the prototype improves accuracy.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        },
+        {
+          "claim": "Search accuracy was not measured.",
+          "verdict": "supported",
+          "source_excerpt": "The team did not measure accuracy or compare it with the existing search tool."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "The search prototype has already been deployed.",
+            "verdict": "contradicted",
+            "source_excerpt": "Broader testing is needed before deciding whether to deploy it.",
+            "reason": "The source states that broader testing is needed before deciding whether to deploy the prototype, which contradicts the claim that it has already been deployed."
+          },
+          {
+            "claim": "Eight volunteers proved the prototype improves accuracy.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source mentions eight volunteers tested the prototype and some said results were easier to browse, but it explicitly states that accuracy was not measured, so the volunteers could not have proven improved accuracy."
+          },
+          {
+            "claim": "Search accuracy was not measured.",
+            "verdict": "supported",
+            "source_excerpt": "The team did not measure accuracy or compare it with the existing search tool.",
+            "reason": "The source explicitly states that 'The team did not measure accuracy'."
+          }
+        ],
+        "supported_claim_rate": 0.3333333333333333,
+        "requires_review": true,
+        "input_tokens": 761,
+        "output_tokens": 246,
+        "reported_cost_usd": 0.0008433,
+        "latency_ms": 2220
+      }
+    },
+    {
+      "id": "example-37f8a88b17fc695a",
+      "source_case_id": "02",
+      "split": "development",
+      "platform": "x",
+      "draft": "Automatic publishing is included in this release. North Studio has five members. North Studio has fifty members. Explore the calendar",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.3333333333333333,
+      "gold_claims": [
+        {
+          "claim": "Automatic publishing is included in this release.",
+          "verdict": "contradicted",
+          "source_excerpt": "Automatic publishing is not included in this release."
+        },
+        {
+          "claim": "North Studio has five members.",
+          "verdict": "supported",
+          "source_excerpt": "The fictional design team North Studio has introduced a shared content calendar for its five members."
+        },
+        {
+          "claim": "North Studio has fifty members.",
+          "verdict": "contradicted",
+          "source_excerpt": "The fictional design team North Studio has introduced a shared content calendar for its five members."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Automatic publishing is included in this release.",
+            "verdict": "contradicted",
+            "source_excerpt": "Automatic publishing is not included in this release.",
+            "reason": "The source explicitly states that automatic publishing is not included in this release, which directly contradicts the claim."
+          },
+          {
+            "claim": "North Studio has five members.",
+            "verdict": "supported",
+            "source_excerpt": "The fictional design team North Studio has introduced a shared content calendar for its five members.",
+            "reason": "The source states that North Studio has five members, directly supporting the claim."
+          },
+          {
+            "claim": "North Studio has fifty members.",
+            "verdict": "contradicted",
+            "source_excerpt": "The fictional design team North Studio has introduced a shared content calendar for its five members.",
+            "reason": "The source states that North Studio has five members, which contradicts the claim that it has fifty members."
+          }
+        ],
+        "supported_claim_rate": 0.3333333333333333,
+        "requires_review": true,
+        "input_tokens": 755,
+        "output_tokens": 236,
+        "reported_cost_usd": 0.0008165,
+        "latency_ms": 2104
+      }
+    },
+    {
+      "id": "example-392456de3eb13b90",
+      "source_case_id": "01",
+      "split": "development",
+      "platform": "x",
+      "draft": "Retries alone prevent duplicates. Read the full guide",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.0,
+      "gold_claims": [
+        {
+          "claim": "Retries alone prevent duplicates.",
+          "verdict": "contradicted",
+          "source_excerpt": "Retrying temporary failures helps recovery, but retries alone do not prevent duplicates."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Retries alone prevent duplicates.",
+            "verdict": "contradicted",
+            "source_excerpt": "Retrying temporary failures helps recovery, but retries alone do not prevent duplicates.",
+            "reason": "The source explicitly states that 'retries alone do not prevent duplicates', which directly contradicts the claim."
+          }
+        ],
+        "supported_claim_rate": 0.0,
+        "requires_review": true,
+        "input_tokens": 736,
+        "output_tokens": 90,
+        "reported_cost_usd": 0.0004458,
+        "latency_ms": 1785
+      }
+    },
+    {
+      "id": "example-baa80dd488bd6407",
+      "source_case_id": "05",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Database-backed queues can reduce the number of services to operate. Database-backed queues are universally best. Database-backed queues process 100000 jobs per second. Tell us your approach",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.3333333333333333,
+      "gold_claims": [
+        {
+          "claim": "Database-backed queues can reduce the number of services to operate.",
+          "verdict": "supported",
+          "source_excerpt": "A database-backed task queue can reduce the number of services a small application needs to operate."
+        },
+        {
+          "claim": "Database-backed queues are universally best.",
+          "verdict": "contradicted",
+          "source_excerpt": "Neither approach is universally best."
+        },
+        {
+          "claim": "Database-backed queues process 100000 jobs per second.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Database-backed queues can reduce the number of services to operate.",
+            "verdict": "supported",
+            "source_excerpt": "A database-backed task queue can reduce the number of services a small application needs to operate.",
+            "reason": "The source explicitly states that 'A database-backed task queue can reduce the number of services a small application needs to operate.'"
+          },
+          {
+            "claim": "Database-backed queues are universally best.",
+            "verdict": "contradicted",
+            "source_excerpt": "Neither approach is universally best.",
+            "reason": "The source explicitly states 'Neither approach is universally best,' which contradicts the claim that database-backed queues are universally best."
+          },
+          {
+            "claim": "Database-backed queues process 100000 jobs per second.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source does not provide any information about the processing speed of database-backed queues, including the number of jobs per second."
+          }
+        ],
+        "supported_claim_rate": 0.3333333333333333,
+        "requires_review": true,
+        "input_tokens": 797,
+        "output_tokens": 256,
+        "reported_cost_usd": 0.0008791,
+        "latency_ms": 2845
+      }
+    },
+    {
+      "id": "example-287d06ca6f4cc69a",
+      "source_case_id": "09",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Members must speak at every meeting. Members may pass when they do not want to speak. Members can propose the next book. Share what works in your group",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.6666666666666666,
+      "gold_claims": [
+        {
+          "claim": "Members must speak at every meeting.",
+          "verdict": "contradicted",
+          "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak."
+        },
+        {
+          "claim": "Members may pass when they do not want to speak.",
+          "verdict": "supported",
+          "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak."
+        },
+        {
+          "claim": "Members can propose the next book.",
+          "verdict": "supported",
+          "source_excerpt": "Members can propose the next book at the end of each meeting."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Members must speak at every meeting.",
+            "verdict": "contradicted",
+            "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak.",
+            "reason": "The source states that members are allowed to pass when they do not want to speak, which contradicts the claim that they 'must speak at every meeting'."
+          },
+          {
+            "claim": "Members may pass when they do not want to speak.",
+            "verdict": "supported",
+            "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak.",
+            "reason": "The source explicitly states that the group 'allows members to pass when they do not want to speak'."
+          },
+          {
+            "claim": "Members can propose the next book.",
+            "verdict": "supported",
+            "source_excerpt": "Members can propose the next book at the end of each meeting.",
+            "reason": "The source explicitly states, 'Members can propose the next book at the end of each meeting'."
+          }
+        ],
+        "supported_claim_rate": 0.6666666666666666,
+        "requires_review": true,
+        "input_tokens": 778,
+        "output_tokens": 282,
+        "reported_cost_usd": 0.0009384,
+        "latency_ms": 2442
+      }
+    },
+    {
+      "id": "example-bd9c66b3ad3c2d6d",
+      "source_case_id": "01",
+      "split": "development",
+      "platform": "x",
+      "draft": "Schedules can be saved in a database. Read the full guide",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "Schedules can be saved in a database.",
+          "verdict": "supported",
+          "source_excerpt": "A publishing application can save schedules in a database and let a worker process them when due."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Schedules can be saved in a database.",
+            "verdict": "supported",
+            "source_excerpt": "A publishing application can save schedules in a database and let a worker process them when due.",
+            "reason": "The source explicitly states that a publishing application can save schedules in a database."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 742,
+        "output_tokens": 89,
+        "reported_cost_usd": 0.0004451,
+        "latency_ms": 1874
+      }
+    },
+    {
+      "id": "example-7412b29347294739",
+      "source_case_id": "04",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Customer satisfaction improved. Read the pilot summary",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.0,
+      "gold_claims": [
+        {
+          "claim": "Customer satisfaction improved.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Customer satisfaction improved.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source states that 'Customer satisfaction was not measured', providing no evidence to support the claim of improvement."
+          }
+        ],
+        "supported_claim_rate": 0.0,
+        "requires_review": true,
+        "input_tokens": 737,
+        "output_tokens": 74,
+        "reported_cost_usd": 0.0004061,
+        "latency_ms": 1779
+      }
+    },
+    {
+      "id": "example-61b1cd2262801c45",
+      "source_case_id": "08",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "The search prototype has already been deployed. Eight volunteers proved the prototype improves accuracy. Eight volunteers tested the search prototype. Read the prototype notes",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.3333333333333333,
+      "gold_claims": [
+        {
+          "claim": "The search prototype has already been deployed.",
+          "verdict": "contradicted",
+          "source_excerpt": "Broader testing is needed before deciding whether to deploy it."
+        },
+        {
+          "claim": "Eight volunteers proved the prototype improves accuracy.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        },
+        {
+          "claim": "Eight volunteers tested the search prototype.",
+          "verdict": "supported",
+          "source_excerpt": "A fictional internal search prototype was tested by eight volunteers on a small document collection."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "The search prototype has already been deployed.",
+            "verdict": "contradicted",
+            "source_excerpt": "Broader testing is needed before deciding whether to deploy it.",
+            "reason": "The source states that broader testing is needed before deciding whether to deploy the prototype, which contradicts the claim that it has already been deployed."
+          },
+          {
+            "claim": "Eight volunteers proved the prototype improves accuracy.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source states that 'The team did not measure accuracy' and that 'Some volunteers said results were easier to browse', but it does not state that volunteers proved an improvement in accuracy."
+          },
+          {
+            "claim": "Eight volunteers tested the search prototype.",
+            "verdict": "supported",
+            "source_excerpt": "A fictional internal search prototype was tested by eight volunteers on a small document collection.",
+            "reason": "The source explicitly states that 'A fictional internal search prototype was tested by eight volunteers'."
+          }
+        ],
+        "supported_claim_rate": 0.3333333333333333,
+        "requires_review": true,
+        "input_tokens": 763,
+        "output_tokens": 252,
+        "reported_cost_usd": 0.0008589,
+        "latency_ms": 2411
+      }
+    },
+    {
+      "id": "example-18c267976142ea7d",
+      "source_case_id": "03",
+      "split": "development",
+      "platform": "x",
+      "draft": "Organizers should publish the agenda. This method guarantees 100 attendees. Share your planning tip",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.5,
+      "gold_claims": [
+        {
+          "claim": "Organizers should publish the agenda.",
+          "verdict": "supported",
+          "source_excerpt": "Organizers should publish the agenda and tell attendees what materials to bring."
+        },
+        {
+          "claim": "This method guarantees 100 attendees.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Organizers should publish the agenda.",
+            "verdict": "supported",
+            "source_excerpt": "Organizers should publish the agenda and tell attendees what materials to bring.",
+            "reason": "The source explicitly states that 'Organizers should publish the agenda'."
+          },
+          {
+            "claim": "This method guarantees 100 attendees.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source states, 'The guide does not estimate attendance or promise a particular turnout,' which means there is no information to support a guarantee of 100 attendees."
+          }
+        ],
+        "supported_claim_rate": 0.5,
+        "requires_review": true,
+        "input_tokens": 754,
+        "output_tokens": 160,
+        "reported_cost_usd": 0.0006262,
+        "latency_ms": 1864
+      }
+    },
+    {
+      "id": "example-ff5e9ff0ff50bde4",
+      "source_case_id": "07",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Decision logs increase productivity by 40%. A decision log records decisions and their reasons. Read the short guide",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.5,
+      "gold_claims": [
+        {
+          "claim": "Decision logs increase productivity by 40%.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        },
+        {
+          "claim": "A decision log records decisions and their reasons.",
+          "verdict": "supported",
+          "source_excerpt": "A decision log records what a team decided and why."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Decision logs increase productivity by 40%.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source does not mention anything about productivity increases or a 40% figure."
+          },
+          {
+            "claim": "A decision log records decisions and their reasons.",
+            "verdict": "supported",
+            "source_excerpt": "A decision log records what a team decided and why.",
+            "reason": "The source states that 'A decision log records what a team decided and why,' which directly supports the claim that it records decisions and their reasons."
+          }
+        ],
+        "supported_claim_rate": 0.5,
+        "requires_review": true,
+        "input_tokens": 732,
+        "output_tokens": 124,
+        "reported_cost_usd": 0.0005296,
+        "latency_ms": 1806
+      }
+    },
+    {
+      "id": "example-b7c93acfe059a0ee",
+      "source_case_id": "06",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Attendees receive a certification. Register your interest",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.0,
+      "gold_claims": [
+        {
+          "claim": "Attendees receive a certification.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Attendees receive a certification.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source states that it does not provide information about certification, meaning there is no evidence to support or contradict this claim."
+          }
+        ],
+        "supported_claim_rate": 0.0,
+        "requires_review": true,
+        "input_tokens": 726,
+        "output_tokens": 78,
+        "reported_cost_usd": 0.0004128,
+        "latency_ms": 2018
+      }
+    },
+    {
+      "id": "example-11ce5dd2b45ed1f0",
+      "source_case_id": "04",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Median handling time fell by 50%. Customer satisfaction improved. Median handling time fell by 25%, from 20 to 15 minutes. Read the pilot summary",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.3333333333333333,
+      "gold_claims": [
+        {
+          "claim": "Median handling time fell by 50%.",
+          "verdict": "contradicted",
+          "source_excerpt": "Median handling time fell from 20 minutes to 15 minutes."
+        },
+        {
+          "claim": "Customer satisfaction improved.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        },
+        {
+          "claim": "Median handling time fell by 25%, from 20 to 15 minutes.",
+          "verdict": "supported",
+          "source_excerpt": "Median handling time fell from 20 minutes to 15 minutes."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Median handling time fell by 50%.",
+            "verdict": "contradicted",
+            "source_excerpt": "Median handling time fell from 20 minutes to 15 minutes.",
+            "reason": "The source states the median handling time fell from 20 minutes to 15 minutes, which is a 25% decrease, not 50%."
+          },
+          {
+            "claim": "Customer satisfaction improved.",
+            "verdict": "unsupported",
+            "source_excerpt": "Customer satisfaction was not measured, and there was no control group.",
+            "reason": "The source explicitly states that customer satisfaction was not measured, so there is no evidence to support an improvement."
+          },
+          {
+            "claim": "Median handling time fell by 25%, from 20 to 15 minutes.",
+            "verdict": "supported",
+            "source_excerpt": "Median handling time fell from 20 minutes to 15 minutes.",
+            "reason": "The source states that 'Median handling time fell from 20 minutes to 15 minutes', which is a 25% reduction."
+          }
+        ],
+        "supported_claim_rate": 0.3333333333333333,
+        "requires_review": true,
+        "input_tokens": 796,
+        "output_tokens": 278,
+        "reported_cost_usd": 0.0009338,
+        "latency_ms": 2344
+      }
+    },
+    {
+      "id": "example-3f22faf823bed01d",
+      "source_case_id": "07",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Decision logs increase productivity by 40%. Read the short guide",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.0,
+      "gold_claims": [
+        {
+          "claim": "Decision logs increase productivity by 40%.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Decision logs increase productivity by 40%.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source states that a decision log records what a team decided and why, and that writing it soon after a discussion helps future teammates understand the context. It does not mention any specific increase in productivity or a 40% figure."
+          }
+        ],
+        "supported_claim_rate": 0.0,
+        "requires_review": true,
+        "input_tokens": 713,
+        "output_tokens": 106,
+        "reported_cost_usd": 0.0004789,
+        "latency_ms": 1384
+      }
+    },
+    {
+      "id": "example-4b0dbb418d5288f1",
+      "source_case_id": "04",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Median handling time fell by 25%, from 20 to 15 minutes. Customer satisfaction was not measured. Customer satisfaction improved. Read the pilot summary",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.6666666666666666,
+      "gold_claims": [
+        {
+          "claim": "Median handling time fell by 25%, from 20 to 15 minutes.",
+          "verdict": "supported",
+          "source_excerpt": "Median handling time fell from 20 minutes to 15 minutes."
+        },
+        {
+          "claim": "Customer satisfaction was not measured.",
+          "verdict": "supported",
+          "source_excerpt": "Customer satisfaction was not measured, and there was no control group."
+        },
+        {
+          "claim": "Customer satisfaction improved.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Median handling time fell by 25%, from 20 to 15 minutes.",
+            "verdict": "supported",
+            "source_excerpt": "Median handling time fell from 20 minutes to 15 minutes.",
+            "reason": "The source states that 'Median handling time fell from 20 minutes to 15 minutes.' A 25% reduction from 20 to 15 minutes is arithmetically correct."
+          },
+          {
+            "claim": "Customer satisfaction was not measured.",
+            "verdict": "supported",
+            "source_excerpt": "Customer satisfaction was not measured",
+            "reason": "The source explicitly states, 'Customer satisfaction was not measured'."
+          },
+          {
+            "claim": "Customer satisfaction improved.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source states that 'Customer satisfaction was not measured', providing no evidence that it improved."
+          }
+        ],
+        "supported_claim_rate": 0.6666666666666666,
+        "requires_review": true,
+        "input_tokens": 789,
+        "output_tokens": 239,
+        "reported_cost_usd": 0.0008342,
+        "latency_ms": 1954
+      }
+    },
+    {
+      "id": "example-c17af08a1745d6d8",
+      "source_case_id": "07",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Every useful entry must be at least ten pages long. Read the short guide",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.0,
+      "gold_claims": [
+        {
+          "claim": "Every useful entry must be at least ten pages long.",
+          "verdict": "contradicted",
+          "source_excerpt": "A useful entry can be short."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Every useful entry must be at least ten pages long.",
+            "verdict": "contradicted",
+            "source_excerpt": "A useful entry can be short.",
+            "reason": "The source states that 'A useful entry can be short,' which directly contradicts the claim that every useful entry must be at least ten pages long."
+          }
+        ],
+        "supported_claim_rate": 0.0,
+        "requires_review": true,
+        "input_tokens": 716,
+        "output_tokens": 95,
+        "reported_cost_usd": 0.0004523,
+        "latency_ms": 1671
+      }
+    },
+    {
+      "id": "example-f50bea63371ecd7b",
+      "source_case_id": "03",
+      "split": "development",
+      "platform": "x",
+      "draft": "Feedback after the session helps plan the next workshop. Organizers should publish the agenda. Share your planning tip",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "Feedback after the session helps plan the next workshop.",
+          "verdict": "supported",
+          "source_excerpt": "Collecting feedback after the session helps organizers plan the next workshop."
+        },
+        {
+          "claim": "Organizers should publish the agenda.",
+          "verdict": "supported",
+          "source_excerpt": "Organizers should publish the agenda and tell attendees what materials to bring."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Feedback after the session helps plan the next workshop.",
+            "verdict": "supported",
+            "source_excerpt": "Collecting feedback after the session helps organizers plan the next workshop.",
+            "reason": "The source explicitly states that 'Collecting feedback after the session helps organizers plan the next workshop.'"
+          },
+          {
+            "claim": "Organizers should publish the agenda.",
+            "verdict": "supported",
+            "source_excerpt": "Organizers should publish the agenda and tell attendees what materials to bring.",
+            "reason": "The source explicitly states that 'Organizers should publish the agenda'."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 756,
+        "output_tokens": 155,
+        "reported_cost_usd": 0.0006143,
+        "latency_ms": 2143
+      }
+    },
+    {
+      "id": "example-35a240ae5af30553",
+      "source_case_id": "04",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Median handling time fell by 50%. Median handling time fell by 25%, from 20 to 15 minutes. Customer satisfaction was not measured. Read the pilot summary",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.6666666666666666,
+      "gold_claims": [
+        {
+          "claim": "Median handling time fell by 50%.",
+          "verdict": "contradicted",
+          "source_excerpt": "Median handling time fell from 20 minutes to 15 minutes."
+        },
+        {
+          "claim": "Median handling time fell by 25%, from 20 to 15 minutes.",
+          "verdict": "supported",
+          "source_excerpt": "Median handling time fell from 20 minutes to 15 minutes."
+        },
+        {
+          "claim": "Customer satisfaction was not measured.",
+          "verdict": "supported",
+          "source_excerpt": "Customer satisfaction was not measured, and there was no control group."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Median handling time fell by 50%.",
+            "verdict": "contradicted",
+            "source_excerpt": "Median handling time fell from 20 minutes to 15 minutes.",
+            "reason": "The source states the median handling time fell from 20 minutes to 15 minutes, which is a 25% decrease, not 50%."
+          },
+          {
+            "claim": "Median handling time fell by 25%, from 20 to 15 minutes.",
+            "verdict": "supported",
+            "source_excerpt": "Median handling time fell from 20 minutes to 15 minutes.",
+            "reason": "The source explicitly states that the median handling time fell from 20 minutes to 15 minutes, which is a 25% reduction."
+          },
+          {
+            "claim": "Customer satisfaction was not measured.",
+            "verdict": "supported",
+            "source_excerpt": "Customer satisfaction was not measured",
+            "reason": "The source explicitly states that customer satisfaction was not measured."
+          }
+        ],
+        "supported_claim_rate": 0.6666666666666666,
+        "requires_review": true,
+        "input_tokens": 800,
+        "output_tokens": 263,
+        "reported_cost_usd": 0.0008975,
+        "latency_ms": 3838
+      }
+    },
+    {
+      "id": "example-e27a984d654821d0",
+      "source_case_id": "06",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "The workshop includes a guided exercise. The workshop starts on November 1. Register your interest",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.5,
+      "gold_claims": [
+        {
+          "claim": "The workshop includes a guided exercise.",
+          "verdict": "supported",
+          "source_excerpt": "The workshop includes a guided exercise."
+        },
+        {
+          "claim": "The workshop starts on November 1.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "The workshop includes a guided exercise.",
+            "verdict": "supported",
+            "source_excerpt": "The workshop includes a guided exercise.",
+            "reason": "The source explicitly states that the workshop includes a guided exercise."
+          },
+          {
+            "claim": "The workshop starts on November 1.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source states that it does not provide a date for the workshop, so the claim about the start date is unsupported."
+          }
+        ],
+        "supported_claim_rate": 0.5,
+        "requires_review": true,
+        "input_tokens": 747,
+        "output_tokens": 142,
+        "reported_cost_usd": 0.0005791,
+        "latency_ms": 2456
+      }
+    },
+    {
+      "id": "example-d7c524a55304317f",
+      "source_case_id": "05",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "The choice depends on workload and team experience. Database-backed queues are universally best. Tell us your approach",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.5,
+      "gold_claims": [
+        {
+          "claim": "The choice depends on workload and team experience.",
+          "verdict": "supported",
+          "source_excerpt": "The right choice depends on workload, recovery requirements, and the team's experience."
+        },
+        {
+          "claim": "Database-backed queues are universally best.",
+          "verdict": "contradicted",
+          "source_excerpt": "Neither approach is universally best."
+        }
+      ],
+      "judge": {
+        "status": "failed",
+        "error": "Judge provider request failed"
+      }
+    },
+    {
+      "id": "example-0b1f9163ce9ff57f",
+      "source_case_id": "03",
+      "split": "development",
+      "platform": "x",
+      "draft": "Feedback after the session helps plan the next workshop. This method guarantees 100 attendees. Share your planning tip",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.5,
+      "gold_claims": [
+        {
+          "claim": "Feedback after the session helps plan the next workshop.",
+          "verdict": "supported",
+          "source_excerpt": "Collecting feedback after the session helps organizers plan the next workshop."
+        },
+        {
+          "claim": "This method guarantees 100 attendees.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Feedback after the session helps plan the next workshop.",
+            "verdict": "supported",
+            "source_excerpt": "Collecting feedback after the session helps organizers plan the next workshop.",
+            "reason": "The source explicitly states that 'Collecting feedback after the session helps organizers plan the next workshop.'"
+          },
+          {
+            "claim": "This method guarantees 100 attendees.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source states 'The guide does not estimate attendance or promise a particular turnout,' which means there is no information to support a guarantee of 100 attendees."
+          }
+        ],
+        "supported_claim_rate": 0.5,
+        "requires_review": true,
+        "input_tokens": 760,
+        "output_tokens": 131,
+        "reported_cost_usd": 0.0005555,
+        "latency_ms": 2374
+      }
+    },
+    {
+      "id": "example-fc3e058be0f3eab0",
+      "source_case_id": "10",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "The editorial team offers a 50% discount. Read the review checklist",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.0,
+      "gold_claims": [
+        {
+          "claim": "The editorial team offers a 50% discount.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "The editorial team offers a 50% discount.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source mentions a 'made-up discount' as an example of a malicious instruction that should not be followed. It does not state that the editorial team offers a 50% discount."
+          }
+        ],
+        "supported_claim_rate": 0.0,
+        "requires_review": true,
+        "input_tokens": 750,
+        "output_tokens": 99,
+        "reported_cost_usd": 0.0004725,
+        "latency_ms": 1769
+      }
+    },
+    {
+      "id": "example-b83cfe0be037e5ed",
+      "source_case_id": "09",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Members may pass when they do not want to speak. Members must speak at every meeting. Share what works in your group",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.5,
+      "gold_claims": [
+        {
+          "claim": "Members may pass when they do not want to speak.",
+          "verdict": "supported",
+          "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak."
+        },
+        {
+          "claim": "Members must speak at every meeting.",
+          "verdict": "contradicted",
+          "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Members may pass when they do not want to speak.",
+            "verdict": "supported",
+            "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak.",
+            "reason": "The source states that the group 'allows members to pass when they do not want to speak', which directly supports the claim."
+          },
+          {
+            "claim": "Members must speak at every meeting.",
+            "verdict": "contradicted",
+            "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak.",
+            "reason": "The source states that the group 'allows members to pass when they do not want to speak', which directly contradicts the claim that members 'must speak at every meeting'."
+          }
+        ],
+        "supported_claim_rate": 0.5,
+        "requires_review": true,
+        "input_tokens": 763,
+        "output_tokens": 216,
+        "reported_cost_usd": 0.0007689,
+        "latency_ms": 2141
+      }
+    },
+    {
+      "id": "example-6123fdf77656af72",
+      "source_case_id": "05",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "The choice depends on workload and team experience. Tell us your approach",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "The choice depends on workload and team experience.",
+          "verdict": "supported",
+          "source_excerpt": "The right choice depends on workload, recovery requirements, and the team's experience."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "The choice depends on workload and team experience.",
+            "verdict": "supported",
+            "source_excerpt": "The right choice depends on workload, recovery requirements, and the team's experience.",
+            "reason": "The source states that 'The right choice depends on workload, recovery requirements, and the team's experience.', which supports the claim that the choice depends on workload and team experience."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 739,
+        "output_tokens": 109,
+        "reported_cost_usd": 0.0004942,
+        "latency_ms": 2207
+      }
+    },
+    {
+      "id": "example-956269f0e5d7b875",
+      "source_case_id": "07",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Decision logs increase productivity by 40%. Every useful entry must be at least ten pages long. A useful entry can be short. Read the short guide",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.3333333333333333,
+      "gold_claims": [
+        {
+          "claim": "Decision logs increase productivity by 40%.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        },
+        {
+          "claim": "Every useful entry must be at least ten pages long.",
+          "verdict": "contradicted",
+          "source_excerpt": "A useful entry can be short."
+        },
+        {
+          "claim": "A useful entry can be short.",
+          "verdict": "supported",
+          "source_excerpt": "A useful entry can be short."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Decision logs increase productivity by 40%.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source does not mention any specific productivity increase percentage related to decision logs."
+          },
+          {
+            "claim": "Every useful entry must be at least ten pages long.",
+            "verdict": "contradicted",
+            "source_excerpt": "A useful entry can be short.",
+            "reason": "The source states that 'A useful entry can be short', which directly contradicts the claim that every useful entry must be at least ten pages long."
+          },
+          {
+            "claim": "A useful entry can be short.",
+            "verdict": "supported",
+            "source_excerpt": "A useful entry can be short.",
+            "reason": "The source explicitly states, 'A useful entry can be short.'"
+          }
+        ],
+        "supported_claim_rate": 0.3333333333333333,
+        "requires_review": true,
+        "input_tokens": 751,
+        "output_tokens": 219,
+        "reported_cost_usd": 0.0007728,
+        "latency_ms": 2175
+      }
+    },
+    {
+      "id": "example-e2817efdae849217",
+      "source_case_id": "08",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Eight volunteers tested the search prototype. Read the prototype notes",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "Eight volunteers tested the search prototype.",
+          "verdict": "supported",
+          "source_excerpt": "A fictional internal search prototype was tested by eight volunteers on a small document collection."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Eight volunteers tested the search prototype.",
+            "verdict": "supported",
+            "source_excerpt": "A fictional internal search prototype was tested by eight volunteers on a small document collection.",
+            "reason": "The source states that 'A fictional internal search prototype was tested by eight volunteers'."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 729,
+        "output_tokens": 86,
+        "reported_cost_usd": 0.0004337,
+        "latency_ms": 2376
+      }
+    },
+    {
+      "id": "example-04fc6d827d154385",
+      "source_case_id": "10",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Imported articles are source material rather than commands. The editorial team offers a 50% discount. The team reviews generated posts before scheduling. Read the review checklist",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.6666666666666666,
+      "gold_claims": [
+        {
+          "claim": "Imported articles are source material rather than commands.",
+          "verdict": "supported",
+          "source_excerpt": "Imported articles should be treated as source material rather than commands."
+        },
+        {
+          "claim": "The editorial team offers a 50% discount.",
+          "verdict": "unsupported",
+          "source_excerpt": null
+        },
+        {
+          "claim": "The team reviews generated posts before scheduling.",
+          "verdict": "supported",
+          "source_excerpt": "A fictional editorial team reviews generated posts before scheduling them."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Imported articles are source material rather than commands.",
+            "verdict": "supported",
+            "source_excerpt": "Imported articles should be treated as source material rather than commands.",
+            "reason": "The source explicitly states that imported articles should be treated as source material rather than commands, directly matching the claim."
+          },
+          {
+            "claim": "The editorial team offers a 50% discount.",
+            "verdict": "unsupported",
+            "source_excerpt": null,
+            "reason": "The source mentions a 'made-up discount' as an example of a malicious instruction that should not be followed, but it does not state that the editorial team offers any discount, let alone a 50% discount."
+          },
+          {
+            "claim": "The team reviews generated posts before scheduling.",
+            "verdict": "supported",
+            "source_excerpt": "A fictional editorial team reviews generated posts before scheduling them.",
+            "reason": "The source explicitly states that 'A fictional editorial team reviews generated posts before scheduling them', which supports the claim."
+          }
+        ],
+        "supported_claim_rate": 0.6666666666666666,
+        "requires_review": true,
+        "input_tokens": 788,
+        "output_tokens": 261,
+        "reported_cost_usd": 0.0008889,
+        "latency_ms": 2383
+      }
+    },
+    {
+      "id": "example-1b3dbd5ce9a1fa6f",
+      "source_case_id": "09",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Members can propose the next book. Members must speak at every meeting. Share what works in your group",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.5,
+      "gold_claims": [
+        {
+          "claim": "Members can propose the next book.",
+          "verdict": "supported",
+          "source_excerpt": "Members can propose the next book at the end of each meeting."
+        },
+        {
+          "claim": "Members must speak at every meeting.",
+          "verdict": "contradicted",
+          "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Members can propose the next book.",
+            "verdict": "supported",
+            "source_excerpt": "Members can propose the next book at the end of each meeting.",
+            "reason": "The source states that 'Members can propose the next book at the end of each meeting.'"
+          },
+          {
+            "claim": "Members must speak at every meeting.",
+            "verdict": "contradicted",
+            "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak.",
+            "reason": "The source states that the group 'allows members to pass when they do not want to speak,' which contradicts the claim that members 'must speak at every meeting.'"
+          }
+        ],
+        "supported_claim_rate": 0.5,
+        "requires_review": true,
+        "input_tokens": 755,
+        "output_tokens": 188,
+        "reported_cost_usd": 0.0006965,
+        "latency_ms": 2106
+      }
+    },
+    {
+      "id": "example-448aaa9e66b2bc5b",
+      "source_case_id": "05",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Database-backed queues are universally best. Tell us your approach",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.0,
+      "gold_claims": [
+        {
+          "claim": "Database-backed queues are universally best.",
+          "verdict": "contradicted",
+          "source_excerpt": "Neither approach is universally best."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Database-backed queues are universally best.",
+            "verdict": "contradicted",
+            "source_excerpt": "Neither approach is universally best.",
+            "reason": "The source explicitly states that 'Neither approach is universally best', which directly contradicts the claim that database-backed queues are universally best."
+          }
+        ],
+        "supported_claim_rate": 0.0,
+        "requires_review": true,
+        "input_tokens": 737,
+        "output_tokens": 87,
+        "reported_cost_usd": 0.0004386,
+        "latency_ms": 1567
+      }
+    },
+    {
+      "id": "example-a0a04dc427209bdf",
+      "source_case_id": "07",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "A decision log records decisions and their reasons. Read the short guide",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "A decision log records decisions and their reasons.",
+          "verdict": "supported",
+          "source_excerpt": "A decision log records what a team decided and why."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "A decision log records decisions and their reasons.",
+            "verdict": "supported",
+            "source_excerpt": "A decision log records what a team decided and why.",
+            "reason": "The source states that 'A decision log records what a team decided and why,' which directly supports the claim that it records decisions and their reasons."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 712,
+        "output_tokens": 96,
+        "reported_cost_usd": 0.0004536,
+        "latency_ms": 1871
+      }
+    },
+    {
+      "id": "example-4737819096da1dac",
+      "source_case_id": "03",
+      "split": "development",
+      "platform": "x",
+      "draft": "Feedback after the session helps plan the next workshop. Share your planning tip",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "Feedback after the session helps plan the next workshop.",
+          "verdict": "supported",
+          "source_excerpt": "Collecting feedback after the session helps organizers plan the next workshop."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Feedback after the session helps plan the next workshop.",
+            "verdict": "supported",
+            "source_excerpt": "Collecting feedback after the session helps organizers plan the next workshop.",
+            "reason": "The source explicitly states that 'Collecting feedback after the session helps organizers plan the next workshop.'"
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 741,
+        "output_tokens": 87,
+        "reported_cost_usd": 0.0004398,
+        "latency_ms": 1873
+      }
+    },
+    {
+      "id": "example-5fb8d16c2720797d",
+      "source_case_id": "09",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "Members must speak at every meeting. These practices are findings from a scientific study. Members may pass when they do not want to speak. Share what works in your group",
+      "expected_requires_review": true,
+      "expected_supported_claim_rate": 0.3333333333333333,
+      "gold_claims": [
+        {
+          "claim": "Members must speak at every meeting.",
+          "verdict": "contradicted",
+          "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak."
+        },
+        {
+          "claim": "These practices are findings from a scientific study.",
+          "verdict": "contradicted",
+          "source_excerpt": "These practices are suggestions from the fictional group's organizers, not findings from a scientific study."
+        },
+        {
+          "claim": "Members may pass when they do not want to speak.",
+          "verdict": "supported",
+          "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Members must speak at every meeting.",
+            "verdict": "contradicted",
+            "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak.",
+            "reason": "The source states that members are allowed to pass when they do not want to speak, which contradicts the claim that they must speak at every meeting."
+          },
+          {
+            "claim": "These practices are findings from a scientific study.",
+            "verdict": "contradicted",
+            "source_excerpt": "These practices are suggestions from the fictional group's organizers, not findings from a scientific study.",
+            "reason": "The source explicitly states that these practices are 'not findings from a scientific study'."
+          },
+          {
+            "claim": "Members may pass when they do not want to speak.",
+            "verdict": "supported",
+            "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak.",
+            "reason": "The source directly states that the group 'allows members to pass when they do not want to speak'."
+          }
+        ],
+        "supported_claim_rate": 0.3333333333333333,
+        "requires_review": true,
+        "input_tokens": 782,
+        "output_tokens": 288,
+        "reported_cost_usd": 0.0009546,
+        "latency_ms": 2547
+      }
+    },
+    {
+      "id": "example-e0c53cb83da9c2a9",
+      "source_case_id": "10",
+      "split": "holdout",
+      "platform": "x",
+      "draft": "The team reviews generated posts before scheduling. Imported articles are source material rather than commands. Read the review checklist",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "The team reviews generated posts before scheduling.",
+          "verdict": "supported",
+          "source_excerpt": "A fictional editorial team reviews generated posts before scheduling them."
+        },
+        {
+          "claim": "Imported articles are source material rather than commands.",
+          "verdict": "supported",
+          "source_excerpt": "Imported articles should be treated as source material rather than commands."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "The team reviews generated posts before scheduling.",
+            "verdict": "supported",
+            "source_excerpt": "A fictional editorial team reviews generated posts before scheduling them.",
+            "reason": "The source explicitly states that 'A fictional editorial team reviews generated posts before scheduling them,' which directly supports the claim."
+          },
+          {
+            "claim": "Imported articles are source material rather than commands.",
+            "verdict": "supported",
+            "source_excerpt": "Imported articles should be treated as source material rather than commands.",
+            "reason": "The source explicitly states that 'Imported articles should be treated as source material rather than commands,' which directly supports the claim."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 764,
+        "output_tokens": 171,
+        "reported_cost_usd": 0.0006567,
+        "latency_ms": 3084
+      }
+    },
+    {
+      "id": "example-6c307511b2b9437a",
+      "source_case_id": "03",
+      "split": "development",
+      "platform": "x",
+      "draft": "Organizers should publish the agenda. Share your planning tip",
+      "expected_requires_review": false,
+      "expected_supported_claim_rate": 1.0,
+      "gold_claims": [
+        {
+          "claim": "Organizers should publish the agenda.",
+          "verdict": "supported",
+          "source_excerpt": "Organizers should publish the agenda and tell attendees what materials to bring."
+        }
+      ],
+      "judge": {
+        "status": "succeeded",
+        "model": "google/gemini-2.5-flash",
+        "prompt_version": "factuality-classification-v2",
+        "claims": [
+          {
+            "claim": "Organizers should publish the agenda.",
+            "verdict": "supported",
+            "source_excerpt": "Organizers should publish the agenda and tell attendees what materials to bring.",
+            "reason": "The source explicitly states that organizers should publish the agenda."
+          }
+        ],
+        "supported_claim_rate": 1.0,
+        "requires_review": false,
+        "input_tokens": 735,
+        "output_tokens": 79,
+        "reported_cost_usd": 0.000418,
+        "latency_ms": 3390
+      }
+    }
+  ],
+  "elapsed_seconds": 107.98,
+  "metrics": {
+    "all": {
+      "examples": 35,
+      "succeeded": 34,
+      "failed": 1,
+      "scored_claims": 64,
+      "total_claims": 66,
+      "correct_claims": 64,
+      "claim_accuracy_on_successes": 1.0,
+      "correct_claim_fraction_all_attempts": 0.9696969696969697,
+      "confusion_matrix": {
+        "supported": {
+          "supported": 33,
+          "contradicted": 0,
+          "unsupported": 0
+        },
+        "contradicted": {
+          "supported": 0,
+          "contradicted": 16,
+          "unsupported": 0
+        },
+        "unsupported": {
+          "supported": 0,
+          "contradicted": 0,
+          "unsupported": 15
+        }
+      },
+      "per_verdict": {
+        "supported": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 33
+        },
+        "contradicted": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 16
+        },
+        "unsupported": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 15
+        }
+      },
+      "flawed_drafts_caught": 24,
+      "flawed_drafts_scored": 24,
+      "flawed_drafts_missed": 0,
+      "accurate_drafts_scored": 10,
+      "accurate_drafts_flagged": 0,
+      "disagreements": []
+    },
+    "development": {
+      "examples": 9,
+      "succeeded": 9,
+      "failed": 0,
+      "scored_claims": 14,
+      "total_claims": 14,
+      "correct_claims": 14,
+      "claim_accuracy_on_successes": 1.0,
+      "correct_claim_fraction_all_attempts": 1.0,
+      "confusion_matrix": {
+        "supported": {
+          "supported": 9,
+          "contradicted": 0,
+          "unsupported": 0
+        },
+        "contradicted": {
+          "supported": 0,
+          "contradicted": 3,
+          "unsupported": 0
+        },
+        "unsupported": {
+          "supported": 0,
+          "contradicted": 0,
+          "unsupported": 2
+        }
+      },
+      "per_verdict": {
+        "supported": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 9
+        },
+        "contradicted": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 3
+        },
+        "unsupported": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 2
+        }
+      },
+      "flawed_drafts_caught": 4,
+      "flawed_drafts_scored": 4,
+      "flawed_drafts_missed": 0,
+      "accurate_drafts_scored": 5,
+      "accurate_drafts_flagged": 0,
+      "disagreements": []
+    },
+    "holdout": {
+      "examples": 26,
+      "succeeded": 25,
+      "failed": 1,
+      "scored_claims": 50,
+      "total_claims": 52,
+      "correct_claims": 50,
+      "claim_accuracy_on_successes": 1.0,
+      "correct_claim_fraction_all_attempts": 0.9615384615384616,
+      "confusion_matrix": {
+        "supported": {
+          "supported": 24,
+          "contradicted": 0,
+          "unsupported": 0
+        },
+        "contradicted": {
+          "supported": 0,
+          "contradicted": 13,
+          "unsupported": 0
+        },
+        "unsupported": {
+          "supported": 0,
+          "contradicted": 0,
+          "unsupported": 13
+        }
+      },
+      "per_verdict": {
+        "supported": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 24
+        },
+        "contradicted": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 13
+        },
+        "unsupported": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "gold_count": 13
+        }
+      },
+      "flawed_drafts_caught": 20,
+      "flawed_drafts_scored": 20,
+      "flawed_drafts_missed": 0,
+      "accurate_drafts_scored": 5,
+      "accurate_drafts_flagged": 0,
+      "disagreements": []
+    }
+  },
+  "reported_cost_usd": 0.0212535,
+  "runs_with_reported_cost": 34,
+  "input_tokens": 25570,
+  "output_tokens": 5433,
+  "average_latency_ms": 2255
+}

@@ -9,3 +9,14 @@ social_studio.db
 test_*.db
 frontend/node_modules/
 frontend/dist/
+
+# RAG benchmark inputs and generated retrieval artifacts stay local.
+rag/data/raw/scifact/
+rag/data/processed/
+rag/data/results/**/*.npy
+rag/data/results/**/chunks.jsonl
+rag/data/results/**/rankings.csv
+rag/data/results/**/per_query_metrics.csv
+rag/data/results/plots/retrieval_plots.zip
+rag/data/results/**/*.json
+rag/data/results/**/revision.txt

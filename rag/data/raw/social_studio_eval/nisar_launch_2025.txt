@@ -1,0 +1,58 @@
+6 min read
+NASA-ISRO Satellite Lifts Off to Track Earth’s Changing Surfaces
+Jessica Taveau
+Jul 30, 2025
+RELEASE
+25-051
+NASA Headquarters
+Jet Propulsion Laboratory
+The Indian Space Research Organisation’s Geosynchronous Satellite Launch Vehicle lifts off from Satish Dhawan Space Centre on India’s southeastern coast at 5:40 p.m. IST (8:10 a.m. EDT), July 30, 2025.
+Credit: ISRO
+Editor’s Note: This release was edited on July 30, 2025, to correct the mission launch time in the IST time zone.
+Carrying an advanced radar system that will produce a dynamic, three-dimensional view of Earth in unprecedented detail, the NISAR (NASA-ISRO Synthetic Aperture Radar) satellite has launched from Satish Dhawan Space Centre in Sriharikota, Andhra Pradesh, India.
+Jointly developed by NASA and the Indian Space Research Organisation (ISRO), and a critical part of the United States – India civil-space cooperation highlighted by President Trump and Prime Minister Modi earlier this year, the satellite can detect the movement of land and ice surfaces down to the centimeter. The mission will help protect communities by providing unique, actionable information to decision-makers in a diverse range of areas, including disaster response, infrastructure monitoring, and agricultural management.
+The satellite lifted off aboard an ISRO Geosynchronous Satellite Launch Vehicle (GSLV) rocket at 5:40 p.m. IST (8:10 a.m. EDT), Wednesday. The ISRO ground controllers began communicating with NISAR about 20 minutes after launch, at just after 8:29 a.m. EDT, and confirmed it is operating as expected.
+“Congratulations to the entire NISAR mission team on a successful launch that spanned across multiple time zones and continents in the first-ever partnership between NASA and ISRO on a mission of this sheer magnitude,” said Nicky Fox, associate administrator, Science Mission Directorate at NASA Headquarters in Washington. “Where moments are most critical, NISAR’s data will help ensure the health and safety of those impacted on Earth, as well as the infrastructure that supports them, for the benefit of all.”
+From 464 miles (747 kilometers) above Earth, NISAR will use two advanced radar instruments to track changes in Earth’s forests and wetland ecosystems, monitor deformation and motion of the planet’s frozen surfaces, and detect the movement of Earth’s crust down to fractions of an inch — a key measurement in understanding how the land surface moves before, during, and after earthquakes, volcanic eruptions, and landslides.
+“ISRO’s GSLV has precisely injected NISAR satellite into the intended orbit, 747 kilometers. I am happy to inform that this is GSLV’s first mission to Sun-synchronous polar orbit. With this successful launch, we are at the threshold of fulfilling the immense scientific potential NASA and ISRO envisioned for the NISAR mission more than 10 years ago,” said ISRO Chairman V Narayanan. “The powerful capability of this radar mission will help us study Earth’s dynamic land and ice surfaces in greater detail than ever before.”
+The mission’s two radars will monitor nearly all the planet’s land- and ice-covered surfaces twice every 12 days, including areas of the polar Southern Hemisphere rarely covered by other Earth-observing radar satellites. The data NISAR collects also can help researchers assess how forests, wetlands, agricultural areas, and permafrost change over time.
+“Observations from NISAR will provide new knowledge and tangible benefits for communities both in the U.S. and around the world,” said Karen St. Germain, director, Earth Science division at NASA Headquarters. “This launch marks the beginning of a new way of seeing the surface of our planet so that we can understand and foresee natural disasters and other changes in our Earth system that affect lives and property.”
+The NISAR satellite is the first free-flying space mission to feature two radar instruments — an L-band system and an S-band system. Each system is sensitive to features of different sizes and specializes in detecting certain attributes. The L-band radar excels at measuring soil moisture, forest biomass, and motion of land and ice surfaces, while S-band radar excels at monitoring agriculture, grassland ecosystems, and infrastructure movement.
+Together, the radar instruments will enhance all of the satellite’s observations, making NISAR more capable than previous synthetic aperture radar missions. Unlike optical sensors, NISAR will be able to “see” through clouds, making it possible to monitor the surface during storms, as well as in darkness and light.
+NASA’s Jet Propulsion Laboratory in Southern California provided the L-band radar, and ISRO’s Space Applications Centre in Ahmedabad developed the S-band radar. The NISAR mission marks the first time the two agencies have co-developed hardware for an Earth-observing mission.
+“We’re proud of the international team behind this remarkable satellite. The mission’s measurements will be global but its applications deeply local, as people everywhere will use its data to plan for a resilient future,” said Dave Gallagher, director, NASA JPL, which manages the U.S. portion of the mission for NASA. “At its core is synthetic aperture radar, a technology pioneered at NASA JPL that enables us to study Earth night and day, through all kinds of weather.”
+Including L-band and S-band radars on one satellite is an evolution in SAR airborne and space-based missions that, for NASA, started in 1978 with the launch of Seasat. In 2012, ISRO began launching SAR missions starting with Radar Imaging Satellite (RISAT-1), followed by RISAT-1A in 2022, to support a wide range of applications in India.
+In the coming weeks, the spacecraft will begin a roughly 90-day commissioning phase during which it will deploy its 39-foot (12-meter) radar antenna reflector. This reflector will direct and receive microwave signals from the two radars. By interpreting the differences between the two, researchers can discern characteristics about the surface below. As NISAR passes over the same locations twice every 12 days, scientists can evaluate how those characteristics have changed over time to reveal new insights about Earth’s dynamic surfaces.
+The NISAR mission is an equal collaboration between NASA and ISRO. Managed for the agency by Caltech, NASA JPL leads the U.S. component of the project and is providing the mission’s L-band SAR. NASA also is providing the radar reflector antenna, the deployable boom, a high-rate communication subsystem for science data, GPS receivers, a solid-state recorder, and payload data subsystem.
+Space Applications Centre Ahmedabad, ISRO’s lead center for payload development, is providing the mission’s S-band SAR instrument and is responsible for its calibration, data processing, and development of science algorithms to address the scientific goals of the mission. U R Rao Satellite Centre in Bengaluru, which leads the ISRO components of the mission, is providing the spacecraft bus. The launch vehicle is from ISRO’s Vikram Sarabhai Space Centre, launch services are through ISRO’s Satish Dhawan Space Centre, and satellite operations are by ISRO Telemetry Tracking and Command Network. National Remote Sensing Centre in Hyderabad is responsible for S-band data reception, operational products generation, and dissemination.
+To learn more about NISAR, visit:
+https://nisar.jpl.nasa.gov
+-end-
+Karen Fox / Elizabeth Vlock
+Headquarters, Washington
+202-358-1600
+karen.c.fox@nasa.gov
+/
+elizabeth.a.vlock@nasa.gov
+Andrew Wang / Jane J. Lee
+Jet Propulsion Laboratory, Pasadena, Calif.
+626-379-6874 / 818-354-0307
+andrew.wang@jpl.nasa.gov
+/
+jane.j.lee@jpl.nasa.gov
+Share
+Details
+Last Updated
+Jul 30, 2025
+Editor
+Jessica Taveau
+Location
+NASA Headquarters
+Related Terms
+NISAR (NASA-ISRO Synthetic Aperture Radar)
+Earth Science
+Earth Science Division
+Jet Propulsion Laboratory
+Launch Services Program
+NASA Headquarters
+Science Mission Directorate

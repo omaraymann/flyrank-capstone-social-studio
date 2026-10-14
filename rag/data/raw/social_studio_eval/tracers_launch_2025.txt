@@ -1,0 +1,63 @@
+6 min read
+NASA Launches Mission to Study Earth’s Magnetic Shield
+Lauren E. Low
+Jul 23, 2025
+RELEASE
+25-048
+NASA Headquarters
+Goddard Space Flight Center
+NASA’s TRACERS (Tandem Reconnection and Cusp Electrodynamics Reconnaissance Satellites) mission launched at 2:13 p.m. EDT atop a SpaceX Falcon 9 rocket at Space Launch Complex 4 East at Vandenberg Space Force Base in California.
+Credit: SpaceX
+NASA’s newest mission, TRACERS, soon will begin studying how Earth’s magnetic shield protects our planet from the effects of space weather. Short for Tandem Reconnection and Cusp Electrodynamics Reconnaissance Satellites, the twin TRACERS spacecraft lifted off at 11:13 a.m. PDT (2:13 p.m. EDT) Wednesday aboard a SpaceX Falcon 9 rocket from Space Launch Complex 4 East at Vandenberg Space Force Base in California.
+“NASA is proud to launch TRACERS to demonstrate and expand American preeminence in space science research and technology,” said acting NASA Administrator Sean Duffy. “The TRACERS satellites will move us forward in decoding space weather and further our understanding of the connection between Earth and the Sun. This mission will yield breakthroughs that will advance our pursuit of the Moon, and subsequently, Mars.”
+The twin satellites will fly one behind the other — following as closely as 10 seconds apart over the same location — and will take a record-breaking 3,000 measurements in one year to build a step-by-step picture of how magnetic reconnection changes over time.
+Riding along with TRACERS aboard the Falcon 9 were NASA’s
+Athena EPIC
+(Economical Payload Integration Cost),
+PExT
+(Polylingual Experimental Terminal), and
+REAL
+(Relativistic Electron Atmospheric Loss) missions — three small satellites to demonstrate new technologies and gather scientific data. These three missions were successfully deployed, and mission controllers will work to contact them over the coming hours and days.
+Ground controllers for the TRACERS mission established communications with the second of the two spacecraft at 3:43 p.m. PDT (6:43 p.m. EDT), about 3 hours after it separated from the rocket. During the next four weeks, TRACERS will undergo a commissioning period during which mission controllers will check out their instruments and systems.
+Once cleared, the twin satellites will begin their 12-month prime mission to study a process called magnetic reconnection, answering key questions about how it shapes the impacts of the Sun and space weather on our daily lives.
+“NASA’s heliophysics fleet helps to safeguard humanity’s home in space and understand the influence of our closest star, the Sun,” said Joe Westlake, heliophysics division director at NASA Headquarters in Washington. “By adding TRACERS to that fleet, we will gain a better understanding of those impacts right here at Earth.”
+The two TRACERS spacecraft will orbit through an open region in Earth’s magnetic field near the North Pole, called the polar cusp. Here, TRACERS will investigate explosive magnetic events that happen when the Sun’s magnetic field — carried through space in a stream of solar material called the solar wind — collides with Earth’s magnetic field. This collision creates a buildup of energy that causes magnetic reconnection, when magnetic field lines snap and explosively realign, flinging away nearby particles at high speeds.
+Flying through the polar cusp allows the TRACERS satellites to study the results of these magnetic explosions, measuring charged particles that race down into Earth’s atmosphere and collide with atmospheric gases — giving scientist the tools to reconstruct exactly how changes in the incoming solar wind affect how, and how quickly, energy and particles are coupled into near-Earth space.
+“The successful launch of TRACERS is a tribute to many years of work by an excellent team,” said David Miles, TRACERS principal investigator at the University of Iowa. “TRACERS is set to transform our understanding of Earth’s magnetosphere. We’re excited to explore the dynamic processes driving space weather.”
+Small Satellites Along for Ride
+Athena EPIC is a pathfinder mission that will demonstrate NASA’s use of an innovative and configurable commercial SmallSat architecture to improve flexibility of payload designs, reduce launch schedule, and reduce overall costs in future missions, as well as the benefits of working collaboratively with federal partners. In addition to this demonstration for NASA, once the Athena EPIC satellite completes its two-week commissioning period, the mission will spend the next 12 months taking measurements of outgoing longwave radiation from Earth.
+The PExT demonstration will test interoperability between commercial and government communication networks for the first time by demonstrating a
+wideband polylingual terminal
+in low Earth orbit. This terminal will use software-defined radios to jump between government and commercial networks, similar to cell phones roaming between providers on Earth. These terminals could allow future missions to switch seamlessly between networks and access new commercial services throughout its lifecycle in space.
+The REAL mission is a CubeSat that will investigate how energetic electrons are scattered out of the Van Allen radiation belts and into Earth’s atmosphere. Shaped like concentric rings high above Earth’s equator, the Van Allen belts are composed of a mix of high-energy electrons and protons that are trapped in place by Earth’s magnetic field. Studying electrons and their interactions, REAL aims to improve our understanding of these energetic particles that can damage spacecraft and imperil astronauts who pass through them.
+The TRACERS mission is led by David Miles at the University of Iowa with support from the Southwest Research Institute in San Antonio, Texas. NASA’s Heliophysics Explorers Program Office at the agency’s Goddard Space Flight Center in Greenbelt, Maryland, manages the mission for the Heliophysics Division at NASA Headquarters in Washington. The University of Iowa, Southwest Research Institute, University of California, Los Angeles, and the University of California, Berkeley, all lead instruments on TRACERS.
+The Athena EPIC mission is led by NASA’s Langley Research Center in Hampton, Virginia, and is a partnership between National Oceanic and Atmospheric Administration, U.S. Space Force, and NovaWurks. Athena EPIC’s launch is supported by launch integrator SEOPS. The PExT demonstration is managed by NASA’s SCaN (Space Communications and Navigation) program in partnership with Johns Hopkins Applied Physics Laboratory, with launch support by York Space Systems. The REAL project is led by Dartmouth College in Hanover, New Hampshire, and is a partnership between Johns Hopkins Applied Physics Laboratory, Montana State University, and Boston University. Sponsored by NASA’s Heliophysics Division and
+CubeSat Launch Initiative
+, it was included through launch integrator Maverick Space Systems.
+NASA’s Launch Services Program, based at the agency’s Kennedy Space Center in Florida, manages the VADR (Venture-class Acquisition of Dedicated and Rideshare) contract.
+To learn more about TRACERS, visit:
+https://nasa.gov/tracers
+-end-
+Abbey Interrante / Karen Fox
+Headquarters, Washington
+301-201-0124 / 202-358-1600
+abbey.a.interrante@nasa.gov
+/
+karen.c.fox@nasa.gov
+Sarah Frazier
+Goddard Space Flight Center, Greenbelt, Maryland
+202-853-7191
+sarah.frazier@nasa.gov
+Share
+Details
+Last Updated
+Jul 30, 2025
+Location
+NASA Headquarters
+Related Terms
+TRACERS
+Earth Science
+Goddard Space Flight Center
+Heliophysics
+Launch Services Program
+Science Mission Directorate

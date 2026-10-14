@@ -22,6 +22,21 @@ docker compose up --build
 
 Then open the React dashboard at `http://localhost:5173`. Swagger remains available at `http://localhost:8000/docs`. The dashboard, API, background worker, and migration runner operate as separate services against PostgreSQL.
 
+## Campaign knowledge base (RAG)
+
+Start the separate pgvector database and initialize its schema before using document upload:
+
+```bash
+[ -f rag/.env ] || cp rag/.env.example rag/.env
+# Set the same RAG_DB_PASSWORD in rag/.env and the root .env
+docker compose --env-file rag/.env -f rag/docker-compose.yml up -d --wait
+docker compose --env-file rag/.env -f rag/docker-compose.yml exec -T db psql -U flyrank_rag -d flyrank_rag -v ON_ERROR_STOP=1 < rag/sql/init.sql
+```
+
+Install the updated Python dependencies and restart the API. In the dashboard, upload PDF, TXT, or Markdown files in **Campaign knowledge**. The live job panel reports text extraction, BGE-small chunking, embedding, pgvector indexing, and worker RAM. Documents are isolated by authenticated user in the RAG database. In the campaign composer, turn on **Use retrieved knowledge (RAG)**, optionally select documents, and preview matching passages before generation. Leaving it off keeps the existing source-only campaign flow. The API container connects through `host.docker.internal`; a local API process uses `127.0.0.1` from the root `.env`.
+
+The starter source corpus and provenance manifest are in [rag/data/raw/social_studio_eval](rag/data/raw/social_studio_eval/README.md). The generation model receives retrieved passages as supporting context; the dashboard shows each passage and similarity, while human review remains part of campaign approval.
+
 To create a ready-to-review demo campaign:
 
 ```powershell
@@ -79,3 +94,37 @@ The provider is `google/gemini-2.5-flash` by default. Sampling and token limits 
 ## Baseline limitations
 
 The scheduler polls PostgreSQL rather than using a separate queue broker, and image generation and engagement analytics remain future extension points.
+
+## Workspace analytics and next steps
+
+The dashboard includes lifetime workspace analytics backed by `GET /analytics/summary`: campaign and status counts, delivery success, and recorded AI tokens, cost coverage, and latency. All metrics are scoped to the authenticated owner. Missing provider cost is displayed as unknown. These are operational metrics; engagement analytics still require platform data.
+
+See [PROJECT_REVIEW.md](PROJECT_REVIEW.md) for the architecture review, known reliability gaps, a prioritized feature roadmap, and CV wording grounded in the implementation.
+
+## On-demand fact checks
+
+Each saved platform draft has a **Check facts** button. It checks source agreement using the shared service in `app/services/factuality.py`: Flash extracts factual spans, then the configured audit model checks evidence and qualifiers. `JUDGE_AUDIT_MODEL` defaults to `google/gemini-2.5-pro`. Each click can make two paid requests through the configured OpenRouter account; generation remains unchanged.
+
+The panel shows **Needs review**, **No issues detected**, **No factual claims found**, or **Evaluation failed**, plus claim reasons, exact source evidence, available cost, and completion time. No issues detected is not a guarantee of accuracy. Save edits before checking; unsaved edits and changed source/draft snapshots mark old checks outdated. Approval remains a manual choice. Model judgments can still miss claims or overflag mixed promotional wording.
+
+Owner-scoped endpoints:
+
+- `POST /variants/{id}/fact-check`: evaluates the saved snapshot and persists success or failure.
+- `GET /variants/{id}/fact-check`: returns the latest check, or null if never checked.
+
+The `fact_checks` table preserves all attempts, source/draft snapshots, version/model metadata, full judge results and usage. Concurrent checks for the same draft are rejected; interrupted checks become retryable after a timeout. Failed stages are never reported as passing checks, and missing usage is unknown.
+
+Apply migrations through `0009_rag_generation_audit` with `alembic upgrade head` before running the updated API. The existing Docker migration service applies it automatically on startup. The migration adds RAG mode, model, k, and retrieved-passage snapshots to generation audits. Workspace usage totals cover generation; judge costs are shown on draft cards.
+
+
+## Optional AI fix suggestions
+
+On a saved draft with a current successful fact check containing unsupported or contradicted claims, click **Suggest a fix**. One additional model call proposes a minimal revision using the source, draft and flagged claims. Review the **Before / Suggested** comparison, then choose **Apply suggestion** or **Dismiss**. Suggestions and available costs persist across reloads.
+
+Applying saves an editable draft and makes the previous fact check outdated. Approval is blocked until a successful fresh check finishes against the revised draft and current source. **Recheck facts** uses the existing two-stage judge; it does not approve automatically. Review any findings before approving. Failed or outdated checks cannot unlock approval. Concurrent edits, source changes, newer checks and repeated application invalidate the proposal; concurrent approval cannot bypass the recheck gate.
+
+- `POST /variants/{id}/fix-suggestions` with `{"fact_check_id": <latest check id>}` creates a proposal.
+- `GET /variants/{id}/fix-suggestions/latest` returns the latest proposal or null.
+- `POST /variants/{id}/fix-suggestions/{suggestion_id}/apply` explicitly saves it.
+
+The `revision_suggestions` table records the original snapshot, hashes, associated check, full proposed revision, model/prompt version, usage, latency, failures and application time. Platform limits are validated before offering or applying a revision. A generation run's original call to action is validated verbatim when it is still present in the draft; older template/imported drafts without generation metadata rely on the preservation instruction in the revision prompt. The model can still make errors, so the comparison and fresh check remain necessary. Suggestion costs appear separately on draft cards and are excluded from generation analytics.

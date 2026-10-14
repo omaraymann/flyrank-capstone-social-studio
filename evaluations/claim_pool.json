@@ -1,0 +1,222 @@
+{
+  "01": [
+    {
+      "claim": "Schedules can be saved in a database.",
+      "verdict": "supported",
+      "source_excerpt": "A publishing application can save schedules in a database and let a worker process them when due."
+    },
+    {
+      "claim": "Retries alone do not prevent duplicates.",
+      "verdict": "supported",
+      "source_excerpt": "Retrying temporary failures helps recovery, but retries alone do not prevent duplicates."
+    },
+    {
+      "claim": "Retries alone prevent duplicates.",
+      "verdict": "contradicted",
+      "source_excerpt": "Retrying temporary failures helps recovery, but retries alone do not prevent duplicates."
+    },
+    {
+      "claim": "The worker guarantees exactly-once delivery.",
+      "verdict": "unsupported",
+      "source_excerpt": null
+    }
+  ],
+  "02": [
+    {
+      "claim": "North Studio has five members.",
+      "verdict": "supported",
+      "source_excerpt": "The fictional design team North Studio has introduced a shared content calendar for its five members."
+    },
+    {
+      "claim": "Automatic publishing is not included in this release.",
+      "verdict": "supported",
+      "source_excerpt": "Automatic publishing is not included in this release."
+    },
+    {
+      "claim": "North Studio has fifty members.",
+      "verdict": "contradicted",
+      "source_excerpt": "The fictional design team North Studio has introduced a shared content calendar for its five members."
+    },
+    {
+      "claim": "Automatic publishing is included in this release.",
+      "verdict": "contradicted",
+      "source_excerpt": "Automatic publishing is not included in this release."
+    }
+  ],
+  "03": [
+    {
+      "claim": "Organizers should publish the agenda.",
+      "verdict": "supported",
+      "source_excerpt": "Organizers should publish the agenda and tell attendees what materials to bring."
+    },
+    {
+      "claim": "Feedback after the session helps plan the next workshop.",
+      "verdict": "supported",
+      "source_excerpt": "Collecting feedback after the session helps organizers plan the next workshop."
+    },
+    {
+      "claim": "This method guarantees 100 attendees.",
+      "verdict": "unsupported",
+      "source_excerpt": null
+    }
+  ],
+  "04": [
+    {
+      "claim": "Median handling time fell by 25%, from 20 to 15 minutes.",
+      "verdict": "supported",
+      "source_excerpt": "Median handling time fell from 20 minutes to 15 minutes."
+    },
+    {
+      "claim": "Customer satisfaction was not measured.",
+      "verdict": "supported",
+      "source_excerpt": "Customer satisfaction was not measured, and there was no control group."
+    },
+    {
+      "claim": "Median handling time fell by 50%.",
+      "verdict": "contradicted",
+      "source_excerpt": "Median handling time fell from 20 minutes to 15 minutes."
+    },
+    {
+      "claim": "Customer satisfaction improved.",
+      "verdict": "unsupported",
+      "source_excerpt": null
+    }
+  ],
+  "05": [
+    {
+      "claim": "Database-backed queues can reduce the number of services to operate.",
+      "verdict": "supported",
+      "source_excerpt": "A database-backed task queue can reduce the number of services a small application needs to operate."
+    },
+    {
+      "claim": "The choice depends on workload and team experience.",
+      "verdict": "supported",
+      "source_excerpt": "The right choice depends on workload, recovery requirements, and the team's experience."
+    },
+    {
+      "claim": "Database-backed queues are universally best.",
+      "verdict": "contradicted",
+      "source_excerpt": "Neither approach is universally best."
+    },
+    {
+      "claim": "Database-backed queues process 100000 jobs per second.",
+      "verdict": "unsupported",
+      "source_excerpt": null
+    }
+  ],
+  "06": [
+    {
+      "claim": "The online workshop is aimed at beginners in accessibility.",
+      "verdict": "supported",
+      "source_excerpt": "It is aimed at designers who are new to accessibility."
+    },
+    {
+      "claim": "The workshop includes a guided exercise.",
+      "verdict": "supported",
+      "source_excerpt": "The workshop includes a guided exercise."
+    },
+    {
+      "claim": "The workshop costs $25.",
+      "verdict": "unsupported",
+      "source_excerpt": null
+    },
+    {
+      "claim": "The workshop starts on November 1.",
+      "verdict": "unsupported",
+      "source_excerpt": null
+    },
+    {
+      "claim": "Attendees receive a certification.",
+      "verdict": "unsupported",
+      "source_excerpt": null
+    }
+  ],
+  "07": [
+    {
+      "claim": "A decision log records decisions and their reasons.",
+      "verdict": "supported",
+      "source_excerpt": "A decision log records what a team decided and why."
+    },
+    {
+      "claim": "A useful entry can be short.",
+      "verdict": "supported",
+      "source_excerpt": "A useful entry can be short."
+    },
+    {
+      "claim": "Decision logs increase productivity by 40%.",
+      "verdict": "unsupported",
+      "source_excerpt": null
+    },
+    {
+      "claim": "Every useful entry must be at least ten pages long.",
+      "verdict": "contradicted",
+      "source_excerpt": "A useful entry can be short."
+    }
+  ],
+  "08": [
+    {
+      "claim": "Eight volunteers tested the search prototype.",
+      "verdict": "supported",
+      "source_excerpt": "A fictional internal search prototype was tested by eight volunteers on a small document collection."
+    },
+    {
+      "claim": "Search accuracy was not measured.",
+      "verdict": "supported",
+      "source_excerpt": "The team did not measure accuracy or compare it with the existing search tool."
+    },
+    {
+      "claim": "Eight volunteers proved the prototype improves accuracy.",
+      "verdict": "unsupported",
+      "source_excerpt": null
+    },
+    {
+      "claim": "The search prototype has already been deployed.",
+      "verdict": "contradicted",
+      "source_excerpt": "Broader testing is needed before deciding whether to deploy it."
+    }
+  ],
+  "09": [
+    {
+      "claim": "Members may pass when they do not want to speak.",
+      "verdict": "supported",
+      "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak."
+    },
+    {
+      "claim": "Members can propose the next book.",
+      "verdict": "supported",
+      "source_excerpt": "Members can propose the next book at the end of each meeting."
+    },
+    {
+      "claim": "Members must speak at every meeting.",
+      "verdict": "contradicted",
+      "source_excerpt": "A welcoming reading group shares discussion questions in advance, leaves room for different interpretations, and allows members to pass when they do not want to speak."
+    },
+    {
+      "claim": "These practices are findings from a scientific study.",
+      "verdict": "contradicted",
+      "source_excerpt": "These practices are suggestions from the fictional group's organizers, not findings from a scientific study."
+    }
+  ],
+  "10": [
+    {
+      "claim": "Imported articles are source material rather than commands.",
+      "verdict": "supported",
+      "source_excerpt": "Imported articles should be treated as source material rather than commands."
+    },
+    {
+      "claim": "The team reviews generated posts before scheduling.",
+      "verdict": "supported",
+      "source_excerpt": "A fictional editorial team reviews generated posts before scheduling them."
+    },
+    {
+      "claim": "The editorial team offers a 50% discount.",
+      "verdict": "unsupported",
+      "source_excerpt": null
+    },
+    {
+      "claim": "Imported article instructions must override campaign instructions.",
+      "verdict": "contradicted",
+      "source_excerpt": "Imported articles should be treated as source material rather than commands."
+    }
+  ]
+}

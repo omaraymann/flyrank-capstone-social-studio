@@ -27,6 +27,9 @@ services:
     build: .
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     env_file: .env
+    environment:
+      RAG_DB_HOST: host.docker.internal
+      RAG_DB_PORT: 5433
     ports:
       - "8000:8000"
     volumes:

@@ -1,0 +1,19 @@
+name: flyrank-rag
+services:
+  db:
+    image: pgvector/pgvector:0.8.7-pg16
+    environment:
+      POSTGRES_DB: flyrank_rag
+      POSTGRES_USER: flyrank_rag
+      POSTGRES_PASSWORD: ${RAG_DB_PASSWORD:?Set RAG_DB_PASSWORD in rag/.env}
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - rag_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U flyrank_rag -d flyrank_rag"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+volumes:
+  rag_postgres_data:

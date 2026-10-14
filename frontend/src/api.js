@@ -23,3 +23,25 @@ export async function api(path, { token, method = "GET", body } = {}) {
   }
   return response.status === 204 ? null : response.json();
 }
+
+export async function apiUpload(path, { token, file, fields = {} } = {}) {
+  const form = new FormData();
+  form.append("file", file);
+  Object.entries(fields).forEach(([key, value]) => form.append(key, value));
+  const response = await fetch(`${API_URL}${path}`, {
+    method: "POST",
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    body: form,
+  });
+  if (!response.ok) {
+    let message = `Request failed (${response.status})`;
+    try {
+      const payload = await response.json();
+      message = Array.isArray(payload.detail)
+        ? payload.detail.map((item) => item.msg).join(", ")
+        : payload.detail || message;
+    } catch { /* Keep the HTTP fallback. */ }
+    throw new Error(message);
+  }
+  return response.json();
+}

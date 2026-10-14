@@ -1,0 +1,54 @@
+4 min read
+NASA Receives Some Data Before Intuitive Machines Ends Lunar Mission
+Tiernan P. Doyle
+Mar 07, 2025
+RELEASE
+25-025
+NASA Headquarters
+Intuitive Machines’ IM-2 captured an image March 6, 2025, after landing in a crater from the Moon’s South Pole. The lunar lander is on its side about 820 feet from the intended landing site, Mons Mouton. In the center of the image between the two lander legs is the Polar Resources Ice Mining Experiment 1 suite, which shows the drill deployed.
+Credit: Intuitive Machines
+Shortly after touching down inside a crater on the Moon, carrying NASA technology and science on its IM-2 mission, Intuitive Machines collected some data for the agency before calling an early end of mission at 12:15 a.m. CST Friday.
+As part of the company’s second Moon delivery for NASA under the agency’s CLPS (Commercial Lunar Payload Services) initiative and
+Artemis
+campaign, the IM-2 mission included a drill to bring lunar soil to the surface and a mass spectrometer to look for the presence of volatiles, or gases, that could one day help provide fuel or breathable oxygen to future Artemis explorers.
+Planned to land at Mons Mouton, IM-2 touched down at approximately 11:30 a.m. March 6, more than 1,300 feet (400 meters) from its intended landing site. Intuitive Machines said images collected later confirmed the lander was on its side, preventing it from fully operating the drill and other instruments before its batteries were depleted.
+The IM-2 mission landed closer to the lunar South Pole than any previous lander.
+“Our targeted landing site near the lunar South Pole is one of the most scientifically interesting, and geographically challenging locations, on the Moon,” said Nicky Fox, associate administrator for science at NASA Headquarters in Washington. “Each success and setback are opportunities to learn and grow, and we will use this lesson to propel our efforts to advance science, exploration, and commercial development as we get ready for human exploration of Mars.”
+The Nova-C lander, named Athena, captured and transmitted images of the landing site before activating the technology and science instruments. Among the data collected, NASA’s PRIME-1 (Polar Resources Ice Mining Experiment 1) suite, which includes the lunar drill known as TRIDENT (The Regolith and Ice Drill for Exploring New Terrain), successfully demonstrated the hardware’s full range of motion in the harsh environment of space. The Mass Spectrometer Observing Lunar Operations (MSOLO) as part of the PRIME-1 suite of instruments, detected elements likely due to the gases emitted from the lander’s propulsion system.
+“While this mission didn’t achieve all of its objectives for NASA, the work that went into the payload development is already informing other agency and commercial efforts,” said Clayton Turner, associate administrator for space technology, NASA Headquarters. “As we continue developing new technologies to support exploration of the Moon and Mars, testing technologies in-situ is crucial to informing future missions. The CLPS initiative remains an instrumental method for achieving this.”
+Despite the lander’s configuration, Intuitive Machines, which was responsible for launch, delivery, and surface operations under its CLPS contract, was able to complete some instrument checkouts and collect 250 megabytes of data for NASA.
+“Empowering American companies to deliver science and tech to the Moon on behalf of NASA both produces scientific results and continues development of a lunar economy,” said Joel Kearns, deputy associate administrator for Exploration in the Science Mission Directorate at NASA Headquarters. “While we’re disappointed in the outcome of the IM-2 mission, we remain committed to supporting our commercial vendors as they navigate the very difficult task of landing and operating on the Moon.”
+NASA’s Laser Retroreflector Array, a passive instrument meant to provide a reference point on the lunar surface and does not power on, will remain affixed to the top deck of the lander. Although Intuitive Machines’ Nova-C Hopper and Nokia’s 4G/LTE Tipping Point technologies, funded in part by NASA, were only able to complete some objectives, they provided insight into maturing technologies ready for infusion into a commercial space application including some checkouts in flight and on the surface.
+Intuitive Machines’ IM-2 mission
+launched
+at 6:16 p.m., Feb. 26, aboard a SpaceX Falcon 9 rocket from Launch Complex 39A at the agency’s Kennedy Space Center in Florida.
+Intuitive Machines has two more deliveries on the books for NASA in the future, with its IM-3 mission slated for 2026, and IM-4 mission in 2027.
+To date, five vendors have been awarded a total of 11 lunar deliveries under CLPS and are sending more than 50 instruments to various locations on the Moon, including the Moon’s far side and South Pole region. CLPS contracts are indefinite-delivery/indefinite-quantity contracts with a cumulative maximum contract value of $2.6 billion through 2028.
+Learn more about NASA’s CLPS initiative at:
+https://www.nasa.gov/clps
+-end-
+Cheryl Warner / Jasmine Hopkins
+Headquarters, Washington
+202-358-1600
+cheryl.m.warner@nasa.gov
+/
+jasmine.s.hopkins@nasa.gov
+Natalia Riusech / Nilufar Ramji
+Johnson Space Center, Houston
+281-483-5111
+nataila.s.riusech@nasa.gov
+/
+nilufar.ramji@nasa.gov
+Share
+Details
+Last Updated
+Mar 07, 2025
+Location
+NASA Headquarters
+Related Terms
+Commercial Lunar Payload Services (CLPS)
+Artemis
+Earth's Moon
+Science & Research
+Science Mission Directorate
+Space Technology Mission Directorate

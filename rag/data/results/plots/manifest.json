@@ -1,0 +1,30 @@
+{
+  "sources": {
+    "scifact_development/summary.csv": "274b280236745ba521b7e58200dcdd9d7b2cda5b79a6583263dd897d39a10a29",
+    "scifact_models/summary.csv": "4472acadfa56afa45162a23e3cfd23629bc196693533397381200c643d8077b5",
+    "scifact_bge_chunking/summary.csv": "54723e0441823641e3de293a3da685f4716c86270ebc5bbd46621f751d94571c",
+    "scifact_adaptive/summary.csv": "7e1f28ff0e00203256c3f24dbf49192d01f6da1d55bfbfba2a0920a9b96753ef",
+    "scifact_adaptive/per_query_metrics.csv": "3d1694ccc7ba8c153dc5d0d1c4f3153d0b2dd0f464770af3b006f60c1797eef7"
+  },
+  "plot_script_sha256": "61010a9a7d8d7a090a9264b2f1bb0f914e634b609fa1f8222459e10902c04b02",
+  "query_count": 809,
+  "split": "development (train labels)",
+  "artifacts": [
+    "00_overview.png",
+    "00_overview.svg",
+    "01_embedding_models_vs_k.png",
+    "01_embedding_models_vs_k.svg",
+    "02_e5_chunking_vs_k.png",
+    "02_e5_chunking_vs_k.svg",
+    "03_bge_chunking_vs_k.png",
+    "03_bge_chunking_vs_k.svg",
+    "04_adaptive_metrics.png",
+    "04_adaptive_metrics.svg",
+    "05_adaptive_context_tradeoff.png",
+    "05_adaptive_context_tradeoff.svg",
+    "06_adaptive_distributions.png",
+    "06_adaptive_distributions.svg",
+    "07_chunk_counts.png",
+    "07_chunk_counts.svg"
+  ]
+}

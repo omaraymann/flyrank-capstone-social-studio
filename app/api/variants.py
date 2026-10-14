@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy import select
+from sqlalchemy import select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -71,6 +71,17 @@ def approve(variant_id: int, user: User = Depends(current_user), db: Session = D
         approve_variant(variant)
     except ValueError as exc:
         raise review_error(exc)
+    # Compare the saved snapshot and gate atomically against concurrent AI edits.
+    reviewed = variant.reviewed_at
+    snapshot = variant.content
+    db.rollback()
+    changed = db.execute(update(PlatformVariant).where(PlatformVariant.id == variant_id,
+        PlatformVariant.content == snapshot, PlatformVariant.status == 'draft',
+        PlatformVariant.fact_recheck_required.is_(False)).values(status='approved',
+            reviewed_at=reviewed, updated_at=reviewed, rejection_reason=None))
+    if changed.rowcount != 1:
+        db.rollback()
+        raise HTTPException(409, 'Draft changed or needs a fresh fact check. Refresh before approving')
     db.commit()
     db.refresh(variant)
     return variant

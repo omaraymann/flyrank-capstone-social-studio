@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     openrouter_api_key: str | None = None
     openrouter_base_url: str = "https://openrouter.ai/api/v1"
     llm_model: str = "google/gemini-2.5-flash"
+    judge_audit_model: str = "google/gemini-2.5-pro"
     llm_timeout_seconds: float = 30
     llm_temperature: float = 0.7
     llm_top_p: float = 0.9
@@ -25,6 +26,9 @@ class Settings(BaseSettings):
     llm_max_output_tokens: int = 1000
     llm_max_input_characters: int = 30_000
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
+    rag_db_password: str | None = None
+    rag_db_host: str = "127.0.0.1"
+    rag_db_port: int = 5433
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

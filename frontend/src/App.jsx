@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { api } from "./api";
+import { api, apiUpload } from "./api";
 
 const initialCampaign = {
   title: "",
@@ -10,6 +10,9 @@ const initialCampaign = {
   goal: "traffic",
   tone: "educational",
   call_to_action: "Read the complete article",
+  use_rag: false,
+  rag_document_ids: [],
+  rag_top_k: 5,
 };
 
 function StatusPill({ status }) {
@@ -62,10 +65,111 @@ function AuthScreen({ onAuthenticated }) {
   );
 }
 
-function Composer({ token, onCreated, notify }) {
+const ingestionSteps = [
+  ["uploaded", "Upload", "↑"], ["extracting", "Extract text", "▤"],
+  ["chunking", "Chunk", "◫"], ["embedding", "Embed", "◎"], ["indexing", "Index in pgvector", "⌘"],
+];
+
+function KnowledgeBasePanel({ token, onDocuments }) {
+  const [documents, setDocuments] = useState([]);
+  const [jobs, setJobs] = useState([]);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const [sourceUrl, setSourceUrl] = useState("");
+  const [reuseNotes, setReuseNotes] = useState("");
+  const [documentTitle, setDocumentTitle] = useState("");
+
+  const refreshDocuments = useCallback(async () => {
+    const rows = await api("/rag/documents", { token });
+    setDocuments(rows);
+    onDocuments(rows);
+  }, [token, onDocuments]);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([api("/rag/documents", { token }), api("/rag/jobs", { token })]).then(([rows, recentJobs]) => {
+      if (!cancelled) { setDocuments(rows); onDocuments(rows); setJobs(recentJobs); }
+    }).catch((reason) => { if (!cancelled) setError(reason.message); });
+    return () => { cancelled = true; };
+  }, [token, onDocuments]);
+
+  useEffect(() => {
+    if (!jobs.some((job) => job.status === "queued" || job.status === "processing")) return undefined;
+    let cancelled = false;
+    const timer = window.setTimeout(async () => {
+      try {
+        const updated = await Promise.all(jobs.map((job) =>
+          job.status === "queued" || job.status === "processing"
+            ? api(`/rag/jobs/${job.id}`, { token }) : Promise.resolve(job)));
+        if (!cancelled) {
+          const completedNow = updated.some((job, index) => jobs[index]?.status !== "succeeded" && job.status === "succeeded");
+          setJobs((current) => {
+            const fresh = new Map(updated.map((job) => [job.id, job]));
+            const merged = current.map((job) => fresh.get(job.id) || job);
+            const existing = new Set(merged.map((job) => job.id));
+            return [...merged, ...updated.filter((job) => !existing.has(job.id))];
+          });
+          if (completedNow) await refreshDocuments();
+        }
+      } catch (reason) { if (!cancelled) setError(reason.message); }
+    }, 900);
+    return () => { cancelled = true; window.clearTimeout(timer); };
+  }, [jobs, token, refreshDocuments]);
+
+  async function uploadFiles(files) {
+    files = Array.from(files || []);
+    if (!files.length) return;
+    setBusy(true); setError("");
+    try {
+      for (const file of files) {
+        const job = await apiUpload("/rag/documents", { token, file, fields: { source_url: sourceUrl, reuse_notes: reuseNotes, document_title: documentTitle } });
+        setJobs((current) => [job, ...current]);
+      }
+    } catch (reason) { setError(reason.message); }
+    finally { setBusy(false); }
+  }
+
+  return <section className="panel knowledge-panel">
+    <div className="section-heading"><div><p className="eyebrow">CAMPAIGN KNOWLEDGE</p><h2>Add source documents</h2></div><span className="step-number">RAG</span></div>
+    <p className="panel-intro">Add PDF, TXT, or Markdown sources. Each file is extracted, split into passages, embedded, then saved to your private pgvector collection.</p>
+    <label className={`upload-drop ${busy ? "upload-busy" : ""}`} onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); if (!busy) uploadFiles(event.dataTransfer.files); }}>
+      <input type="file" accept=".pdf,.txt,.md,.markdown" disabled={busy} onChange={(event) => { uploadFiles(event.target.files); event.target.value = ""; }} />
+      <span className="upload-glyph">＋</span><strong>{busy ? "Adding document…" : "Choose a document or drop it here"}</strong>
+      <small>PDF, TXT, or Markdown · up to 10 MB per file</small>
+    </label>
+    <div className="field-grid three upload-metadata"><label>Document title (optional)<input value={documentTitle} onChange={(event) => setDocumentTitle(event.target.value)} placeholder="Defaults to file name" /></label><label>Source URL (optional)<input type="url" value={sourceUrl} onChange={(event) => setSourceUrl(event.target.value)} placeholder="https://example.org/article" /></label><label>Reuse / license note (optional)<input value={reuseNotes} onChange={(event) => setReuseNotes(event.target.value)} placeholder="Attribution or reuse terms" /></label></div>
+    {error && <p className="fact-check-error" role="alert">{error}</p>}
+    {!!jobs.length && <div className="ingestion-jobs"><h3>Processing activity</h3>{jobs.slice(0, 4).map((job) => {
+      const stepIndex = job.status === "succeeded" ? ingestionSteps.length - 1 : ingestionSteps.findIndex(([key]) => key === job.step);
+      return <article className="ingestion-job" key={job.id}>
+        <div className="ingestion-job-head"><div><strong>{job.filename}</strong><span className={`job-status ${job.status}`}>{job.status === "succeeded" ? "Ready" : job.status}</span></div>
+          <small>{job.chunk_count || 0} chunks · {job.embedding_count || 0} vectors</small></div>
+        <div className="ingestion-steps">{ingestionSteps.map(([key, label, icon], index) => {
+          const complete = job.status === "succeeded" || index < stepIndex;
+          const active = job.status !== "succeeded" && job.status !== "failed" && index === stepIndex;
+          return <div className={`ingestion-step ${complete ? "complete" : ""} ${active ? "active" : ""}`} key={key}>
+            <span className="ingestion-step-icon" key={`${job.id}-${job.step}-${key}`}>{complete ? "✓" : icon}</span><small>{label}</small>
+          </div>;
+        })}</div>
+        {job.error_message && <p className="fact-check-error">{job.error_message}</p>}
+        <div className="memory-line"><span>Worker RAM</span><b>{job.memory_mb == null ? "Measuring…" : `${job.memory_mb} MB`}</b><span>Peak process</span><b>{job.peak_memory_mb == null ? "—" : `${job.peak_memory_mb} MB`}</b></div>
+      </article>;
+    })}</div>}
+    <div className="document-list"><div className="document-list-heading"><h3>Indexed documents</h3><span>{documents.length}</span></div>
+      {documents.map((document) => <div className="document-row" key={document.document_id}><span className="document-mark">▤</span><div><strong>{document.title}</strong><small>{document.metadata?.original_filename || "Source document"} · {document.indexed_characters.toLocaleString()} passage characters (including overlap){document.metadata?.reuse_notes ? ` · ${document.metadata.reuse_notes}` : ""}{document.metadata?.source_url ? <> · <a href={document.metadata.source_url} target="_blank" rel="noreferrer">source ↗</a></> : ""}</small></div><span className="document-counts">{document.chunk_count} chunks<br />{document.embedding_count} vectors</span></div>)}
+      {!documents.length && <p className="empty">Your source library will appear here after the first document is indexed.</p>}
+    </div>
+  </section>;
+}
+
+function Composer({ token, onCreated, notify, documents }) {
   const [form, setForm] = useState(initialCampaign);
   const [busy, setBusy] = useState(false);
-  const update = (field, value) => setForm((current) => ({ ...current, [field]: value }));
+  const [retrieval, setRetrieval] = useState(null);
+  const update = (field, value) => {
+    setForm((current) => ({ ...current, [field]: value }));
+    if (["title", "markdown", "rag_document_ids", "rag_top_k"].includes(field)) setRetrieval(null);
+  };
 
   function togglePlatform(platform) {
     update("platforms", form.platforms.includes(platform)
@@ -78,6 +182,17 @@ function Composer({ token, onCreated, notify }) {
     if (!form.platforms.length) return notify("Choose at least one platform", "error");
     setBusy(true);
     try {
+      if (form.use_rag && !documents.length) throw new Error("Add at least one source document before enabling RAG.");
+      let retrieved = null;
+      if (form.use_rag) {
+        retrieved = await api("/rag/retrieve", { token, method: "POST", body: {
+          query: `${form.title}\n${form.markdown.slice(0, 8000)}`,
+          document_ids: form.rag_document_ids,
+          top_k: form.rag_top_k,
+        } });
+        if (!retrieved.chunks.length) throw new Error("No passages matched. Select another source document or add more documents.");
+        setRetrieval({ ...retrieved, used: false });
+      }
       const post = await api("/posts", { token, method: "POST", body: { title: form.title, markdown: form.markdown } });
       await api(`/posts/${post.id}/variants`, {
         token,
@@ -89,8 +204,12 @@ function Composer({ token, onCreated, notify }) {
           goal: form.goal,
           tone: form.tone,
           call_to_action: form.call_to_action,
+          use_rag: form.use_rag,
+          rag_document_ids: form.rag_document_ids,
+          rag_top_k: form.rag_top_k,
         },
       });
+      if (retrieved) setRetrieval({ ...retrieved, used: true, campaignTitle: form.title });
       notify(`${form.generation_mode === "llm" ? "Gemini" : "Template"} drafts created`);
       setForm((current) => ({ ...initialCampaign, generation_mode: current.generation_mode }));
       onCreated(post.id);
@@ -99,6 +218,21 @@ function Composer({ token, onCreated, notify }) {
     } finally {
       setBusy(false);
     }
+  }
+
+  async function previewRetrieval() {
+    if (!form.title.trim() || form.markdown.trim().length < 3) return notify("Add a title and source text to preview retrieval", "error");
+    setBusy(true);
+    try {
+      const result = await api("/rag/retrieve", { token, method: "POST", body: {
+        query: `${form.title}\n${form.markdown.slice(0, 8000)}`,
+        document_ids: form.rag_document_ids,
+        top_k: form.rag_top_k,
+      } });
+      setRetrieval({ ...result, used: false });
+      if (!result.chunks.length) notify("No passages matched the selected documents", "error");
+    } catch (reason) { notify(reason.message, "error"); }
+    finally { setBusy(false); }
   }
 
   return (
@@ -110,17 +244,145 @@ function Composer({ token, onCreated, notify }) {
       </div>
       <label>Article content<textarea className="source-input" value={form.markdown} onChange={(e) => update("markdown", e.target.value)} placeholder="Paste at least 20 characters of Markdown…" minLength="20" required /></label>
       <div className="field-grid three">
-        <label>Generator<select value={form.generation_mode} onChange={(e) => update("generation_mode", e.target.value)}><option value="llm">Gemini 2.5 Flash</option><option value="deterministic">Deterministic templates</option></select></label>
+        <label>Generator<select value={form.generation_mode} onChange={(e) => { update("generation_mode", e.target.value); if (e.target.value !== "llm") update("use_rag", false); }}><option value="llm">Gemini 2.5 Flash</option><option value="deterministic">Deterministic templates</option></select></label>
         <label>Goal<select value={form.goal} onChange={(e) => update("goal", e.target.value)}>{["awareness", "engagement", "traffic", "conversion"].map((v) => <option key={v}>{v}</option>)}</select></label>
         <label>Tone<select value={form.tone} onChange={(e) => update("tone", e.target.value)}>{["professional", "friendly", "educational", "energetic"].map((v) => <option key={v}>{v}</option>)}</select></label>
       </div>
       <label>Call to action<input value={form.call_to_action} onChange={(e) => update("call_to_action", e.target.value)} required /></label>
+      <div className="rag-controls">
+        <label className="rag-toggle"><input type="checkbox" checked={form.use_rag} onChange={(e) => update("use_rag", e.target.checked)} disabled={form.generation_mode !== "llm" || !documents.length} /><span><strong>Use retrieved knowledge (RAG)</strong><small>{form.generation_mode !== "llm" ? "RAG is available with the LLM generator." : documents.length ? "Retrieve supporting passages from your indexed documents." : "Add and index a source document above to enable RAG."}</small></span></label>
+        {form.use_rag && <div className="rag-options">
+          <label>Passages to retrieve<select value={form.rag_top_k} onChange={(e) => update("rag_top_k", Number(e.target.value))}>{[3, 5, 8, 10].map((count) => <option key={count} value={count}>{count}</option>)}</select></label>
+          <button type="button" className="button subtle" disabled={busy || !documents.length} onClick={previewRetrieval}>Preview passages</button>
+          <div className="rag-document-picker"><strong>Search these documents</strong><small>Choose none to search your whole library.</small>
+            {documents.map((doc) => <label key={doc.document_id}><input type="checkbox" checked={form.rag_document_ids.includes(doc.document_id)} onChange={() => update("rag_document_ids", form.rag_document_ids.includes(doc.document_id) ? form.rag_document_ids.filter((id) => id !== doc.document_id) : [...form.rag_document_ids, doc.document_id])} />{doc.title}</label>)}
+            {!documents.length && <span className="empty">Add documents above to enable retrieval.</span>}
+          </div>
+        </div>}
+      </div>
+      {retrieval && <section className="retrieval-preview"><div className="retrieval-heading"><div><p className="eyebrow">{retrieval.used ? "EVIDENCE USED" : "RETRIEVAL PREVIEW"}</p><h3>{retrieval.chunks.length} passages · {retrieval.model}</h3></div><span className="retrieval-chip">{retrieval.used ? "Attached to campaign" : "Preview only"}</span></div>
+        {retrieval.chunks.map((chunk, index) => <article className="retrieved-chunk" key={`${chunk.document_id}-${chunk.chunk_index}`}><header><b>{index + 1}. {chunk.title}</b><span>{(chunk.similarity * 100).toFixed(1)}% match · chunk {chunk.chunk_index + 1}</span></header><p>{chunk.text}</p>{chunk.source_url && <a href={chunk.source_url} target="_blank" rel="noreferrer">Open source ↗</a>}</article>)}
+      </section>}
       <div className="composer-footer">
         <div className="platform-picker">{["x", "linkedin", "discord"].map((platform) => <button type="button" key={platform} className={form.platforms.includes(platform) ? "platform active" : "platform"} onClick={() => togglePlatform(platform)}>{platform === "x" ? "𝕏" : platform === "linkedin" ? "in" : "◉"} {platform}</button>)}</div>
-        <button className="button primary" disabled={busy}>{busy ? "Generating…" : "Generate campaign →"}</button>
+        <button className="button primary" disabled={busy}>{busy ? (form.use_rag ? "Retrieving & generating…" : "Generating…") : "Generate campaign →"}</button>
       </div>
     </form>
   );
+}
+
+function FactCheckPanel({ variant, content, token, onRefresh }) {
+  const [check, setCheck] = useState(null);
+  const [checking, setChecking] = useState(false);
+  const [loadError, setLoadError] = useState("");
+  const [reload, setReload] = useState(0);
+  const [suggestion, setSuggestion] = useState(null);
+  const [fixBusy, setFixBusy] = useState("");
+  const [showSuggestion, setShowSuggestion] = useState(true);
+  const unsaved = content !== variant.content;
+  const outdated = check && (check.stale || content !== check.draft_snapshot);
+  const running = check?.outcome === "processing";
+
+  useEffect(() => {
+    let cancelled = false;
+    let timer;
+    async function load() {
+      try {
+        const [next, proposal] = await Promise.all([
+          api(`/variants/${variant.id}/fact-check`, { token }),
+          api(`/variants/${variant.id}/fix-suggestions/latest`, { token }),
+        ]);
+        if (cancelled) return;
+        setCheck(next); setSuggestion(proposal);
+        if (next?.outcome === "processing" || proposal?.status === "processing") timer = window.setTimeout(load, 3000);
+      } catch (error) { if (!cancelled) setLoadError(error.message); }
+    }
+    load();
+    return () => { cancelled = true; window.clearTimeout(timer); };
+  }, [variant.id, variant.content, token, reload]);
+
+  async function checkFacts() {
+    setChecking(true); setLoadError("");
+    try {
+      setCheck(await api(`/variants/${variant.id}/fact-check`, { token, method: "POST" }));
+      await onRefresh();
+    } catch (error) { setLoadError(error.message); }
+    finally { setChecking(false); setReload((value) => value + 1); }
+  }
+
+  async function suggestFix() {
+    setFixBusy("suggest"); setLoadError(""); setShowSuggestion(true);
+    try {
+      setSuggestion(await api(`/variants/${variant.id}/fix-suggestions`, {
+        token, method: "POST", body: { fact_check_id: check.id },
+      }));
+    } catch (error) { setLoadError(error.message); }
+    finally { setFixBusy(""); setReload((value) => value + 1); }
+  }
+
+  async function applyFix() {
+    setFixBusy("apply"); setLoadError("");
+    try {
+      await api(`/variants/${variant.id}/fix-suggestions/${suggestion.id}/apply`, { token, method: "POST" });
+      await onRefresh(); setReload((value) => value + 1);
+    } catch (error) { setLoadError(error.message); }
+    finally { setFixBusy(""); }
+  }
+
+  const suggestionOutdated = suggestion && (suggestion.stale || content !== suggestion.draft_snapshot);
+  const suggesting = fixBusy === "suggest" || suggestion?.status === "processing";
+  const label = outdated ? "Outdated check" : checking || running ? "Checking facts…"
+    : check ? ({ needs_review: "Needs review", no_issues: "No issues detected", unknown: "No factual claims found",
+        failed: "Evaluation failed", processing: "Checking facts…" }[check.outcome]) : "Not checked";
+  const flagged = (check?.claims || []).filter((claim) => claim.verdict !== "supported");
+  const supported = (check?.claims || []).filter((claim) => claim.verdict === "supported");
+  return <section className={`fact-check ${outdated ? "outdated" : check?.outcome || "unchecked"}`} aria-label="Fact check">
+    <div className="fact-check-header"><strong aria-live="polite">{label}</strong>
+      <button type="button" className="button subtle" disabled={checking || running || unsaved || !!fixBusy || suggesting}
+        onClick={checkFacts}>{checking || running ? "Checking…" : check ? "Recheck facts" : "Check facts"}</button>
+    </div>
+    <p className="fact-check-hint">{unsaved ? "Save your edit before checking facts." : outdated
+      ? "This result applies to an older draft or source. Recheck the saved draft."
+      : "Checks the saved draft against your article. Uses AI credits; approval is your decision."}</p>
+    {loadError && <p role="alert" className="fact-check-error">{loadError}</p>}
+    {check?.error_message && <p role="alert" className="fact-check-error">{check.error_message}</p>}
+    {check?.outcome === "unknown" && <p className="fact-check-hint">No factuality score is available. This is not a passing evaluation.</p>}
+    {check?.outcome === "no_issues" && !outdated && <p className="fact-check-hint">The judge found no issues in the claims it extracted. It may still miss errors.</p>}
+    {flagged.map((claim, index) => <div className="fact-claim" key={index}>
+      <span className={`fact-verdict ${claim.verdict}`}>{claim.verdict}</span>
+      <p className="fact-claim-text">{claim.claim}</p><p>{claim.reason}</p>
+      {claim.source_excerpt ? <blockquote><small>Source evidence</small>{claim.source_excerpt}</blockquote>
+        : <p className="fact-check-hint">No supporting source passage identified.</p>}
+    </div>)}
+    {flagged.length > 0 && variant.status === "draft" && <div className="fix-actions">
+      <button type="button" className="button subtle" onClick={suggestFix}
+        disabled={unsaved || outdated || checking || running || !!fixBusy || suggesting}>
+        {suggesting ? "Suggesting…" : "Suggest a fix"}</button>
+      <p className="fact-check-hint">One additional AI call. Review the changes before applying.</p>
+    </div>}
+    {suggestion && showSuggestion && <div className="fix-preview" aria-label="Suggested correction">
+      <div className="fact-check-header"><strong>{suggestion.applied_at ? "Suggestion applied" : suggestionOutdated
+        ? "Outdated suggestion" : suggestion.status === "processing" ? "Preparing suggestion…" : "Suggested correction"}</strong>
+        <button type="button" className="text-button" onClick={() => setShowSuggestion(false)}>Dismiss</button></div>
+      {suggestion.error_message && <p role="alert" className="fact-check-error">{suggestion.error_message}</p>}
+      {suggestion.suggested_content && <div className="fix-comparison">
+        <div><h4>Before</h4><p>{suggestion.draft_snapshot}</p></div>
+        <div><h4>Suggested</h4><p>{suggestion.suggested_content}</p></div>
+      </div>}
+      {suggestionOutdated && !suggestion.applied_at && <p className="fact-check-hint">The draft, article, or fact check changed. Request a fresh suggestion.</p>}
+      {suggestion.status === "succeeded" && !suggestion.applied_at && <button type="button" className="button primary"
+        disabled={suggestionOutdated || unsaved || checking || running || !!fixBusy || variant.status !== "draft"}
+        onClick={applyFix}>{fixBusy === "apply" ? "Applying…" : "Apply suggestion"}</button>}
+      {suggestion.applied_at && <p className="fact-check-hint">{variant.fact_recheck_required ? "Saved as a draft. Recheck facts before approving." : "Saved as a draft. Approval is your decision."}</p>}
+      {suggestion.reported_cost_usd !== null && <p className="fact-check-hint">Suggestion cost: ${suggestion.reported_cost_usd.toFixed(4)}</p>}
+    </div>}
+    {variant.fact_recheck_required && <p className="fact-check-hint">This AI-edited draft needs a fresh fact check before approval.</p>}
+    {supported.length > 0 && <details className="fact-supported"><summary>{supported.length} supported claim{supported.length === 1 ? "" : "s"}</summary>
+      {supported.map((claim, index) => <div className="fact-claim" key={index}><p className="fact-claim-text">{claim.claim}</p><p>{claim.reason}</p><blockquote>{claim.source_excerpt}</blockquote></div>)}
+    </details>}
+    {check?.completed_at && <p className="fact-check-hint">Checked {new Date(check.completed_at).toLocaleString()}
+      {check.reported_cost_usd !== null && ` · $${check.reported_cost_usd.toFixed(4)}`}</p>}
+  </section>;
 }
 
 function VariantCard({ variant, schedule, token, refresh, notify }) {
@@ -132,6 +394,7 @@ function VariantCard({ variant, schedule, token, refresh, notify }) {
     return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
   });
   const [busy, setBusy] = useState("");
+  useEffect(() => { setContent(variant.content); }, [variant.content]);
   const limit = variant.platform === "x" ? 280 : variant.platform === "discord" ? 2000 : 3000;
 
   async function action(name, request) {
@@ -146,9 +409,10 @@ function VariantCard({ variant, schedule, token, refresh, notify }) {
       <header><div className={`platform-icon ${variant.platform}`}>{variant.platform === "x" ? "𝕏" : variant.platform === "linkedin" ? "in" : "◉"}</div><div><h3>{variant.platform}</h3><StatusPill status={variant.status} /></div></header>
       <textarea value={content} disabled={variant.status !== "draft"} onChange={(e) => setContent(e.target.value)} />
       <div className="character-count"><span>{content.length} / {limit}</span><span>{content.split(/\s+/).filter((word) => word.startsWith("#")).length} hashtags</span></div>
+      <FactCheckPanel variant={variant} content={content} token={token} onRefresh={refresh} />
       {variant.status === "draft" && <div className="button-row">
         <button className="button subtle" disabled={!!busy || content === variant.content} onClick={() => action("Save", () => api(`/variants/${variant.id}`, { token, method: "PATCH", body: { content } }))}>Save edit</button>
-        <button className="button approve" disabled={!!busy} onClick={() => action("Approval", () => api(`/variants/${variant.id}/approve`, { token, method: "POST" }))}>Approve ✓</button>
+        <button className="button approve" disabled={!!busy || content !== variant.content || variant.fact_recheck_required} onClick={() => action("Approval", () => api(`/variants/${variant.id}/approve`, { token, method: "POST" }))}>Approve ✓</button>
         <button className="button reject" disabled={!!busy} onClick={() => setShowReject((visible) => !visible)}>Reject</button>
       </div>}
       {variant.status === "draft" && showReject && <div className="reject-box">
@@ -172,6 +436,8 @@ function Workspace({ token, email, logout }) {
   const [generations, setGenerations] = useState([]);
   const [schedules, setSchedules] = useState([]);
   const [publishHistory, setPublishHistory] = useState([]);
+  const [analytics, setAnalytics] = useState(null);
+  const [ragDocuments, setRagDocuments] = useState([]);
   const [notice, setNotice] = useState(null);
 
   const notify = useCallback((message, type = "success") => {
@@ -181,10 +447,12 @@ function Workspace({ token, email, logout }) {
 
   const refreshAll = useCallback(async (preferredId) => {
     try {
-      const [postRows, scheduleRows, historyRows] = await Promise.all([
+      const [postRows, scheduleRows, historyRows, summary] = await Promise.all([
         api("/posts", { token }), api("/schedules", { token }), api("/publish-history", { token }),
+        api("/analytics/summary", { token }),
       ]);
       setPosts(postRows); setSchedules(scheduleRows); setPublishHistory(historyRows);
+      setAnalytics(summary);
       const id = preferredId || selectedId || postRows[0]?.id;
       setSelectedId(id || null);
       if (id) {
@@ -205,8 +473,24 @@ function Workspace({ token, email, logout }) {
       <nav><div className="brand"><span className="brand-mark">S</span><span>Social Media Studio<small>Campaign operations</small></span></div><div className="nav-actions"><span className="api-live"><i /> API live</span><span className="user-chip">{email.slice(0, 1).toUpperCase()}</span><button className="text-button" onClick={logout}>Sign out</button></div></nav>
       {notice && <div className={`toast ${notice.type}`}>{notice.message}</div>}
       <main className="dashboard">
-        <header className="page-heading"><div><p className="eyebrow">WORKSPACE</p><h1>Campaign control room</h1><p>From source article to published post—with every decision visible.</p></div><div className="metric-row"><div><b>{posts.length}</b><span>Campaigns</span></div><div><b>{variants.length}</b><span>Drafts</span></div><div><b>{publishHistory.length}</b><span>Deliveries</span></div></div></header>
-        <Composer token={token} notify={notify} onCreated={(id) => refreshAll(id)} />
+        <header className="page-heading"><div><p className="eyebrow">WORKSPACE</p><h1>Campaign control room</h1><p>From source article to published post—with every decision visible.</p></div><div className="metric-row"><div><b>{analytics?.campaigns ?? "—"}</b><span>Campaigns</span></div><div><b>{analytics?.variants_by_status.draft ?? "—"}</b><span>Drafts</span></div><div><b>{analytics ? Object.values(analytics.deliveries_by_status).reduce((total, count) => total + count, 0) : "—"}</b><span>Deliveries</span></div></div></header>
+        {analytics && <section className="panel workspace-analytics" aria-label="Workspace analytics">
+          <div className="section-heading compact"><div><p className="eyebrow">WORKSPACE ANALYTICS</p><h2>Operations at a glance</h2></div><button className="text-button" onClick={() => refreshAll(selectedId)}>Refresh</button></div>
+          <p className="empty">Lifetime totals across all your campaigns.</p>
+          <dl className="analytics-metrics">
+            <div><dt>Awaiting approval</dt><dd>{analytics.variants_by_status.draft}</dd></div>
+            <div><dt>Pending schedules</dt><dd>{analytics.schedules_by_status.pending}</dd></div>
+            <div><dt>Failed schedules</dt><dd>{analytics.schedules_by_status.failed}</dd></div>
+            <div><dt>Delivery success</dt><dd>{analytics.delivery_success_rate === null ? "—" : `${(analytics.delivery_success_rate * 100).toFixed(1)}%`}</dd></div>
+            <div><dt>Generation runs</dt><dd>{analytics.ai_usage.runs}</dd></div>
+            <div><dt>Generation tokens recorded</dt><dd>{(analytics.ai_usage.input_tokens + analytics.ai_usage.output_tokens).toLocaleString()}</dd></div>
+            <div><dt>Reported generation cost</dt><dd>{analytics.ai_usage.reported_cost_usd === null ? "—" : `$${analytics.ai_usage.reported_cost_usd.toFixed(4)}`}</dd></div>
+            <div><dt>Average generation latency</dt><dd>{analytics.ai_usage.average_latency_ms === null ? "—" : `${(analytics.ai_usage.average_latency_ms / 1000).toFixed(2)}s`}</dd></div>
+          </dl>
+          <p className="empty">Delivery success uses the latest outcome of each completed or failed delivery, excluding processing. Cost is available for {analytics.ai_usage.runs_with_reported_cost} of {analytics.ai_usage.runs} AI runs; missing usage is excluded. These totals cover generation; fact-check costs appear on each draft. These are operational metrics, not audience engagement.</p>
+        </section>}
+        <KnowledgeBasePanel token={token} onDocuments={setRagDocuments} />
+        <Composer token={token} notify={notify} documents={ragDocuments} onCreated={(id) => refreshAll(id)} />
 
         <section className="workspace-grid">
           <aside className="panel campaign-list"><div className="section-heading compact"><div><p className="eyebrow">LIBRARY</p><h2>Campaigns</h2></div><span>{posts.length}</span></div>{posts.map((post) => <button key={post.id} className={selectedId === post.id ? "campaign active" : "campaign"} onClick={() => refreshAll(post.id)}><b>{post.title}</b><small>#{post.id} · {new Date(post.created_at).toLocaleDateString()}</small></button>)}{!posts.length && <p className="empty">Your generated campaigns will appear here.</p>}</aside>
@@ -217,7 +501,7 @@ function Workspace({ token, email, logout }) {
         </section>
 
         <section className="insights-grid">
-          <div className="panel"><div className="section-heading compact"><div><p className="eyebrow">AI OBSERVABILITY</p><h2>Generation audit</h2></div><span className="step-number">03</span></div>{generations.map((run) => <div className="audit-row" key={run.id}><div><b>{run.model}</b><span>{run.platforms} · {run.prompt_version}</span></div><div className="audit-metrics"><span>{run.input_tokens ?? "—"} in</span><span>{run.output_tokens ?? "—"} out</span><span>{run.latency_ms ? `${(run.latency_ms / 1000).toFixed(1)}s` : "—"}</span><StatusPill status={run.status} /></div></div>)}{!generations.length && <p className="empty">LLM runs for this campaign will appear here.</p>}</div>
+          <div className="panel"><div className="section-heading compact"><div><p className="eyebrow">AI OBSERVABILITY</p><h2>Generation audit</h2></div><span className="step-number">03</span></div>{generations.map((run) => <div className="audit-run" key={run.id}><div className="audit-row"><div><b>{run.model}</b><span>{run.platforms} · {run.prompt_version}</span></div><div className="audit-metrics"><span>{run.input_tokens ?? "—"} in</span><span>{run.output_tokens ?? "—"} out</span><span>{run.latency_ms ? `${(run.latency_ms / 1000).toFixed(1)}s` : "—"}</span><StatusPill status={run.status} /></div></div>{run.rag_enabled && <details className="audit-rag"><summary>RAG evidence · {run.rag_context?.length || 0} passages · top {run.rag_top_k}</summary><small>{run.rag_model_id}</small>{(run.rag_context || []).map((chunk, index) => <article key={`${chunk.document_id}-${chunk.chunk_index}`}><header><b>{index + 1}. {chunk.title}</b><span>{(chunk.similarity * 100).toFixed(1)}% · chunk {chunk.chunk_index + 1}</span></header><p>{chunk.text}</p>{chunk.source_url && <a href={chunk.source_url} target="_blank" rel="noreferrer">Open source ↗</a>}</article>)}</details>}</div>)}{!generations.length && <p className="empty">LLM runs for this campaign will appear here.</p>}</div>
           <div className="panel"><div className="section-heading compact"><div><p className="eyebrow">DELIVERY LOG</p><h2>Publish history</h2></div><button className="text-button" onClick={() => refreshAll(selectedId)}>Refresh</button></div>{publishHistory.slice(0, 6).map(({ delivery, attempts }) => <div className="audit-row" key={delivery.id}><div><b>{delivery.platform} · delivery #{delivery.id}</b><span>{attempts.length} attempt{attempts.length === 1 ? "" : "s"}</span></div><StatusPill status={delivery.status} /></div>)}{!publishHistory.length && <p className="empty">Published posts and attempts will appear here.</p>}</div>
         </section>
       </main>

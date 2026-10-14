@@ -1,0 +1,2 @@
+query_count,document_count,chunk_count,k,precision_at_5,recall_at_5,mrr_at_5,queries_with_no_labelled_hit,labelled_relevant_documents,search_seconds
+300,5183,10470,5,0.1713333333333333,0.7665,0.6823333333333333,65,339,0.7252794580053887

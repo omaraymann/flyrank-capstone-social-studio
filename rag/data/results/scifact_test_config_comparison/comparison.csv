@@ -1,0 +1,3 @@
+configuration,chunks,queries,precision_at_5,recall_at_5,mrr_at_5,no_hit_queries
+"BGE 512, no overlap",5658,300,0.16866666666666666,0.7615,0.6742777777777778,65
+"BGE 256, one-sentence overlap",10470,300,0.1713333333333333,0.7665,0.6823333333333333,65
